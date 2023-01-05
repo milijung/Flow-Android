@@ -1,6 +1,5 @@
 package com.example.client
 
-import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.databinding.ActivityAddCategoryBinding
