@@ -8,6 +8,7 @@
     <string name="register_button">등록하기</string>
     <string name="apply_button">적용하기</string>
     <string name="integrate_button">통합하기</string>
+    <string name="add_category_button">카테고리 추가하기</string>
     <string name="no_button">아니요</string>
     <string name="title_modal">알림</string>
     <string name="delete_modal">정말 삭제하시겠어요?\n선택된 내역은 영구적으로 삭제되어\n복구할 수 없어요.</string>
