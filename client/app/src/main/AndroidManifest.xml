@@ -25,9 +25,22 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".BottomNavigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_navigation" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UpdateCategoryActivity"
             android:exported="false" />
@@ -37,15 +50,6 @@
         <activity
             android:name=".ListDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
