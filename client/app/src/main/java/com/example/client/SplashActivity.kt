@@ -2,10 +2,16 @@ package com.example.client
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.content.Intent
 
-class MainActivity : AppCompatActivity() {
+
+
+
+class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val intent = Intent(this, BottomNavigationActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
