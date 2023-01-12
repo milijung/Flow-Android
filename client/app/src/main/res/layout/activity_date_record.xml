@@ -1,118 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DateRecordActivity">
+    android:fillViewport="true">
 
-    <ImageButton
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="21dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:gravity="center_horizontal"
-        android:text="12월 11일"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:fontFamily="@font/spoqahansansneo_bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_expense"
-        android:layout_width="32dp"
-        android:layout_height="20dp"
-        android:text="지출"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="153dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="10sp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/spoqahansansneo_regular"
-        android:background="@drawable/expense_round"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="0dp"
-        android:text="-69,000"
-        android:textSize="12sp"
-        android:textColor="#E73A40"
-        android:fontFamily="@font/spoqahansansneo_regular"
-        app:layout_constraintStart_toEndOf="@+id/tv_expense"
-        app:layout_constraintTop_toTopOf="@+id/tv_expense"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_expense"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_expense"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_expense"
+        android:layout_height="match_parent"
+        tools:context=".DateRecordActivity">
 
-        tools:listitem="@layout/item_date_record" />
+        <ImageButton
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center_horizontal"
+            android:text="12월 11일"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_expense"
+            android:layout_width="32dp"
+            android:layout_height="20dp"
+            android:text="지출"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="153dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="10sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:background="@drawable/expense_round"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="0dp"
+            android:text="-69,000"
+            android:textSize="12sp"
+            android:textColor="#E73A40"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            app:layout_constraintStart_toEndOf="@+id/tv_expense"
+            app:layout_constraintTop_toTopOf="@+id/tv_expense"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_expense"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_expense"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_expense"
+            tools:listitem="@layout/item_date_record" />
 
 
-    <TextView
-        android:id="@+id/tv_income"
-        android:layout_width="32dp"
-        android:layout_height="20dp"
-        android:text="수입"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="43dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lv_expense"
-        android:textSize="10sp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/spoqahansansneo_regular"
-        android:background="@drawable/income_round"/>
+        <TextView
+            android:id="@+id/tv_income"
+            android:layout_width="32dp"
+            android:layout_height="20dp"
+            android:text="수입"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="43dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lv_expense"
+            android:textSize="10sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:background="@drawable/income_round"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="0dp"
-        android:text="+42,500"
-        android:textSize="12sp"
-        android:textColor="#28A9DC"
-        android:fontFamily="@font/spoqahansansneo_regular"
-        app:layout_constraintStart_toEndOf="@+id/tv_income"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_income"
-        app:layout_constraintTop_toTopOf="@+id/tv_income"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="0dp"
+            android:text="+42,500"
+            android:textSize="12sp"
+            android:textColor="#28A9DC"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            app:layout_constraintStart_toEndOf="@+id/tv_income"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_income"
+            app:layout_constraintTop_toTopOf="@+id/tv_income"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_income"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_income"
-        tools:listitem="@layout/item_date_record" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_income"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_income"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            tools:listitem="@layout/item_date_record" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
