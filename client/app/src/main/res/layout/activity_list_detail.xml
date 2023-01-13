@@ -285,7 +285,7 @@
             app:layout_constraintTop_toBottomOf="@+id/question1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/category_bubble"
+            app:layout_constraintBottom_toTopOf="@+id/listDetail_bubble"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/question2_title"
@@ -309,13 +309,13 @@
                 android:track="@drawable/switchstyle"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
-            android:id="@+id/category_bubble"
+            android:id="@+id/listDetail_bubble"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_category_bubble"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="(주)우아한형제들 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
+            android:text=""
             android:textColor="@color/white"
             android:fontFamily="@font/spoqahansansneo_regular"
             android:paddingTop="7dp"

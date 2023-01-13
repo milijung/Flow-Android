@@ -17,5 +17,6 @@ class ListDetailActivity : AppCompatActivity() {
         viewBinding.listDetailPlace.text = "(주)우아한형제들"
         viewBinding.listDetailPrice.text = "11,650 원"
         viewBinding.listDetailCategory.text = "카페·간식"
+        viewBinding.listDetailBubble.text = "(주)우아한형제들 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
     }
 }
