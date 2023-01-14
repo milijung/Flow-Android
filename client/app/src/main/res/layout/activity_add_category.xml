@@ -65,7 +65,7 @@
             android:textSize="16dp"
             android:text=""
             android:maxLength="4"
-            android:hint="카테고리를 입력하세요. (최대 7자)"
+            android:hint="카테고리를 입력하세요. (최대 4자)"
             android:layout_weight="1.5"
             android:textColor="@color/black"
             android:backgroundTint="@color/black"

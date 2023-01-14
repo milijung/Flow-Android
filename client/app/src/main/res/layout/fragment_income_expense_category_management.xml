@@ -388,7 +388,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/category_icon_unchecked"
-                    android:drawableStart="@drawable/ic_category_user"
+                    android:drawableStart="@drawable/ic_category_income"
                     android:drawablePadding="8dp"
                     android:fontFamily="@font/spoqahansansneo_regular"
                     android:paddingStart="12dp"
@@ -624,7 +624,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/changeCategory_add"
+        android:id="@+id/changeCategory_addButton"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginEnd="24dp"

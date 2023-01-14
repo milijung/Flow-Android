@@ -16,7 +16,7 @@
     android:gravity="end">
 
     <ImageButton
-        android:id="@+id/updateCategory_back_button"
+        android:id="@+id/changeCategory_back_button"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,13 +69,14 @@
         android:layout_marginHorizontal="20dp"
         android:numColumns="3"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/changeCategory_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scrollbars="vertical"
-        android:gravity="center" />
+        android:gravity="center"
+        />
 <androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/changeCategory_add"
+    android:id="@+id/changeCategory_addButton"
     android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:background="@drawable/newcategoryregistration_btn"
@@ -100,7 +101,6 @@
         android:insetBottom="0dp"
         android:text=""
         android:textSize="16dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

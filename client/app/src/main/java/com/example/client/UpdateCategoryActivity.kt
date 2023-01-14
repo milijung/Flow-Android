@@ -14,7 +14,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
         viewBinding.updateCategoryButton.text = getText(R.string.finish_button)
         viewBinding.updateCategoryType.check(R.id.updateCategory_type1)
         viewBinding.updateCategoryIcon.setImageResource(R.drawable.ic_category_entertainment)
-        viewBinding.updateCategoryIconName.text = "문화·예술"
+        viewBinding.updateCategoryIconName.text = "오락·취미"
         viewBinding.updateCategoryType.setOnCheckedChangeListener{ radioGroup, checkedId ->
             when(checkedId){
                 R.id.updateCategory_type1 ->{
