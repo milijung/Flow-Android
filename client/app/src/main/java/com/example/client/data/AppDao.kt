@@ -1,4 +1,4 @@
-package com.example.client
+package com.example.client.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -44,7 +44,7 @@ interface ListDao {
     fun insert(list: List)
 
     @Delete
-    fun delete(list:List)
+    fun delete(list: List)
 
     @Query("SELECT * FROM List")
     fun selectAll() : kotlin.collections.List<List>

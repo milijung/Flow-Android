@@ -1,8 +1,11 @@
-package com.example.client
+package com.example.client.ui.category
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.client.R
+import com.example.client.data.AppDatabase
+import com.example.client.data.Category
 import com.example.client.databinding.ActivityAddCategoryBinding
 
 class AddCategoryActivity : AppCompatActivity() {

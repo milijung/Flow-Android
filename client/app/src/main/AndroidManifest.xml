@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
         <activity
-            android:name=".ChangeCategoryActivity"
+            android:name=".ui.category.ChangeCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".BottomNavigationActivity"
@@ -31,13 +31,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UpdateCategoryActivity"
+            android:name=".ui.category.UpdateCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddCategoryActivity"
+            android:name=".ui.category.AddCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ListDetailActivity"
+            android:name=".ui.board.ListDetailActivity"
             android:exported="false" />
     </application>
 

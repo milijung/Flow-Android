@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/category_icon_button"
-    tools:context=".ChangeCategoryActivity"
+    tools:context=".ui.category.ChangeCategoryActivity"
     android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:drawablePadding="8dp"

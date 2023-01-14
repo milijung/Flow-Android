@@ -3,6 +3,10 @@ package com.example.client
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.databinding.ActivityBottomNavigationBinding
+import com.example.client.navigation.BoardFragment
+import com.example.client.navigation.CalendarFragment
+import com.example.client.navigation.HomeFragment
+import com.example.client.navigation.SettingFragment
 
 class BottomNavigationActivity : AppCompatActivity() {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {

@@ -1,21 +1,20 @@
-package com.example.client
+package com.example.client.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.client.databinding.FragmentHomeBinding
+import com.example.client.databinding.FragmentBoardBinding
 
-
-class HomeFragment : Fragment() {
-    private lateinit var viewBinding: FragmentHomeBinding
+class BoardFragment : Fragment() {
+    private lateinit var viewBinding: FragmentBoardBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentHomeBinding.inflate(layoutInflater)
+        viewBinding = FragmentBoardBinding.inflate(layoutInflater)
         return viewBinding.root
     }
 }
