@@ -21,7 +21,7 @@ class AddCategoryActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         val listDetailIntent = intent
-        val listId:Int = listDetailIntent.getIntExtra("listId",1)
+        val listId:Int = listDetailIntent.getIntExtra("listId",-1)
         val categoryType : Int = listDetailIntent.getIntExtra("typeId",1)
         val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
         val roomDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
@@ -60,11 +60,18 @@ class AddCategoryActivity : AppCompatActivity() {
                 // 카테고리 추가 후 뒤로가기
                 val newCategoryOrder : Int = roomDb!!.CategoryDao().selectByTypeId(typeId).size
                 roomDb.CategoryDao().insert(Category(viewBinding.addCategoryName.text.toString().trim(),iconImage,typeId,newCategoryOrder,true))
-                val intent = Intent(this, ChangeCategoryActivity::class.java)
-                intent.putExtra("listId",listId)
-                intent.putExtra("typeId",categoryType)
-                intent.putExtra("order",selectedCategoryPosition)
-                startActivity(intent)
+                if(listId == -1){
+                    val intent = Intent(this, SettingCategoryActivity::class.java)
+                    startActivity(intent)
+
+                }
+                else{
+                    val intent = Intent(this, ChangeCategoryActivity::class.java)
+                    intent.putExtra("listId",listId)
+                    intent.putExtra("typeId",categoryType)
+                    intent.putExtra("order",selectedCategoryPosition)
+                    startActivity(intent)
+                }
             }
         }
     }

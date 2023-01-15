@@ -1,12 +1,9 @@
-package com.example.client
+package com.example.client.ui.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.client.R
 import com.example.client.databinding.ActivityBottomNavigationBinding
-import com.example.client.navigation.BoardFragment
-import com.example.client.navigation.CalendarFragment
-import com.example.client.navigation.HomeFragment
-import com.example.client.navigation.SettingFragment
 
 class BottomNavigationActivity : AppCompatActivity() {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
@@ -31,19 +28,19 @@ class BottomNavigationActivity : AppCompatActivity() {
                             .replace(viewBinding.navContainer.id, HomeFragment())
                             .commitAllowingStateLoss()
                     }
-                    R.id.menu_board->{
+                    R.id.menu_board ->{
                         supportFragmentManager
                             .beginTransaction()
                             .replace(viewBinding.navContainer.id, BoardFragment())
                             .commitAllowingStateLoss()
                     }
-                    R.id.menu_calendar->{
+                    R.id.menu_calendar ->{
                         supportFragmentManager
                             .beginTransaction()
                             .replace(viewBinding.navContainer.id, CalendarFragment())
                             .commitAllowingStateLoss()
                     }
-                    R.id.menu_setting->{
+                    R.id.menu_setting ->{
                         supportFragmentManager
                             .beginTransaction()
                             .replace(viewBinding.navContainer.id, SettingFragment())

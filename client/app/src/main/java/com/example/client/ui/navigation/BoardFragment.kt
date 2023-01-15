@@ -1,4 +1,4 @@
-package com.example.client.navigation
+package com.example.client.ui.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,20 +1,21 @@
-package com.example.client.navigation
+package com.example.client.ui.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.client.databinding.FragmentSettingBinding
+import com.example.client.databinding.FragmentHomeBinding
 
-class SettingFragment : Fragment() {
-   private lateinit var viewBinding: FragmentSettingBinding
+
+class HomeFragment : Fragment() {
+    private lateinit var viewBinding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentSettingBinding.inflate(layoutInflater)
+        viewBinding = FragmentHomeBinding.inflate(layoutInflater)
         return viewBinding.root
     }
 }

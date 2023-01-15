@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
         <activity
+            android:name=".ui.category.SettingCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.category.ChangeCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".BottomNavigationActivity"
+            android:name=".ui.navigation.BottomNavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_bottom_navigation" />
         <activity

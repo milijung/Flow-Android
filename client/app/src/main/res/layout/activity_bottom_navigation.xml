@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BottomNavigationActivity">
+    tools:context=".ui.navigation.BottomNavigationActivity">
     <FrameLayout
         android:id="@+id/nav_container"
         android:layout_width="0dp"
