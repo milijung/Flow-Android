@@ -25,10 +25,10 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val view = viewBinding.root
         setContentView(view)
 
-        val listDetailIntent = intent
-        val listId:Int = listDetailIntent.getIntExtra("listId",1)
-        val categoryType : Int = listDetailIntent.getIntExtra("typeId",1)
-        val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
+        val listDetailsIntent = intent
+        val listId:Int = listDetailsIntent.getIntExtra("listId",1)
+        val categoryType : Int = listDetailsIntent.getIntExtra("typeId",1)
+        val selectedCategoryPosition: Int = listDetailsIntent.getIntExtra("order",0)
         val roomDb = AppDatabase.getCategoryInstance(this)
 
         if(roomDb != null){
@@ -36,6 +36,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
             adapter = CategoryViewAdapter(this, categoryList, selectedCategoryPosition)
             viewBinding.changeCategoryList.adapter = adapter
             viewBinding.changeCategoryList.choiceMode = GridView.CHOICE_MODE_SINGLE
+            // 완료하기 버튼 클릭
             viewBinding.changeCategoryButton.setOnClickListener(){
                 // 내역의 카테고리 변경
                 val listDb = AppDatabase.getListInstance(this)
@@ -50,22 +51,22 @@ class ChangeCategoryActivity : AppCompatActivity() {
             viewBinding.changeCategoryButton.text = getText(R.string.finish_button)
 
         }
-
+        // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
         viewBinding.changeCategoryBackButton.setOnClickListener(){
-            // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
             val intent = Intent(this, ListDetailActivity::class.java)
             intent.putExtra("listId",listId)
             startActivity(intent)
 
         }
+        // 카테고리 추가 화면으로 이동
         viewBinding.changeCategoryAddButton.setOnClickListener(){
-            // 카테고리 추가 화면으로 이동
             val intent = Intent(this, AddCategoryActivity::class.java)
             intent.putExtra("listId",listId)
             intent.putExtra("typeId",categoryType)
             intent.putExtra("order",selectedCategoryPosition)
             startActivity(intent)
         }
+        // 카테고리 검색
         viewBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("Not yet implemented")

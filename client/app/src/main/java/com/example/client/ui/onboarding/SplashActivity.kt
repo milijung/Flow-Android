@@ -8,6 +8,9 @@ import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
 import com.example.client.ui.board.ListDetailActivity
+import com.example.client.ui.category.SettingCategoryActivity
+import com.example.client.ui.login.LoginActivity
+import com.example.client.ui.navigation.BottomNavigationActivity
 
 
 class SplashActivity : AppCompatActivity() {
@@ -67,11 +70,20 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val categoryDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
-        if(categoryDb?.CategoryDao()?.selectAll()?.size!! == 0)
+        // 앱 설치 후, 처음 시작한 경우 -> 온보딩 화면으로 이동
+        if(categoryDb?.CategoryDao()?.selectAll()?.size!! == 0) {
             insertData(this)
-
-        val intent = Intent(this, OnboardingActivity::class.java)
-        startActivity(intent)
-        finish()
+            val intent = Intent(this, OnboardingActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        // 로그인 여부 체크
+        // 로그인한 경우 -> BottomNavigationView로 이동
+        else{
+           // val intent = Intent(this, BottomNavigationActivity::class.java)
+            val intent = Intent(this, SettingCategoryActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

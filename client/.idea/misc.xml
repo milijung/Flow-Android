@@ -24,6 +24,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_category_necessaries.xml" value="0.265625" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_category_travel.xml" value="0.265625" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_category_user.xml" value="0.23020833333333332" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_radio_button_disabled.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_splash.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_thumb.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_track.xml" value="0.26614583333333336" />
@@ -43,14 +44,15 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_main.xml" value="0.22565687789799072" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_onboarding.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_record.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_setting_category.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_update_category.xml" value="0.2" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_setting_category.xml" value="0.6666666666666666" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_update_category.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/category_icon.xml" value="1.0" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_big_button.xml" value="0.3" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_board.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_change.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_icon.xml" value="0.8" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_icon_setting.xml" value="0.3" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_income_expense_category_management.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_onboarding1.xml" value="0.22" />

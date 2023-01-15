@@ -34,8 +34,11 @@ interface CategoryDao {
     @Query("UPDATE Category SET `order`= `order`-1 WHERE typeId= :typeId and categoryId > :categoryId")
     fun updateCategoryOrder(categoryId: Int, typeId: Int) // 삭제한 카테고리의 id와 typeId를 param으로
 
-    @Query("UPDATE Category SET name= :name and typeId= :typeId WHERE categoryId= :categoryId")
+    @Query("UPDATE Category SET name= :name, typeId= :typeId WHERE categoryId= :categoryId")
     fun updateCategoryInfo(categoryId: Int, name: String, typeId: Int)
+
+    @Query("DELETE FROM Category WHERE categoryId = :categoryId")
+    fun deleteCategoryById(categoryId : Int)
 }
 
 @Dao
