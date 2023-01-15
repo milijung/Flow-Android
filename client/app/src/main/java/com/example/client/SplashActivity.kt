@@ -11,7 +11,7 @@ import com.example.client.ui.navigation.BottomNavigationActivity
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, ChangeCategoryActivity::class.java)
+        val intent = Intent(this, BottomNavigationActivity::class.java)
         startActivity(intent)
         finish()
     }
