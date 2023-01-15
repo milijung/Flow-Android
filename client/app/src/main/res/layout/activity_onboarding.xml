@@ -4,28 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OnboardingActivity">
+    android:background="#F8F8F8"
+    tools:context=".ui.onboarding.OnboardingActivity">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <Button
+        android:id="@+id/onboard_passButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"
+        android:text="@string/pass_button"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:gravity="end"
+        android:paddingEnd="24dp"
+        android:paddingTop="20dp"
+        android:textSize="12dp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_dot"
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toBottomOf="@id/onboard_passButton"
+        app:layout_constraintBottom_toTopOf="@id/onboard_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center_horizontal"
         android:background="#F8F8F8"
-        app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@drawable/dot_selector"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
         app:tabMinWidth="7dp"
         app:tabPaddingStart="10dp"
         app:tabPaddingEnd="15dp"
+        android:layout_marginVertical="40dp"
         />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboard_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tab_dot"
+        app:layout_constraintBottom_toTopOf="@id/onboard_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/onboard_button"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:fontFamily="@font/suit_bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text=""
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

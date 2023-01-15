@@ -1,9 +1,12 @@
-package com.example.client
+package com.example.client.data
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.client.ui.onboarding.OnboardingFragment1
+import com.example.client.ui.onboarding.OnboardingFragment2
+import com.example.client.ui.onboarding.OnboardingFragment3
 
 private const val NUM_TABS = 3
 
@@ -17,7 +20,7 @@ class OnboardingAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle): 
             0 -> OnboardingFragment1()
             1 -> OnboardingFragment2()
             2 -> OnboardingFragment3()
-            else ->OnboardingFragment1()
+            else -> OnboardingFragment1()
         }
 
     }

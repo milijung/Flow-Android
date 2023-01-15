@@ -41,11 +41,11 @@ class RecordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
 
-        viewBinding.lvRecord.layoutManager= LinearLayoutManager(this)
-        viewBinding.lvRecord.adapter=RecordAdapter(data)
-
-        val decoration = ItemDecoration(20)
-        viewBinding.lvRecord.addItemDecoration(decoration)
+//        viewBinding.lvRecord.layoutManager= LinearLayoutManager(this)
+//        viewBinding.lvRecord.adapter=RecordAdapter(data)
+//
+//        val decoration = ItemDecoration(20)
+//        viewBinding.lvRecord.addItemDecoration(decoration)
     }
 
 

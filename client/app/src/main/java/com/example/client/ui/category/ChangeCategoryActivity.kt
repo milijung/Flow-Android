@@ -52,8 +52,11 @@ class ChangeCategoryActivity : AppCompatActivity() {
         }
 
         viewBinding.changeCategoryBackButton.setOnClickListener(){
-            // 뒤로가기
-            super.onBackPressed()
+            // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
+            val intent = Intent(this, ListDetailActivity::class.java)
+            intent.putExtra("listId",listId)
+            startActivity(intent)
+
         }
         viewBinding.changeCategoryAddButton.setOnClickListener(){
             // 카테고리 추가 화면으로 이동
