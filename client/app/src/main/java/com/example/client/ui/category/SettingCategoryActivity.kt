@@ -70,7 +70,11 @@ class SettingCategoryActivity : AppCompatActivity() {
             val deleteCategory : Category = roomDb!!.CategoryDao().selectById(deleteCategoryId)
 
             if(deleteCategoryId != 0) {
+                // 삭제하려는 카테고리에 소속된 list들 -> 카테고리를 "기타지출"로 변경
+                roomDb!!.ListDao().updateListOfDeletedCategory(deleteCategoryId)
+                // 카테고리 삭제
                 roomDb!!.CategoryDao().deleteCategoryById(deleteCategoryId)
+                // 카테고리 position 재정렬
                 roomDb!!.CategoryDao().updateCategoryOrder(deleteCategoryId, deleteCategory.typeId)
             }
 
@@ -86,12 +90,6 @@ class SettingCategoryActivity : AppCompatActivity() {
 
 
 
-    }
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        // 화면 빈공간을 누르면 선택 해제
-
-
-        return super.dispatchTouchEvent(ev)
     }
 
     override fun onResume() {

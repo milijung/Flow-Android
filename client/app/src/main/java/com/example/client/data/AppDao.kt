@@ -67,4 +67,7 @@ interface ListDao {
     @Query("UPDATE List SET listId= :listId WHERE isBudgetIncluded = :isBudgetIncluded")
     fun updateIsBudgetIncluded(listId: Int, isBudgetIncluded:Boolean)
 
+    @Query("UPDATE List SET categoryId = 15 WHERE categoryId = :categoryId")
+    fun updateListOfDeletedCategory(categoryId: Int)
+
 }
