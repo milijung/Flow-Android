@@ -13,6 +13,53 @@
             android:name=".ui.category.SettingCategoryActivity"
             android:exported="false" />
         <activity
+                    android:name=".SettingBankAppChoiceActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".BankAppChoiceActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingLetterAddInputActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingLetterAddRegistraionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingBudgetSettingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".LetterAddRegistraionActivity"
+            android:exported="false"
+            android:label="@string/title_activity_letter_add_registraion"
+            android:theme="@style/Theme.Client.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ChangeCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.category.ChangeCategoryActivity"
             android:exported="false" />
         <activity

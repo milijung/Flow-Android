@@ -26,4 +26,13 @@
         <item name="android:windowBackground">@drawable/ic_splash</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="Theme.Client.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Client.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Client.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
