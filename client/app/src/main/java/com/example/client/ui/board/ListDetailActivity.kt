@@ -1,13 +1,14 @@
 package com.example.client.ui.board
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.ui.category.ChangeCategoryActivity
 import com.example.client.R
 import com.example.client.data.AppDatabase
+import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
+import com.example.client.data.Keyword
 import com.example.client.databinding.ActivityListDetailBinding
 
 class ListDetailActivity : AppCompatActivity() {
@@ -24,6 +25,8 @@ class ListDetailActivity : AppCompatActivity() {
         val listId = listDetailIntent.getIntExtra("listId",1) // 넘겨받은 내역 id
         val listDb = AppDatabase.getListInstance(this) // 내역 DB
         val categoryDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
+        val keywordDb = AppDatabase.getKeywordInstance(this) // 키워드 DB
+        val bankStatementRepository = BankStatementRepository(this)
 
         if (listDb != null) {
             listItem = listDb.ListDao().selectById(listId) // 넘겨받은 내역의 Data
@@ -38,10 +41,11 @@ class ListDetailActivity : AppCompatActivity() {
         viewBinding.listDetailMemoContent.setText(listItem.memo)
         viewBinding.listDetailTime.text = listItem.year + "년 "+listItem.month+"월 "+listItem.day+"일 "+listItem.time
         viewBinding.listDetailPlace.text = listItem.shop
-        viewBinding.listDetailPrice.text = listItem.price.toString()+"원"
+        viewBinding.listDetailPrice.text = listItem.price+"원"
         viewBinding.listDetailCategoryNameButton.text = selectedCategory.name
         viewBinding.listDetailBubble.text = listItem.shop+" 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
         viewBinding.listDetailSwitch1.isChecked = listItem.isBudgetIncluded
+        viewBinding.listDetailQuestion2.isChecked = listItem.isKeywordIncluded
 
         viewBinding.listDetailBackButton.setOnClickListener(){
             // 내용이 변경되지 않는다는 modal창 추가
@@ -62,6 +66,18 @@ class ListDetailActivity : AppCompatActivity() {
             if (listDb != null) {
                 listDb.ListDao().updateMemo(listId,viewBinding.listDetailMemoContent.text.toString())
                 listDb.ListDao().updateIsBudgetIncluded(listId, viewBinding.listDetailSwitch1.isChecked)
+                listDb.ListDao().updateIsBudgetIncluded(listId,viewBinding.listDetailQuestion2.isChecked)
+                when(viewBinding.listDetailQuestion2.isChecked){
+                    true -> {
+                        keywordDb!!.KeywordDao().insert(Keyword(listItem.categoryId,listItem.shop,true))
+                        keywordDb!!.KeywordDao().updateListCategoryByKeyword(listItem.shop, listItem.categoryId)
+                    }
+                    else -> {
+                        keywordDb!!.KeywordDao().deleteKeyword(listItem.categoryId, listItem.shop)
+                        val newCategoryId : Int = bankStatementRepository.extractCategory(listItem.shop,listItem.typeId)
+                        keywordDb!!.KeywordDao().updateListCategoryByKeyword(listItem.shop, newCategoryId)
+                    }
+                }
             }
 
         }

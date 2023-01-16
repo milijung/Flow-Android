@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Category::class, List::class], version = 1)
+@Database(entities = [Category::class, List::class, Keyword::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun CategoryDao() : CategoryDao
     abstract fun ListDao() : ListDao
+    abstract fun KeywordDao() : KeywordDao
 
     // 전역적으로 사용할 수 있는 함수, 변수를 담을 수 있음.
     companion object{
@@ -47,6 +48,22 @@ abstract class AppDatabase : RoomDatabase() {
                 }
 
 
+            }
+            return appDatabase
+        }
+        @Synchronized
+        fun getKeywordInstance(context: Context): AppDatabase?{
+            // null 체크 필수
+            if(appDatabase == null){
+                // null이면 database 점유
+                synchronized(AppDatabase::class.java){
+                    appDatabase = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "keyword"
+                    ).allowMainThreadQueries().build() // allowMainThreadQueries()는 Main thread에서 query를 허용하는 함수
+
+                }
             }
             return appDatabase
         }

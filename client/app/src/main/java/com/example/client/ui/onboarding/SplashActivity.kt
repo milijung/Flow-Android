@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.content.Intent
 import com.example.client.R
 import com.example.client.data.AppDatabase
+import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
 import com.example.client.ui.board.ListDetailActivity
-import com.example.client.ui.category.SettingCategoryActivity
-import com.example.client.ui.login.LoginActivity
-import com.example.client.ui.navigation.BottomNavigationActivity
 
 
 class SplashActivity : AppCompatActivity() {
     // DB 초기값 insert, 나중에 수정해야 함
     private fun insertData(context: Context) {
+        val bankStatementRepository : BankStatementRepository = BankStatementRepository(this)
         AppDatabase.getCategoryInstance(context)
             ?.CategoryDao()?.insert(Category("하루세끼", R.drawable.ic_category_food,1,0,false))
         AppDatabase.getCategoryInstance(context)
@@ -53,22 +52,15 @@ class SplashActivity : AppCompatActivity() {
         AppDatabase.getCategoryInstance(context)
             ?.CategoryDao()?.insert(Category("기타지출", R.drawable.ic_category_others,1,14,false))
         AppDatabase.getCategoryInstance(context)
-            ?.CategoryDao()?.insert(Category("애견용품", R.drawable.ic_category_user,1,15,true))
-        AppDatabase.getCategoryInstance(context)
-            ?.CategoryDao()?.insert(Category("회비", R.drawable.ic_category_user,1,16,true))
-        AppDatabase.getCategoryInstance(context)
             ?.CategoryDao()?.insert(Category("수입", R.drawable.ic_category_income,2,0,false))
-        AppDatabase.getCategoryInstance(context)
-            ?.CategoryDao()?.insert(Category("장학금", R.drawable.ic_category_income_user,2,1,true))
-        AppDatabase.getCategoryInstance(context)
-            ?.CategoryDao()?.insert(Category("이자", R.drawable.ic_category_income_user,2,2,true))
         AppDatabase.getListInstance(context)
-            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","01","15","03:47","(주)우아한형제들",10000,"",1,true))
+            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","01","15","03:47","(주)우아한형제들","10,000","",1,true))
+        bankStatementRepository.initCategoryKeywordList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val bankStatementRepository : BankStatementRepository = BankStatementRepository(this)
         val categoryDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
         // 앱 설치 후, 처음 시작한 경우 -> 온보딩 화면으로 이동
         if(categoryDb?.CategoryDao()?.selectAll()?.size!! == 0) {
@@ -77,11 +69,16 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        // 로그인 여부 체크
+        // 로그인 안된 경우 -> LoginView로 이동
         // 로그인한 경우 -> BottomNavigationView로 이동
         else{
+            println(bankStatementRepository.getListInfo("입출금통지 안내\n" +
+                    "***님 11/115 20:27\n" +
+                    "60,000,000 FBS출금\n" +
+                    "잔액 50,000"))
+
            // val intent = Intent(this, BottomNavigationActivity::class.java)
-            val intent = Intent(this, SettingCategoryActivity::class.java)
+            val intent = Intent(this, ListDetailActivity::class.java)
             startActivity(intent)
             finish()
         }
