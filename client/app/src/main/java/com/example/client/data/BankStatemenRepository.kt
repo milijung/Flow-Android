@@ -26,7 +26,7 @@ class BankStatementRepository(context: Context) {
     private var day : String = date.substring(8,10)
     private var type : Int = 1
     private var price : String = "0"
-    private var shop = "(주)우아한형제들"
+    private var shop = "카카오택시"
     private var categoryId : Int = 15
 
     fun getListInfo(statement: String): com.example.client.data.List {
@@ -66,21 +66,14 @@ class BankStatementRepository(context: Context) {
         }
         // 가격 추출
         when (statement.filter { it == '원' }.count()) {
-            1 -> {
-                if (!statement.contains("잔액") and (extractPrice(statement, "원") != "")) {
+            1 -> if (!statement.contains("잔액") and (extractPrice(statement, "원") != ""))
                     price = extractPrice(statement, "원")
-                }
-            }
-            2 -> {
-                if (statement.contains("잔액") and (extractPrice(statement, "원") != "")) {
+            2 -> if (statement.contains("잔액") and (extractPrice(statement, "원") != ""))
                     price = extractPrice(statement, "원")
-                }
-            }
         }
         // 가격에 원을 안붙이는 경우
-        if ((extractPriceByKeyword(statement) != "") and (price == "0")) {
+        if ((extractPriceByKeyword(statement) != "") and (price == "0"))
             price = extractPriceByKeyword(statement)
-        }
 
         // 타입 추출
         for (x in typeKeywordList) {
@@ -92,8 +85,6 @@ class BankStatementRepository(context: Context) {
             }
         }
         // 거래처 추출
-
-
         // 카테고리 추출
         categoryId = extractCategory(shop, type)
     }
