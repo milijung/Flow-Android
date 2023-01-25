@@ -1,4 +1,4 @@
-package com.example.client
+package com.example.client.ui.setting
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import com.example.client.databinding.ActivitySettingLetterAddInputBinding
 
 class SettingLetterAddInputActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivitySettingLetterAddInputBinding
+    private lateinit var binding : ActivitySettingLetterAddInputBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

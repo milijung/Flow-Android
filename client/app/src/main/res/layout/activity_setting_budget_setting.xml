@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingBudgetSettingActivity"
+    tools:context=".ui.setting.SettingBudgetSettingActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -175,27 +175,25 @@
         app:layout_constraintTop_toBottomOf="@id/money_btn"
         >
 
-        <TextView
-            android:id="@+id/budgetStart_txt"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/budgetStartBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_down"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/spoqahansansneo_bold"
             android:text="예산 시작일"
-            android:textSize="16sp"
             android:textColor="@color/black"
-            android:fontFamily="@font/spoqahansansneo_bold"/>
+            android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/down_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_down"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/budgetStart_txt"
-            />
     </LinearLayout>
 
+
+
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addCategory_button"
+        android:id="@+id/completBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:fontFamily="@font/suit_regular"

@@ -1,7 +1,8 @@
-package com.example.client
+package com.example.client.ui.setting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.client.R
 import com.example.client.databinding.ActivitySettingBankAppChoiceBinding
 import com.example.client.databinding.ActivitySettingLetterAddInputBinding
 
