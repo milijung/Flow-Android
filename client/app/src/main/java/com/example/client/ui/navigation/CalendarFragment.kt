@@ -99,9 +99,9 @@ class CalendarFragment : Fragment(),OnCalendarItemListener {
 
         var serverList: ArrayList<CalendarServerDataResult>?= arrayListOf()
         //serverList=requestAPI(selectedDate.year,selectedDate.monthValue)
-        serverList?.add(CalendarServerDataResult("24","1","1000"))
-        serverList?.add(CalendarServerDataResult("24","0","20000"))
-        serverList?.add(CalendarServerDataResult("5","0","5000"))
+        serverList?.add(CalendarServerDataResult(24,1,1000))
+        serverList?.add(CalendarServerDataResult(24,0,20000))
+        serverList?.add(CalendarServerDataResult(5,0,5000))
 
         var dayList=ArrayList<CalendarData>()
 
@@ -141,11 +141,11 @@ class CalendarFragment : Fragment(),OnCalendarItemListener {
                 }else{
                     var expense=""
                     var income=""
-                    if(serverList?.find(){it.date.toInt()==(i-dayOfweek) && it.isExp.toInt()==1}!=null){
-                        expense="-"+serverList.find(){it.date.toInt()==(i-dayOfweek) && it.isExp.toInt()==1}!!.amount
+                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==1}!=null){
+                        expense="-"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==1}!!.amount).toString()
                     }
-                    if(serverList?.find(){it.date.toInt()==(i-dayOfweek) && it.isExp.toInt()==0}!=null){
-                        income="+"+serverList.find(){it.date.toInt()==(i-dayOfweek) && it.isExp.toInt()==0}!!.amount
+                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==0}!=null){
+                        income="+"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==0}!!.amount).toString()
                     }
                     dayList.add(CalendarData((i-dayOfweek).toString(), expense,income))
             }
@@ -180,7 +180,7 @@ class CalendarFragment : Fragment(),OnCalendarItemListener {
 
         val service:CalendarService=CalendarObject.getInstance().create(CalendarService::class.java)
 
-        val call = service.getExpense(year,month)
+        val call = service.getAmount(year,month)
         var list :ArrayList<CalendarServerDataResult>?=null
 
         call.enqueue(object: Callback<CalendarServerData>{
