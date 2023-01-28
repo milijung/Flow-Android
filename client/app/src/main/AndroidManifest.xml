@@ -16,7 +16,7 @@
             android:name=".ui.category.SettingCategoryActivity"
             android:exported="false" />
         <activity
-                    android:name=".SettingBankAppChoiceActivity"
+                    android:name=".ui.setting.SettingBankAppChoiceActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,21 +30,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingLetterAddInputActivity"
+            android:name=".ui.setting.SettingLetterAddInputActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingLetterAddRegistraionActivity"
+            android:name=".ui.setting.SettingLetterAddRegistraionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingBudgetSettingActivity"
+            android:name=".ui.setting.SettingBudgetSettingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
