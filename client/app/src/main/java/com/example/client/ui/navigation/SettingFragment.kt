@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 
 
 class SettingFragment : Fragment() {
-   private lateinit var viewBinding: FragmentSettingBinding
+   private lateinit var binding: FragmentSettingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,34 +23,33 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewBinding = FragmentSettingBinding.inflate(layoutInflater)
-        return viewBinding.root
+        binding = FragmentSettingBinding.inflate(layoutInflater)
 
-        viewBinding.budgetSettingBtn.setOnClickListener(){
-            val intent = Intent(getActivity(), SettingBudgetSettingActivity::class.java)
+        binding.budgetSettingBtn.setOnClickListener(){
+            val intent = Intent(activity, SettingBudgetSettingActivity::class.java)
             startActivity(intent)
         }
 
-        viewBinding.letterAddRegistrationBtn.setOnClickListener(){
-            val intent = Intent(getActivity(), SettingLetterAddRegistraionActivity::class.java)
+        binding.letterAddRegistrationBtn.setOnClickListener(){
+            val intent = Intent(activity, SettingLetterAddRegistraionActivity::class.java)
             startActivity(intent)
         }
 
-        viewBinding.bankAppBtn.setOnClickListener(){
-            val intent = Intent(getActivity(), SettingBankAppChoiceActivity::class.java)
+        binding.bankAppBtn.setOnClickListener(){
+            val intent = Intent(activity, SettingBankAppChoiceActivity::class.java)
             startActivity(intent)
         }
 
-        viewBinding.budgetWarningNotification.setOnClickListener {
-            if(viewBinding.detail.visibility == View.VISIBLE) {
-                viewBinding.detail.visibility = View.GONE
-                viewBinding.budgetWarniningNotificatonBtn.animate().apply {
+        binding.budgetWarningNotification.setOnClickListener {
+            if(binding.detail.visibility == View.VISIBLE) {
+                binding.detail.visibility = View.GONE
+                binding.budgetWarniningNotificatonBtn.animate().apply {
                     duration = 300
                     rotation(0f)
                 }
             } else {
-                viewBinding.detail.visibility = View.VISIBLE
-                viewBinding.budgetWarniningNotificatonBtn.animate().apply {
+                binding.detail.visibility = View.VISIBLE
+                binding.budgetWarniningNotificatonBtn.animate().apply {
                     duration = 300
                     rotation(180f)
                 }
@@ -59,7 +58,7 @@ class SettingFragment : Fragment() {
 
         seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                userProgress.text = "$progress%"
+                userProgress.text = "${progress}%"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -68,6 +67,7 @@ class SettingFragment : Fragment() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
+        return binding.root
     }
 
 
