@@ -13,7 +13,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.*
+import com.example.client.data.CalendarAdapter
+import com.example.client.data.CalendarService
+import com.example.client.data.model.CalendarData
 import com.example.client.databinding.FragmentCalendarBinding
+import com.example.client.ui.calendar.OnCalendarItemListener
 
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -25,7 +29,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class CalendarFragment : Fragment(),OnCalendarItemListener {
+class CalendarFragment : Fragment(), OnCalendarItemListener {
     private lateinit var viewBinding: FragmentCalendarBinding
 
     lateinit var selectedDate: LocalDate
@@ -178,7 +182,7 @@ class CalendarFragment : Fragment(),OnCalendarItemListener {
     //api 요청
     private fun requestAPI(year:Int, month:Int): ArrayList<CalendarServerDataResult>? {
 
-        val service:CalendarService=CalendarObject.getInstance().create(CalendarService::class.java)
+        val service: CalendarService =CalendarObject.getInstance().create(CalendarService::class.java)
 
         val call = service.getAmount(year,month)
         var list :ArrayList<CalendarServerDataResult>?=null

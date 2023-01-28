@@ -1,5 +1,6 @@
-package com.example.client
+package com.example.client.data
 
+import com.example.client.CalendarServerData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

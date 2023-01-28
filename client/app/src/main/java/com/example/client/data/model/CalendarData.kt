@@ -1,4 +1,4 @@
-package com.example.client
+package com.example.client.data.model
 
 import android.graphics.Bitmap
 import android.telecom.Call

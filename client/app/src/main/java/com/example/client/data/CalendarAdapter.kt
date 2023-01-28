@@ -1,10 +1,13 @@
-package com.example.client
+package com.example.client.data
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.client.data.model.CalendarData
+import com.example.client.ui.calendar.OnCalendarItemListener
+import com.example.client.R
 import com.example.client.databinding.ItemCalendarBinding
 import org.threeten.bp.LocalDate
 
@@ -22,7 +25,7 @@ class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return CalendarAdapter.ItemViewHolder(
+        return ItemViewHolder(
             ItemCalendarBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
