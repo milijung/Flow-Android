@@ -1,9 +1,13 @@
 package com.example.client.ui.setting
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.client.R
 import com.example.client.databinding.ActivitySettingBudgetSettingBinding
+import kotlinx.android.synthetic.main.activity_setting_budget_setting.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
 
 class SettingBudgetSettingActivity : AppCompatActivity() {
@@ -15,69 +19,48 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         viewBinding = ActivitySettingBudgetSettingBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        viewBinding.completBtn.text = getText(R.string.finish_button)
+
+
         // 예산시작일 고르는 창
         viewBinding.budgetStartBtn.setOnClickListener {
             val bottomSheet = BottomSheet()
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
 
-            startday_picker.minValue = 1
-            startday_picker.maxValue = 31
-
-            // 날짜 순환 기능
-            startday_picker.wrapSelectorWheel = false
-
-
         }
 
+        viewBinding.edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val edit : String = Integer.parseInt(p0.toString()).div(10000).toString()+"만 원"
+                viewBinding.result.text = edit
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+        })
+
         viewBinding.oneBtn.setOnClickListener(View.OnClickListener {
-            val resultText = viewBinding.edit.text.toString()
-            viewBinding.result.setText(resultText)
+            result.setText("1만원")
         })
 
         viewBinding.fiveBtn.setOnClickListener(View.OnClickListener {
-            val resultText = viewBinding.edit.text.toString()
-            viewBinding.result.setText(resultText)
-
+            result.setText("5만원")
         })
 
         viewBinding.tenBtn.setOnClickListener(View.OnClickListener {
-            val resultText = viewBinding.edit.text.toString()
-            viewBinding.result.setText(resultText)
-
+            result.setText("10만원")
         })
 
         viewBinding.twentyBtn.setOnClickListener(View.OnClickListener {
-            val resultText = viewBinding.edit.text.toString()
-            viewBinding.result.setText(resultText)
-
+            result.setText("20만원")
         })
 
         viewBinding.thirtyBtn.setOnClickListener(View.OnClickListener {
-            val resultText = viewBinding.edit.text.toString()
-            viewBinding.result.setText(resultText)
+            result.setText("30만원")
         })
-
-
-//        viewBinding.budgetStartBtn.setOnClickListener{
-//            // bottomSheetDialog 객체 생성
-//            val bottomSheetDialog = BottomSheetDialog(
-//                this@SettingBudgetSettingActivity, R.style.BottomSheetDialogTheme
-//            )
-//            // layout_bottom_sheet를 뷰 객체로 생성
-//            val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
-//                R.layout.a
-//                findViewById(R.id.) as LinearLayout?
-//            )
-//            // bottomSheetDialog의 dismiss 버튼 선택시 dialog disappear
-//            bottomSheetView.viewBinding.setOnClickListener {
-//                bottomSheetDialog.dismiss()
-//            }
-//            // bottomSheetDialog 뷰 생성
-//            bottomSheetDialog.setContentView(bottomSheetView)
-//            // bottomSheetDialog 호출
-//            bottomSheetDialog.show()
-//        }
-
     }
 }
 

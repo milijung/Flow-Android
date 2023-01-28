@@ -12,6 +12,7 @@ import com.example.client.databinding.FragmentSettingBinding
 import com.example.client.ui.setting.SettingBankAppChoiceActivity
 import com.example.client.ui.setting.SettingLetterAddRegistraionActivity
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.fragment_setting.view.*
 
 
 class SettingFragment : Fragment() {
@@ -40,23 +41,21 @@ class SettingFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.budgetWarningNotification.setOnClickListener {
+        binding.budgetWarniningNotificatonBtn.setOnClickListener {
             if(binding.detail.visibility == View.VISIBLE) {
                 binding.detail.visibility = View.GONE
                 binding.budgetWarniningNotificatonBtn.animate().apply {
                     duration = 300
-                    rotation(0f)
                 }
             } else {
                 binding.detail.visibility = View.VISIBLE
                 binding.budgetWarniningNotificatonBtn.animate().apply {
                     duration = 300
-                    rotation(180f)
                 }
             }
         }
 
-        seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
+        binding.seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 userProgress.text = "${progress}%"
             }

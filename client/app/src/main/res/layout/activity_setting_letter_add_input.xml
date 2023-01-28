@@ -94,7 +94,7 @@
         android:fontFamily="@font/suit_regular"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="등록하기"
+        android:text=""
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

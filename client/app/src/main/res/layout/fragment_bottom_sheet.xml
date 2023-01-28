@@ -28,6 +28,7 @@
             android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/closeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -51,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="선택하기"
+        android:text=""
         android:textSize="16sp"
         android:textColor="@color/white"
         android:background="@drawable/choose_btn"/>

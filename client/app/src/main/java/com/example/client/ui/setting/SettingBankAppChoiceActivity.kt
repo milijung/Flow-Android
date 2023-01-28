@@ -13,6 +13,9 @@ class SettingBankAppChoiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewbinding = ActivitySettingBankAppChoiceBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_setting_bank_app_choice)
+        setContentView(viewbinding.root)
+
+        viewbinding.applyBtn.text = getText(R.string.apply_button)
+
     }
 }

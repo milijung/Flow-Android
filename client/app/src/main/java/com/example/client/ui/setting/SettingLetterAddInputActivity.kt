@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.EditText
 //import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.client.R
 import com.example.client.databinding.ActivitySettingLetterAddInputBinding
 
 class SettingLetterAddInputActivity : AppCompatActivity() {
@@ -16,6 +17,9 @@ class SettingLetterAddInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingLetterAddInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.registrationBtn.text = getText(R.string.register_button)
+
 
         //에딧텍스트 생성 버튼
 //        binding.addBtn.setOnClickListener{
