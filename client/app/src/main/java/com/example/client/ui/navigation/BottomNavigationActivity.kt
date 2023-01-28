@@ -2,8 +2,10 @@ package com.example.client.ui.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.client.DateRecordFragment
 import com.example.client.R
 import com.example.client.databinding.ActivityBottomNavigationBinding
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 class BottomNavigationActivity : AppCompatActivity() {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
@@ -11,6 +13,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidThreeTen.init(this)
         setContentView(viewBinding.root)
 
         supportFragmentManager
@@ -52,6 +55,25 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
             // 함수지만 변수처럼 쓸 수 있음. 현재 선택한 item을 알려줄 수 있음
             selectedItemId = R.id.menu_home
+        }
+    }
+
+    fun changeFragment(index: Int){
+        when(index){
+            1 -> {
+                supportFragmentManager.
+                beginTransaction()
+                    .replace(viewBinding.navContainer.id, CalendarFragment())
+                    .commit()
+            }
+            2 -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(viewBinding.navContainer.id, DateRecordFragment())
+                    .commit()
+
+
+            }
         }
     }
 }
