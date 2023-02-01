@@ -10,6 +10,7 @@ import com.example.client.data.CategoryViewAdapter
 import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
+import com.example.client.data.Keyword
 import com.example.client.databinding.ActivityChangeCategoryBinding
 import com.example.client.ui.board.ListDetailActivity
 import kotlin.collections.List
@@ -30,6 +31,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val categoryType : Int = listDetailsIntent.getIntExtra("typeId",1)
         val selectedCategoryPosition: Int = listDetailsIntent.getIntExtra("order",0)
         val roomDb = AppDatabase.getCategoryInstance(this)
+        val keywordDb = AppDatabase.getKeywordInstance(this)
 
         if(roomDb != null){
             categoryList = roomDb.CategoryDao().selectByTypeId(categoryType)
@@ -41,6 +43,15 @@ class ChangeCategoryActivity : AppCompatActivity() {
                 // 내역의 카테고리 변경
                 val listDb = AppDatabase.getListInstance(this)
                 val selectedCategoryId = roomDb.CategoryDao().selectByName((viewBinding.changeCategoryList.focusedChild as AppCompatButton).text.toString())
+                val prevCategoryId = listDb!!.ListDao().selectById(listId).categoryId
+                val isKeyword : Keyword = keywordDb!!.KeywordDao().selectByKeyword(listDb!!.ListDao().selectById(listId).shop)
+                if((isKeyword != null)  ){
+                    // 키워드 삭제
+                    if(isKeyword.isUserCreated){
+                        keywordDb.KeywordDao().deleteKeyword(prevCategoryId,listDb!!.ListDao().selectById(listId).shop)
+                        listDb.ListDao().updateIsKeywordIncluded(listId, false)
+                    }
+                }
                 listDb!!.ListDao().updateCategory(listId,selectedCategoryId)
 
                 // 내역 상세 화면으로 이동. 내역 id를 담아서 전송

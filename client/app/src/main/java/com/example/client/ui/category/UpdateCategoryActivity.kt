@@ -71,7 +71,6 @@ class UpdateCategoryActivity : AppCompatActivity() {
                     // 같은 이름의 카테고리가 있다는 modal창 띄우기
 
                 }else {
-
                     roomDb.CategoryDao().updateCategoryInfo(
                         categoryId,
                         newName,

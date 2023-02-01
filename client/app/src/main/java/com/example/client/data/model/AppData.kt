@@ -23,11 +23,19 @@ data class List(
     @ColumnInfo(name = "day") val day: String,
     @ColumnInfo(name = "time") val time: String,
     @ColumnInfo(name = "shop") val shop: String,
-    @ColumnInfo(name = "price") val price : Int,
+    @ColumnInfo(name = "price") val price : String,
     @ColumnInfo(name = "memo") val memo : String,
     @ColumnInfo(name="categoryId") val categoryId: Int,
     @ColumnInfo(name="isBudgetIncluded") val isBudgetIncluded : Boolean,
+    @ColumnInfo(name="isKeywordIncluded") val isKeywordIncluded : Boolean = false,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name="listId") val listId : Int = 0,
+)
+@Entity(tableName = "Keyword")
+data class Keyword(
+    @ColumnInfo(name="categoryId") val categoryId: Int,
+    @ColumnInfo(name= "keyword") val keyword: String,
+    @ColumnInfo(name= "isUserCreated") val isUserCreated: Boolean,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name="keywordId") val keywordId: Int = 0,
 )
 
 

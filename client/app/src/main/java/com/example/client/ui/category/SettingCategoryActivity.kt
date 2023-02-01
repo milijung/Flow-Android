@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import com.example.client.data.AppDatabase
+import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
 import com.example.client.data.CategoryViewAdapter
 import com.example.client.databinding.ActivitySettingCategoryBinding
@@ -20,12 +20,13 @@ class SettingCategoryActivity : AppCompatActivity() {
     private lateinit var adapter1 : CategoryViewAdapter
     private lateinit var adapter2 : CategoryViewAdapter
     val roomDb = AppDatabase.getCategoryInstance(this)
+    val listDb = AppDatabase.getListInstance(this)
+    val keywordDb = AppDatabase.getKeywordInstance(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settingCatevityViewBinding = ActivitySettingCategoryBinding.inflate(layoutInflater)
         setContentView(settingCatevityViewBinding.root)
-
 
         if (roomDb != null) {
             // gridview에 뿌릴 지출 카테고리 정보
@@ -70,7 +71,13 @@ class SettingCategoryActivity : AppCompatActivity() {
             val deleteCategory : Category = roomDb!!.CategoryDao().selectById(deleteCategoryId)
 
             if(deleteCategoryId != 0) {
+                // 삭제하려는 카테고리에 소속된 list들 -> 카테고리를 "기타지출"로 변경
+                listDb!!.ListDao().updateListOfDeletedCategory(deleteCategoryId)
+                // 카테고리 삭제
                 roomDb!!.CategoryDao().deleteCategoryById(deleteCategoryId)
+                // 해당 카테고리에 연결된 키워드 삭제
+                keywordDb!!.KeywordDao().deleteByCategoryId(deleteCategoryId)
+                // 카테고리 position 재정렬
                 roomDb!!.CategoryDao().updateCategoryOrder(deleteCategoryId, deleteCategory.typeId)
             }
 
@@ -86,12 +93,6 @@ class SettingCategoryActivity : AppCompatActivity() {
 
 
 
-    }
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        // 화면 빈공간을 누르면 선택 해제
-
-
-        return super.dispatchTouchEvent(ev)
     }
 
     override fun onResume() {

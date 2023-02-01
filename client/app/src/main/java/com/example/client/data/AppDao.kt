@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import java.security.Key
 
 @Dao
 interface CategoryDao {
@@ -66,5 +67,41 @@ interface ListDao {
 
     @Query("UPDATE List SET listId= :listId WHERE isBudgetIncluded = :isBudgetIncluded")
     fun updateIsBudgetIncluded(listId: Int, isBudgetIncluded:Boolean)
+
+    @Query("UPDATE List SET categoryId = 15 WHERE categoryId = :categoryId")
+    fun updateListOfDeletedCategory(categoryId: Int)
+
+    @Query("UPDATE List SET isKeywordIncluded = :isKeywordIncluded WHERE listId = :listId")
+    fun updateIsKeywordIncluded(listId: Int, isKeywordIncluded : Boolean)
+
+}
+@Dao
+interface KeywordDao {
+    @Insert
+    fun insert(keyword: Keyword)
+
+    @Delete
+    fun delete(keyword: Keyword)
+
+    @Query("SELECT * FROM Keyword")
+    fun selectAll() : kotlin.collections.List<Keyword>
+
+    @Query("SELECT * FROM Keyword WHERE categoryId = :categoryId")
+    fun selectByCategoryId(categoryId: Int) : kotlin.collections.List<Keyword>
+
+    @Query("SELECT keyword FROM Keyword join Category using(categoryId) WHERE typeId = :typeId")
+    fun selectByTypeId(typeId: Int) : kotlin.collections.List<String>
+
+    @Query("SELECT * FROM Keyword WHERE keyword = :keyword")
+    fun selectByKeyword(keyword: String) : Keyword
+
+    @Query("DELETE FROM Keyword WHERE categoryId = :categoryId")
+    fun deleteByCategoryId(categoryId: Int)
+
+    @Query("DELETE FROM Keyword WHERE categoryId = :categoryId and keyword = :keyword")
+    fun deleteKeyword(categoryId: Int, keyword: String)
+
+    @Query("UPDATE List SET categoryId=:categoryId WHERE shop like '%'||:keyword||'%'")
+    fun updateListCategoryByKeyword(keyword:String, categoryId: Int)
 
 }
