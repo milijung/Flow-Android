@@ -84,6 +84,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, SettingCategoryActivity::class.java)
             startActivity(intent)
             finish()
-        }
+        } //OnboardingActivity SettingCategoryActivity BottomNavigationActivity
     }
 }
