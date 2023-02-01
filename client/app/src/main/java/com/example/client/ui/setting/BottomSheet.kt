@@ -20,7 +20,6 @@ class BottomSheet : BottomSheetDialogFragment() {
 
         viewBinding = FragmentBottomSheetBinding.inflate(layoutInflater)
 
-c
 
         viewBinding.startdayPicker.minValue = 1
         viewBinding.startdayPicker.maxValue = 31

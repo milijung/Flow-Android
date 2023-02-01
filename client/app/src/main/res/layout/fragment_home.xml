@@ -1,14 +1,411 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.navigation.HomeFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="분석 화면" />
+        tools:context=".ui.navigation.HomeFragment">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--month title-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/left_arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="110dp"
+                android:background="@color/white"
+                android:rotation="180"
+                android:src="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/spoqahansansneo_bold"
+                android:gravity="center_horizontal"
+                android:text="12월"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/right_arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="110dp"
+                android:background="@color/white"
+                android:src="@drawable/ic_right" />
+        </RelativeLayout>
+
+        <!--month text-->
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-83,600원으로 이번달 예산의 \n를 소비했어요!"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="140dp"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/modifyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_title"
+            app:layout_constraintBottom_toTopOf="@+id/stackedBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/modify_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정하기"
+                android:textSize="12dp"
+                android:paddingRight="5dp"
+                android:fontFamily="@font/spoqahansansneo_regular"
+                android:textColor="#3D3D3D"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/modify_arrow"
+                android:clickable="true"/>
+
+            <ImageButton
+                android:id="@+id/modify_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_right"
+                android:background="@color/white"
+                app:tint="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--graph 1-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/stackedBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="259dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/line">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqahansansneo_regular"
+                android:text="예산 대비 지출"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqahansansneo_regular"
+                android:text="12.1~12.17"
+                android:textColor="#5B5B5B"
+                android:textSize="12dp"
+                android:layout_marginBottom="10dp"/>
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/graph_stackedBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"/>
+
+            <!--category1-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/category1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingVertical="2dp">
+
+                <ImageView
+                    android:id="@+id/icon_category1"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:background="@drawable/ic_category_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/red" />
+
+                <TextView
+                    android:id="@+id/text_category1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="27dp"
+                    android:text="식비"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/per_category1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0.55"
+                    android:text="40%"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/won_category1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="30dp"
+                    android:text="-63.600원"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="@color/red"
+                    android:textSize="12dp"
+                    android:clickable="true"/>
+
+                <ImageButton
+                    android:id="@+id/arrow_category1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--category2-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/category2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingVertical="2dp">
+
+                <ImageView
+                    android:id="@+id/icon_category2"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:background="@drawable/ic_category_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="#FF7324" />
+
+                <TextView
+                    android:id="@+id/text_category2"
+                    android:text="교통, 자동차"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="27dp"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/per_category2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0.55"
+                    android:text="20%"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/won_category2"
+                    android:text="-20,000원"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="30dp"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textSize="12dp"
+                    android:clickable="true"/>
+
+                <ImageButton
+                    android:id="@+id/arrow_category2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_right"
+                    android:background="@color/white"
+                    app:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--category3-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/category3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingVertical="2dp">
+
+                <ImageView
+                    android:id="@+id/icon_category3"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:background="@drawable/ic_category_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="#FFC740" />
+
+                <TextView
+                    android:id="@+id/text_category3"
+                    android:text="교통, 자동차"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="27dp"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/per_category3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0.55"
+                    android:text="8%"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/won_category3"
+                    android:text="-800원"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="30dp"
+                    android:fontFamily="@font/spoqahansansneo_regular"
+                    android:textSize="12dp"
+                    android:clickable="true"/>
+
+                <ImageButton
+                    android:id="@+id/arrow_category3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_right"
+                    android:background="@color/white"
+                    app:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#EEEEEE"
+            app:layout_constraintTop_toBottomOf="@id/stackedBar"
+            app:layout_constraintBottom_toTopOf="@id/bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="20dp"/>
+
+        <!--graph 2-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <TextView
+                android:id="@+id/text_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/spoqahansansneo_bold"
+                android:text="저번 달보다 \n원 적게 쓰는 중이에요"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/graph_bar"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="15dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
