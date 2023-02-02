@@ -25,7 +25,7 @@ class RecordAdapter(private val datas:List<RecordData>) :RecyclerView.Adapter<Re
                     false,
                 )
             )
-            ITEM_VIEW_TYPE_EXPENSE-> RecordViewHolder(
+            ITEM_VIEW_TYPE_EXPENSE-> ExpenseViewHolder(
                 ItemRecordBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -51,7 +51,7 @@ class RecordAdapter(private val datas:List<RecordData>) :RecyclerView.Adapter<Re
                 holder.setIsRecyclable(false)
             }
             ITEM_VIEW_TYPE_EXPENSE-> {
-                (holder as RecordViewHolder).bind(datas[position])
+                (holder as ExpenseViewHolder).bind(datas[position])
                 holder.setIsRecyclable(false)
             }
             ITEM_VIEW_TYPE_INCOME-> {
@@ -71,12 +71,12 @@ class RecordAdapter(private val datas:List<RecordData>) :RecyclerView.Adapter<Re
         return datas[position].viewType
     }
 
-    class RecordViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
+    class ExpenseViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(data:RecordData){
             //icon 설정 추가하기
             binding.tvTime.text=data.time
-            binding.tvMoney.text=data.money
-            //binding.icon.setImageResource()
+            binding.tvMoney.text=data.price
+            //binding.icon.setImageResource(data.icon)
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.name
 
@@ -87,7 +87,7 @@ class RecordAdapter(private val datas:List<RecordData>) :RecyclerView.Adapter<Re
         fun bind(data:RecordData){
             //icon 설정 추가하기
             binding.tvTime.text=data.time
-            binding.tvMoney.text=data.money
+            binding.tvMoney.text=data.price
             //binding.icon.setImageResource()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.name
