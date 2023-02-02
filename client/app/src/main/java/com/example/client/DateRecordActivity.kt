@@ -12,34 +12,20 @@ class DateRecordActivity : AppCompatActivity() {
     //스크롤 오류 --> 수정하기
 
     private val data=listOf(
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-
+        RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),RecordData(2,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
     )
 
     private val data2=listOf(
 
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
+        RecordData(1,"","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(1,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(1,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(1,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(1,"17일","배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",),
     )
 
 

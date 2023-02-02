@@ -30,7 +30,7 @@ class DateRecordAdapter(private val datas:List<RecordData>):RecyclerView.Adapter
         fun bind(data:RecordData){
             //icon 설정 추가하기
             binding.tvTime.text=data.time
-            binding.tvMoney.text=data.money
+            binding.tvMoney.text=data.price
             //binding.icon.setImageResource()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.name

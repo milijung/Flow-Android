@@ -12,28 +12,18 @@ class RecordActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityRecordBinding
 
     private val data=listOf(
-        RecordData("","0","0","0","0","17일",0),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("요기요","11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",2),
-        RecordData("","0","0","0","0","16일",0),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("요기요","11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",2),
-        RecordData("","0","0","0","0","15일",0),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("요기요","11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",2),
-        RecordData("","0","0","0","0","14일",0),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("요기요","11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",2),
+        RecordData(0,"17일"),
+        RecordData(1,"","배달의 민족", "11:00","10000원",
+            "철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2, "","배달의 민족", "11:00",
+            "10000원","철수랑 배달","@drawable/ic_category_food",),
+        RecordData(0,"15일"),
+        RecordData(1,"","배달의 민족", "11:00","10000원",
+            "철수랑 배달","@drawable/ic_category_food",),
+        RecordData(2, "","배달의 민족", "11:00",
+            "10000원","철수랑 배달","@drawable/ic_category_food",),
 
-    )
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
