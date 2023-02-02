@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.signup.SignUpFragment4">
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="보다 정확한 지출 흐름을 위해\n입출금 문자를 선택해주세요"
+        android:lineSpacingExtra="7dp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="45dp"/>
+    <TextView
+        android:id="@+id/sub_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="은행별로 입출금 문자를 1개씩 선택해주세요 "
+        android:lineSpacingExtra="7dp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="14dp"
+        android:textColor="@color/gray"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

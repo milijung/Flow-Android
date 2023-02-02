@@ -57,6 +57,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_record.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_setting_category.xml" value="0.6666666666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_setting_letter_add_input.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_sign_up.xml" value="0.2546875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_update_category.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/category_icon.xml" value="1.0" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_big_button.xml" value="0.3" />
@@ -71,6 +72,11 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_onboarding2.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_onboarding3.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_sign_up1.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_sign_up2.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_sign_up4.xml" value="0.22604166666666667" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_signup1.xml" value="0.21875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_signup3.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_date.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_date_record.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_income.xml" value="0.24947916666666667" />

@@ -1,94 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.client" >
-    <!-- 인터넷 사용 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.example.client">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".ui.login.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Client" >
-        <activity
-            android:name=".HomeListActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home_list"
-            android:theme="@style/Theme.Client.NoActionBar" />
+        android:theme="@style/Theme.Client">
+
         <activity
             android:name=".ui.category.SettingCategoryActivity"
             android:exported="false" />
         <activity
-                    android:name=".ui.setting.SettingBankAppChoiceActivity"
+                    android:name=".SettingBankAppChoiceActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".BankAppChoiceActivity"
+            android:name=".SettingLetterAddInputActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.setting.SettingLetterAddInputActivity"
+            android:name=".SettingLetterAddRegistraionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.setting.SettingLetterAddRegistraionActivity"
+            android:name=".SettingBudgetSettingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.setting.SettingBudgetSettingActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".LetterAddRegistraionActivity"
-            android:exported="false"
-            android:label="@string/title_activity_letter_add_registraion"
-            android:theme="@style/Theme.Client.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChangeCategoryActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.category.ChangeCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".DateRecordActivity"
-            android:exported="true" >
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.onboarding.OnboardingActivity"
-            android:exported="true" >
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".RecordActivity"
-            android:exported="true" >
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -104,9 +79,10 @@
         <activity
             android:name=".ui.onboarding.SplashActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -119,20 +95,13 @@
         <activity
             android:name=".ui.board.ListDetailActivity"
             android:exported="false" />
-
-        <!-- kakao login -->
         <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:name=".ui.signup.SignUpActivity"
             android:exported="true" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="oauth"
-                    android:scheme="kakaoa176cb9610d769c4c9ca064705633b70" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
