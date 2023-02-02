@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.client">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,18 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
+
         <activity
             android:name=".ui.category.SettingCategoryActivity"
             android:exported="false" />
         <activity
                     android:name=".SettingBankAppChoiceActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".BankAppChoiceActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -47,18 +43,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".LetterAddRegistraionActivity"
-            android:exported="false"
-            android:label="@string/title_activity_letter_add_registraion"
-            android:theme="@style/Theme.Client.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChangeCategoryActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.category.ChangeCategoryActivity"
             android:exported="false" />
@@ -111,6 +95,15 @@
         <activity
             android:name=".ui.board.ListDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

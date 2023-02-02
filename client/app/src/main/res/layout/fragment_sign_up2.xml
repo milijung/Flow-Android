@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.signup.SignUpFragment2">
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="알림 권한 및\n메세지 인식을 허용해주세요"
+        android:lineSpacingExtra="7dp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="45dp"/>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/signup_notification"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintBottom_toTopOf="@id/method1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="30dp"
+        />
+    <TextView
+        android:id="@+id/method1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/method2"
+        android:text="1. [설정] 열기"
+        android:fontFamily="@font/suit_regular"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="17dp"
+        android:layout_marginStart="30dp"/>
+    <TextView
+        android:id="@+id/method2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/method3"
+        android:text="2. [알림] 선택"
+        android:fontFamily="@font/suit_regular"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="17dp"
+        android:layout_marginStart="30dp"/>
+    <TextView
+        android:id="@+id/method3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="3. [알림 허용] 활성화"
+        android:fontFamily="@font/suit_regular"
+        android:textSize="18dp"
+        android:layout_marginBottom="70dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

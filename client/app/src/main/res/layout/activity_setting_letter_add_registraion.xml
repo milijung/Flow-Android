@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingLetterAddRegistraionActivity"
+    tools:context=".ui.setting.SettingLetterAddRegistraionActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -76,7 +76,7 @@
             android:fontFamily="@font/spoqahansansneo_regular"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="직접 입력하기"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
             android:fontFamily="@font/spoqahansansneo_regular"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="등록하기"
+            android:text=""
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
