@@ -1,4 +1,4 @@
-package com.example.client.data
+package com.example.client.data.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

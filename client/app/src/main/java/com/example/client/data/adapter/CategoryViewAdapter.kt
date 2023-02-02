@@ -1,10 +1,11 @@
-package com.example.client.data
+package com.example.client.data.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.example.client.data.Category
 import com.example.client.databinding.FragmentCategoryIconBinding
 import com.example.client.ui.category.settingCatevityViewBinding
 import kotlin.collections.List

@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import com.example.client.data.AppDatabase
-import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
-import com.example.client.data.CategoryViewAdapter
+import com.example.client.data.adapter.CategoryViewAdapter
 import com.example.client.databinding.ActivitySettingCategoryBinding
 
 lateinit var settingCatevityViewBinding:ActivitySettingCategoryBinding

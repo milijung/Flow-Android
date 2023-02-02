@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.GridView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
-import com.example.client.data.CategoryViewAdapter
+import com.example.client.data.adapter.CategoryViewAdapter
 import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category

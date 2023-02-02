@@ -13,7 +13,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.*
-import com.example.client.data.CalendarAdapter
+import com.example.client.data.adapter.CalendarAdapter
 import com.example.client.data.CalendarService
 import com.example.client.data.model.CalendarData
 import com.example.client.databinding.FragmentCalendarBinding

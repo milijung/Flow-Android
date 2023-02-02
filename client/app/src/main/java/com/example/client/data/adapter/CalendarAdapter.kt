@@ -1,4 +1,4 @@
-package com.example.client.data
+package com.example.client.data.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
