@@ -63,6 +63,8 @@ class SplashActivity : AppCompatActivity() {
         AppDatabase.getListInstance(context)
             ?.ListDao()?.insert(com.example.client.data.List(1,"2023","02","15","02:10","넷플릭스","17,000","",12,true,-1))
         AppDatabase.getListInstance(context)
+            ?.ListDao()?.insert(com.example.client.data.List(2,"2023","02","15","02:10","용돈","20,000","",16,true,-1))
+        AppDatabase.getListInstance(context)
             ?.ListDao()?.insert(com.example.client.data.List(2,"2023","02","10","02:10","정민정","100,000","",16,true,-1))
         AppDatabase.getListInstance(context)
             ?.ListDao()?.insert(com.example.client.data.List(1,"2023","02","18","02:10","송약국","21,000","",11,true,-1))

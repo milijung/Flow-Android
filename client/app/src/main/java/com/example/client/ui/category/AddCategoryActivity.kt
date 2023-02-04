@@ -59,14 +59,14 @@ class AddCategoryActivity : AppCompatActivity() {
             }
             else{
                 // 카테고리 추가 후 뒤로가기
-                val newCategoryOrder : Int = roomDb!!.CategoryDao().selectByTypeId(typeId).size
+                val newCategoryOrder : Int = roomDb!!.CategoryDao().selectAll().filter { category -> category.typeId == typeId }.size
                 roomDb.CategoryDao().insert(Category(viewBinding.addCategoryName.text.toString().trim(),iconImage,typeId,newCategoryOrder,true))
 
                 // 설정 카테고리 화면에서 넘어왔던 경우
                 if(listId == -1){
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)
-
+                    finish()
                 }
                 // 내역의 카테고리 변경 화면에서 넘어왔던 경우
                 else{
@@ -75,6 +75,7 @@ class AddCategoryActivity : AppCompatActivity() {
                     intent.putExtra("typeId",categoryType)
                     intent.putExtra("order",selectedCategoryPosition)
                     startActivity(intent)
+                    finish()
                 }
             }
         }

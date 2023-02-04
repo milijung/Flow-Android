@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.client.data.Category
 import com.example.client.databinding.FragmentCategoryIconBinding
-import com.example.client.ui.category.settingCatevityViewBinding
+import com.example.client.ui.category.settingCategoryViewBinding
 import kotlin.collections.List
 
-class CategoryViewAdapter(context: Context, var CategoryItems:List<Category>, var checkedItemPosition: Int) : BaseAdapter() {
+class CategoryViewAdapter(context: Context, var CategoryItems:ArrayList<Category>, var checkedItemPosition: Int) : BaseAdapter() {
     private lateinit var binding: FragmentCategoryIconBinding
     private val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -36,15 +36,15 @@ class CategoryViewAdapter(context: Context, var CategoryItems:List<Category>, va
             binding.categoryIconButton.setOnFocusChangeListener { v, hasFocus ->
                 if (hasFocus) {
                     if (CategoryItems[position].isUserCreated)
-                        settingCatevityViewBinding.settingCategoryDeleteButton.visibility =
+                        settingCategoryViewBinding.settingCategoryDeleteButton.visibility =
                             View.VISIBLE
                     else
-                        settingCatevityViewBinding.settingCategoryDeleteButton.visibility =
+                        settingCategoryViewBinding.settingCategoryDeleteButton.visibility =
                             View.GONE
-                    settingCatevityViewBinding.settingCategoryModifyButton.visibility = View.VISIBLE
+                    settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.VISIBLE
                 }else{
-                    settingCatevityViewBinding.settingCategoryDeleteButton.visibility = View.GONE
-                    settingCatevityViewBinding.settingCategoryModifyButton.visibility = View.GONE
+                    settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.GONE
+                    settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.GONE
                 }
             }
             // 선택된 카테고리를 한번 더 누르면 선택 해제됨
@@ -56,5 +56,8 @@ class CategoryViewAdapter(context: Context, var CategoryItems:List<Category>, va
             }
         }
         return binding.root;
+    }
+    fun updateCategoryList(categoryList : ArrayList<Category>){
+        CategoryItems = categoryList
     }
 }

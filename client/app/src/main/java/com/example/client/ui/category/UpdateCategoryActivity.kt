@@ -79,6 +79,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
 
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }

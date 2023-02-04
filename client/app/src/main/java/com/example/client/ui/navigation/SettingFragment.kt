@@ -9,6 +9,7 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.example.client.ui.setting.SettingBudgetSettingActivity
 import com.example.client.databinding.FragmentSettingBinding
+import com.example.client.ui.category.SettingCategoryActivity
 import com.example.client.ui.setting.SettingBankAppChoiceActivity
 import com.example.client.ui.setting.SettingLetterAddRegistraionActivity
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -33,6 +34,10 @@ class SettingFragment : Fragment() {
 
         binding.letterAddRegistrationBtn.setOnClickListener(){
             val intent = Intent(activity, SettingLetterAddRegistraionActivity::class.java)
+            startActivity(intent)
+        }
+        binding.incomeExpenseCategoryManagementBtn.setOnClickListener {
+            val intent = Intent(activity, SettingCategoryActivity::class.java)
             startActivity(intent)
         }
 

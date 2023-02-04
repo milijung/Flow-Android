@@ -13,7 +13,7 @@ import com.example.client.data.adapter.ItemDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.FragmentBoardBinding
 
-class BoardFragment : androidx.fragment.app.Fragment(), View.OnClickListener {
+class BoardFragment : androidx.fragment.app.Fragment() {
     private lateinit var viewBinding: FragmentBoardBinding
     private var linearLayoutManager: RecyclerView.LayoutManager? = null
     private lateinit var roomDb : AppDatabase
@@ -59,8 +59,5 @@ class BoardFragment : androidx.fragment.app.Fragment(), View.OnClickListener {
         viewBinding.boardList.adapter= RecordAdapter(bottomNavigationActivity,roomDb.ListDao().selectThisMonth())
     }
 
-    override fun onClick(v: View?) {
-        TODO("Not yet implemented")
-    }
 
 }

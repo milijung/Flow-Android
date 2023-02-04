@@ -78,16 +78,18 @@ class RecordAdapter(context: Context, private val datas:List<com.example.client.
                 context.startActivity(intent)
             }
             // 지출, 수입 tag
+            binding.tag.visibility = View.VISIBLE
             when(data.typeId){
                 1 ->{
-                    binding.tvExpense.text = "지출"
-                    binding.tvExpense.setBackgroundResource(R.drawable.expense_round)
+                    binding.tag.text = "지출"
+                    binding.tag.setBackgroundResource(R.drawable.expense_round)
                 }
                 else ->{
-                    binding.tvExpense.text="수입"
-                    binding.tvExpense.setBackgroundResource(R.drawable.income_round)
+                    binding.tag.text="수입"
+                    binding.tag.setBackgroundResource(R.drawable.income_round)
                 }
             }
+            // 통합내역 표시 highlight
             when(data.integratedId){
                 -1 -> binding.highlight.visibility = View.GONE
                 data.listId -> binding.highlight.visibility = View.VISIBLE

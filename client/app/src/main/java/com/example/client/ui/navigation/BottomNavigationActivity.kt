@@ -3,7 +3,6 @@ package com.example.client.ui.navigation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.client.ui.calendar.DateRecordFragment
 import com.example.client.R
 import com.example.client.databinding.ActivityBottomNavigationBinding
 import com.jakewharton.threetenabp.AndroidThreeTen

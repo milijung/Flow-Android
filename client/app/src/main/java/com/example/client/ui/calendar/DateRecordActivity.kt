@@ -29,24 +29,20 @@ class DateRecordActivity : AppCompatActivity() {
 
         val expenseList : kotlin.collections.List<List> = roomDb!!.ListDao().selectByDate(year, month, day).filter { list: List -> list.typeId==1 }
         val incomeList : kotlin.collections.List<List> = roomDb!!.ListDao().selectByDate(year, month, day).filter { list: List -> list.typeId==2 }
-        var expenseSum : Int = 0
-        var incomeSum : Int = 0
-        for(list : List in expenseList){
-            expenseSum += list.price.replace(",","").toInt()
-            println(list.price.replace(",","").toInt())
-        }
-        for(list : List in incomeList){
-            incomeSum += list.price.replace(",","").toInt()
-        }
+        var expenseSum = expenseList.sumOf { list -> list.price.replace(",","").toInt() }
+        var incomeSum = incomeList.sumOf { list -> list.price.replace(",","").toInt() }
 
-        viewBinding.date.text = month+"월 "+day+"일"
+        val decoration = ItemDecoration(20)
+        viewBinding.lvExpense.addItemDecoration(decoration)
+        viewBinding.lvIncome.addItemDecoration(decoration)
+        viewBinding.lvIncome.layoutManager=LinearLayoutManager(this)
+
+        viewBinding.date.text = "$month"+"월 $day"+"일"
         viewBinding.priceExpense.text = "-$expenseSum"
-        viewBinding.backButton.setOnClickListener {
-            super.onBackPressed()
-        }
         when(expenseList.size){
             0 -> {
-
+                viewBinding.tvExpense.visibility = View.GONE
+                viewBinding.priceExpense.visibility = View.GONE
             }
             else -> {
                 viewBinding.tvExpense.visibility = View.VISIBLE
@@ -67,9 +63,9 @@ class DateRecordActivity : AppCompatActivity() {
                 viewBinding.lvIncome.adapter= DateRecordAdapter(this,incomeList)
             }
         }
-        val decoration = ItemDecoration(20)
-        viewBinding.lvExpense.addItemDecoration(decoration)
-        viewBinding.lvIncome.addItemDecoration(decoration)
-        viewBinding.lvIncome.layoutManager=LinearLayoutManager(this)
+        // 뒤로가기
+        viewBinding.backButton.setOnClickListener {
+            super.onBackPressed()
+        }
     }
 }

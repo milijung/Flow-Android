@@ -17,7 +17,8 @@ import kotlin.collections.List
 
 class ChangeCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityChangeCategoryBinding
-    private lateinit var categoryList : List<Category>
+    private lateinit var categoryList : ArrayList<Category>
+    private lateinit var searchCategoryList : ArrayList<Category>
     private lateinit var adapter: CategoryViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,41 +34,37 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val roomDb = AppDatabase.getCategoryInstance(this)
         val keywordDb = AppDatabase.getKeywordInstance(this)
 
-        if(roomDb != null){
-            categoryList = roomDb.CategoryDao().selectByTypeId(categoryType)
-            adapter = CategoryViewAdapter(this, categoryList, selectedCategoryPosition)
-            viewBinding.changeCategoryList.adapter = adapter
-            viewBinding.changeCategoryList.choiceMode = GridView.CHOICE_MODE_SINGLE
-            // 완료하기 버튼 클릭
-            viewBinding.changeCategoryButton.setOnClickListener(){
-                // 내역의 카테고리 변경
-                val listDb = AppDatabase.getListInstance(this)
-                val selectedCategoryId = roomDb.CategoryDao().selectByName((viewBinding.changeCategoryList.focusedChild as AppCompatButton).text.toString())
-                val prevCategoryId = listDb!!.ListDao().selectById(listId).categoryId
-                val isKeyword : Keyword = keywordDb!!.KeywordDao().selectByKeyword(listDb!!.ListDao().selectById(listId).shop)
-                if((isKeyword != null)  ){
-                    // 키워드 삭제
-                    if(isKeyword.isUserCreated){
-                        keywordDb.KeywordDao().deleteKeyword(prevCategoryId,listDb!!.ListDao().selectById(listId).shop)
-                        listDb.ListDao().updateIsKeywordIncluded(listId, false)
-                    }
+        categoryList = roomDb!!.CategoryDao().selectAll().filter { category -> category.typeId==categoryType } as ArrayList<Category>
+        adapter = CategoryViewAdapter(this, categoryList, selectedCategoryPosition)
+        viewBinding.changeCategoryList.adapter = adapter
+        viewBinding.changeCategoryButton.text = getText(R.string.finish_button)
+
+        // 완료하기 버튼 클릭
+        viewBinding.changeCategoryButton.setOnClickListener(){
+            // 내역의 카테고리 변경
+            val listDb = AppDatabase.getListInstance(this)
+            val selectedCategoryId = roomDb.CategoryDao().selectByName((viewBinding.changeCategoryList.focusedChild as AppCompatButton).text.toString())
+            val prevCategoryId = listDb!!.ListDao().selectById(listId).categoryId
+            val isKeyword : Keyword = keywordDb!!.KeywordDao().selectByKeyword(listDb!!.ListDao().selectById(listId).shop)
+            if((isKeyword != null)  ){
+                // 키워드 삭제
+                if(isKeyword.isUserCreated){
+                    keywordDb.KeywordDao().deleteKeyword(prevCategoryId,listDb!!.ListDao().selectById(listId).shop)
+                    listDb.ListDao().updateIsKeywordIncluded(listId, false)
                 }
-                listDb!!.ListDao().updateCategory(listId,selectedCategoryId)
-
-                // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
-                val intent = Intent(this, ListDetailActivity::class.java)
-                intent.putExtra("listId",listId)
-                startActivity(intent)
             }
-            viewBinding.changeCategoryButton.text = getText(R.string.finish_button)
+            listDb!!.ListDao().updateCategory(listId,selectedCategoryId)
 
-        }
-        // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
-        viewBinding.changeCategoryBackButton.setOnClickListener(){
+            // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
             val intent = Intent(this, ListDetailActivity::class.java)
             intent.putExtra("listId",listId)
             startActivity(intent)
+            finish()
+        }
 
+        // 내역 상세 화면으로 이동
+        viewBinding.changeCategoryBackButton.setOnClickListener(){
+            super.onBackPressed()
         }
         // 카테고리 추가 화면으로 이동
         viewBinding.changeCategoryAddButton.setOnClickListener(){
@@ -85,8 +82,9 @@ class ChangeCategoryActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (roomDb != null) {
-                    categoryList = roomDb.CategoryDao().searchCategory(newText.toString())
-                    adapter = CategoryViewAdapter(this@ChangeCategoryActivity, categoryList, selectedCategoryPosition)
+                    searchCategoryList =
+                        categoryList.filter { category -> category.name.contains(newText.toString().trim()) } as ArrayList<Category>
+                    adapter.updateCategoryList(searchCategoryList)
                     viewBinding.changeCategoryList.adapter = adapter
                 }
                 return true

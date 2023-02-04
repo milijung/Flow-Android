@@ -35,6 +35,9 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     lateinit var selectedDate: LocalDate
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
 
+    var monthFormatter= DateTimeFormatter.ofPattern("MM")
+    var dayFormatter= DateTimeFormatter.ofPattern("dd")
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomNavigationActivity = context as BottomNavigationActivity
@@ -68,7 +71,7 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     //날짜 화면에 보여주기
     private fun setMonthView() {
         //월 텍스트뷰 셋팅
-        viewBinding.calendarMonth.text=yearMonthFromDate(selectedDate)
+        viewBinding.calendarMonth.text=selectedDate.format(monthFormatter)+"월"
         //날짜 생성해서 리스트에 담기
         val dayList=dayInMonthArray(selectedDate)
         //어댑터 초기화
@@ -81,12 +84,6 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
         viewBinding.calendarRv.adapter=adapter
     }
 
-    //날짜 타입 설정(월)
-    private fun yearMonthFromDate(date:LocalDate):String{
-        var formatter= DateTimeFormatter.ofPattern("MM월")
-        //받아온 날짜를 해당 포맷으로 변경
-        return date.format(formatter)
-    }
 
     //날짜 설정 / 어뎁터에 날짜, 지출, 수입 리스트 넘겨주기
     private fun dayInMonthArray(date:LocalDate):ArrayList<CalendarData>{
@@ -191,17 +188,17 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
 
     //아이템 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동
     override fun onItemClick(data: CalendarData) {
-
         //해당 연,월,일 값을 fragment로 넘겨주기
         var year=selectedDate.year.toString()
-        var month=selectedDate.monthValue.toString()
-        var day=data.day
+        var month=selectedDate.format(monthFormatter)
+        var day="0"+data.day
+
 
         //해당 날짜 내역 화면으로 이동
         val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
         intent.putExtra("year",year)
         intent.putExtra("month",month)
-        intent.putExtra("day",day)
+        intent.putExtra("day",day.substring(day.length -2,day.length))
         startActivity(intent)
     }
 }
