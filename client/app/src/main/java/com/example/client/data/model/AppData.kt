@@ -27,6 +27,7 @@ data class List(
     @ColumnInfo(name = "memo") val memo : String,
     @ColumnInfo(name="categoryId") val categoryId: Int,
     @ColumnInfo(name="isBudgetIncluded") val isBudgetIncluded : Boolean,
+    @ColumnInfo(name="integratedId") val integratedId : Int,
     @ColumnInfo(name="isKeywordIncluded") val isKeywordIncluded : Boolean = false,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name="listId") val listId : Int = 0,
 )

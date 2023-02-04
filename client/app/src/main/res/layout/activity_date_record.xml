@@ -10,9 +10,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DateRecordActivity">
+        tools:context=".ui.calendar.DateRecordActivity">
 
         <ImageButton
+            android:id="@+id/back_button"
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_marginStart="21dp"
@@ -22,6 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
+            android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -51,11 +53,12 @@
             android:background="@drawable/expense_round"/>
 
         <TextView
+            android:id="@+id/price_expense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="0dp"
-            android:text="-69,000"
+            android:text="0"
             android:textSize="12sp"
             android:textColor="#E73A40"
             android:fontFamily="@font/spoqahansansneo_regular"
@@ -95,11 +98,12 @@
             android:background="@drawable/income_round"/>
 
         <TextView
+            android:id="@+id/price_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="0dp"
-            android:text="+42,500"
+            android:text="0"
             android:textSize="12sp"
             android:textColor="#28A9DC"
             android:fontFamily="@font/spoqahansansneo_regular"

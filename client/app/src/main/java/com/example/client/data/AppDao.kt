@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import java.security.Key
+import java.time.Month
 
 @Dao
 interface CategoryDao {
@@ -50,14 +51,17 @@ interface ListDao {
     @Delete
     fun delete(list: List)
 
-    @Query("SELECT * FROM List")
+    @Query("SELECT * FROM List ORDER BY year DESC, month DESC, day DESC")
     fun selectAll() : kotlin.collections.List<List>
 
-    @Query("SELECT * FROM List WHERE year = strftime('%Y','now') and month = strftime('%m','now')")
+    @Query("SELECT * FROM List WHERE year = strftime('%Y','now') and month = strftime('%m','now') ORDER BY day DESC")
     fun selectThisMonth(): kotlin.collections.List<List>
 
     @Query("SELECT * FROM List WHERE listId = :listId")
     fun selectById(listId: Int) : List
+
+    @Query("SELECT * FROM List WHERE year = :year and month = :month and day = :day")
+    fun selectByDate(year: String, month: String, day: String) : kotlin.collections.List<List>
 
     @Query("UPDATE List SET memo = :memo WHERE listId= :listId")
     fun updateMemo(listId: Int, memo:String)
@@ -65,7 +69,7 @@ interface ListDao {
     @Query("UPDATE List SET categoryId= :categoryId WHERE listId= :listId")
     fun updateCategory(listId: Int, categoryId:Int)
 
-    @Query("UPDATE List SET listId= :listId WHERE isBudgetIncluded = :isBudgetIncluded")
+    @Query("UPDATE List SET isBudgetIncluded = :isBudgetIncluded WHERE listId= :listId")
     fun updateIsBudgetIncluded(listId: Int, isBudgetIncluded:Boolean)
 
     @Query("UPDATE List SET categoryId = 15 WHERE categoryId = :categoryId")

@@ -1,7 +1,8 @@
-package com.example.client
+package com.example.client.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.client.R
 
 class HomeListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

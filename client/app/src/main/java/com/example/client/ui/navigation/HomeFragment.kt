@@ -1,23 +1,20 @@
 package com.example.client.ui.navigation
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.example.client.HomeListActivity
+import com.example.client.ui.home.HomeListActivity
 import com.example.client.R
-import com.example.client.data.AppDatabase
 import com.example.client.data.Category
 import com.example.client.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -30,6 +27,12 @@ class HomeFragment : Fragment() {
     private lateinit var viewBinding: FragmentHomeBinding
     private lateinit var listItem: com.example.client.data.List
     private lateinit var selectedCategory: Category
+    private lateinit var bottomNavigationActivity : BottomNavigationActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        bottomNavigationActivity = context as BottomNavigationActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,16 +40,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentHomeBinding.inflate(layoutInflater)
+
+        viewBinding.modifyBtn.setOnClickListener{
+            val intent = Intent(bottomNavigationActivity, HomeListActivity::class.java)
+            startActivity(intent)
+        }
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        modifyBtn.setOnClickListener({
-//            val intent = Intent(this, HomeListActivity::class.java)
-//            startActivity(intent)
-//        })
 
         var barChart = view.findViewById<BarChart>(R.id.graph_bar)
         val entries = ArrayList<BarEntry>()
@@ -102,8 +105,8 @@ class HomeFragment : Fragment() {
             legend.isEnabled = false //차트 범례 설정
         }
 
-        var set = BarDataSet(entries,"DataSet") // 데이터셋 초기화
-        set.color = ContextCompat.getColor(applicationContext!!,R.color.red) // 바 그래프 색 설정
+        var set  = BarDataSet(entries,"DataSet") // 데이터셋 초기화
+        set.color = ContextCompat.getColor(applicationContext,R.color.red) // 바 그래프 색 설정
 
         val dataSet :ArrayList<IBarDataSet> = ArrayList()
         dataSet.add(set)
@@ -132,9 +135,9 @@ class HomeFragment : Fragment() {
 
         val set = BarDataSet(entries, "")
         set.colors = mutableListOf(
-            ContextCompat.getColor(applicationContext!!,R.color.red),
-            ContextCompat.getColor(applicationContext!!,R.color.orange),
-            ContextCompat.getColor(applicationContext!!,R.color.yellow),
+            ContextCompat.getColor(applicationContext,R.color.red),
+            ContextCompat.getColor(applicationContext,R.color.orange),
+            ContextCompat.getColor(applicationContext,R.color.yellow),
         )
         val data = BarData(set)
         data.setDrawValues(false)

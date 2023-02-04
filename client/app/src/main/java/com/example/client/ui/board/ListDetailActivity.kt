@@ -10,6 +10,8 @@ import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
 import com.example.client.data.Keyword
 import com.example.client.databinding.ActivityListDetailBinding
+import com.example.client.ui.navigation.BottomNavigationActivity
+import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class ListDetailActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityListDetailBinding
@@ -35,7 +37,6 @@ class ListDetailActivity : AppCompatActivity() {
             selectedCategory = categoryDb.CategoryDao().selectById(listItem.categoryId)
         }// 넘겨받은 내역의 카테고리 Data
 
-
         // 넘겨받은 내역의 Data를 화면에 표시
         viewBinding.listDetailButton.text = getText(R.string.finish_button)
         viewBinding.listDetailMemoContent.setText(listItem.memo)
@@ -45,7 +46,7 @@ class ListDetailActivity : AppCompatActivity() {
         viewBinding.listDetailCategoryNameButton.text = selectedCategory.name
         viewBinding.listDetailBubble.text = listItem.shop+" 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
         viewBinding.listDetailSwitch1.isChecked = listItem.isBudgetIncluded
-        viewBinding.listDetailQuestion2.isChecked = listItem.isKeywordIncluded
+        viewBinding.listDetailSwitch2.isChecked = listItem.isKeywordIncluded
 
         viewBinding.listDetailBackButton.setOnClickListener(){
             // 내용이 변경되지 않는다는 modal창 추가
@@ -66,8 +67,8 @@ class ListDetailActivity : AppCompatActivity() {
             if (listDb != null) {
                 listDb.ListDao().updateMemo(listId,viewBinding.listDetailMemoContent.text.toString())
                 listDb.ListDao().updateIsBudgetIncluded(listId, viewBinding.listDetailSwitch1.isChecked)
-                listDb.ListDao().updateIsBudgetIncluded(listId,viewBinding.listDetailQuestion2.isChecked)
-                when(viewBinding.listDetailQuestion2.isChecked){
+                listDb.ListDao().updateIsBudgetIncluded(listId,viewBinding.listDetailSwitch2.isChecked)
+                when(viewBinding.listDetailSwitch2.isChecked){
                     true -> {
                         keywordDb!!.KeywordDao().insert(Keyword(listItem.categoryId,listItem.shop,true))
                         keywordDb!!.KeywordDao().updateListCategoryByKeyword(listItem.shop, listItem.categoryId)
@@ -79,7 +80,10 @@ class ListDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-
+            // Board 화면으로 이동
+            val intent = Intent(this, BottomNavigationActivity::class.java)
+            intent.putExtra("pageId",1)
+            startActivity(intent)
         }
     }
 }

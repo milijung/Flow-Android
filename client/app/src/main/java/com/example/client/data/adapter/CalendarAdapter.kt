@@ -56,8 +56,6 @@ class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
             holder.dayText.setBackgroundResource(R.drawable.calendar_circle)
         }
 
-
-
         //텍스트 색상 지정(일-빨강)
         if( position==0||position%7==0){
             holder.dayText.setTextColor(Color.parseColor("#F10000"))

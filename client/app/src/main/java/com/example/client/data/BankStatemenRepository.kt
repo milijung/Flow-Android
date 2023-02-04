@@ -31,7 +31,7 @@ class BankStatementRepository(context: Context) {
 
     fun getListInfo(statement: String): com.example.client.data.List {
         ExtractlistContent(statement)
-        return List(type, year, month, day, hour + ":" + min, shop, price, "", categoryId, true)
+        return List(type, year, month, day, hour + ":" + min, shop, price, "", categoryId, true, -1 )
     }
 
     // 앱 처음 실행 시 초기 keyword값 삽입

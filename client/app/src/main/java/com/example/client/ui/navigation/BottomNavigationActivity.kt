@@ -1,25 +1,25 @@
 package com.example.client.ui.navigation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.client.DateRecordFragment
+import com.example.client.ui.calendar.DateRecordFragment
 import com.example.client.R
 import com.example.client.databinding.ActivityBottomNavigationBinding
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlin.properties.Delegates
 
 class BottomNavigationActivity : AppCompatActivity() {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
         ActivityBottomNavigationBinding.inflate(layoutInflater)
     }
+    private var pageId by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val intent : Intent = intent
+        pageId = intent.getIntExtra("pageId",0)
         AndroidThreeTen.init(this)
         setContentView(viewBinding.root)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(viewBinding.navContainer.id, HomeFragment())
-            .commitAllowingStateLoss()
 
         // run을 쓰면 연결된 요소에 코드를 바로 작성 가능
         viewBinding.bottomNav.run{
@@ -58,22 +58,16 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        changeFragment(pageId)
+    }
     fun changeFragment(index: Int){
         when(index){
-            1 -> {
-                supportFragmentManager.
-                beginTransaction()
-                    .replace(viewBinding.navContainer.id, CalendarFragment())
-                    .commit()
-            }
-            2 -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(viewBinding.navContainer.id, DateRecordFragment())
-                    .commit()
-
-
-            }
+            0 -> viewBinding.bottomNav.selectedItemId = R.id.menu_home
+            1 -> viewBinding.bottomNav.selectedItemId = R.id.menu_board
+            2 -> viewBinding.bottomNav.selectedItemId = R.id.menu_calendar
+            3 -> viewBinding.bottomNav.selectedItemId = R.id.menu_setting
         }
     }
 }

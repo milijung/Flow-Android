@@ -300,7 +300,7 @@
                 android:fontFamily="@font/suit_bold"
                 android:textColor="@color/black"/>
             <Switch
-                android:id="@+id/listDetail_question2"
+                android:id="@+id/listDetail_switch2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"

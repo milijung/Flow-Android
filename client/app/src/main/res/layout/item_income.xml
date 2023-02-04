@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_record"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    android:background="@drawable/item_round">
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="17일"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="14dp"
+        android:textColor="#5A5A5A"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="7dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/day"
+        android:paddingBottom="20dp"
+        android:background="@drawable/item_round">
 
     <TextView
         android:id="@+id/tv_expense"
@@ -40,6 +58,7 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_category_food"
+        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,4 +115,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

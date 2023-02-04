@@ -1,53 +1,30 @@
-package com.example.client
+package com.example.client.ui.calendar
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.client.data.adapter.ItemDecoration
+import com.example.client.data.AppDatabase
+import com.example.client.data.adapter.DateRecordAdapter
 import com.example.client.databinding.FragmentDateRecordBinding
 import com.example.client.ui.navigation.BottomNavigationActivity
 
 
 class DateRecordFragment : Fragment() {
 
-
-    private val data=listOf(
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-
-        )
-
-    private val data2=listOf(
-
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-        RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),RecordData("배달의 민족", "11:00","10000원","철수랑 배달","@drawable/ic_category_food",
-            "17일",1),
-    )
-
     private lateinit var viewBinding:FragmentDateRecordBinding
+    private lateinit var dateRecordActivity : DateRecordActivity
+    private val roomDb = AppDatabase.getListInstance(dateRecordActivity)
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dateRecordActivity = context as DateRecordActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,10 +53,14 @@ class DateRecordFragment : Fragment() {
 
 
         viewBinding.lvExpense.layoutManager= LinearLayoutManager(activity)
-        viewBinding.lvExpense.adapter=DateRecordAdapter(data)
+        if (roomDb != null) {
+            viewBinding.lvExpense.adapter= DateRecordAdapter(dateRecordActivity,roomDb.ListDao().selectThisMonth())
+        }
 
         viewBinding.lvIncome.layoutManager= LinearLayoutManager(activity)
-        viewBinding.lvIncome.adapter=DateRecordAdapter(data2)
+        if (roomDb != null) {
+            viewBinding.lvIncome.adapter= DateRecordAdapter(dateRecordActivity,roomDb.ListDao().selectThisMonth())
+        }
 
         val decoration = ItemDecoration(20)
         viewBinding.lvExpense.addItemDecoration(decoration)

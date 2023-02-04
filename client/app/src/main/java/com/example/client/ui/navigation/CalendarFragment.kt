@@ -2,14 +2,14 @@ package com.example.client.ui.navigation
 
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.*
@@ -17,6 +17,7 @@ import com.example.client.data.adapter.CalendarAdapter
 import com.example.client.data.CalendarService
 import com.example.client.data.model.CalendarData
 import com.example.client.databinding.FragmentCalendarBinding
+import com.example.client.ui.calendar.DateRecordActivity
 import com.example.client.ui.calendar.OnCalendarItemListener
 
 import org.threeten.bp.LocalDate
@@ -31,9 +32,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CalendarFragment : Fragment(), OnCalendarItemListener {
     private lateinit var viewBinding: FragmentCalendarBinding
-
     lateinit var selectedDate: LocalDate
+    private lateinit var bottomNavigationActivity : BottomNavigationActivity
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        bottomNavigationActivity = context as BottomNavigationActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,51 +46,37 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentCalendarBinding.inflate(layoutInflater)
-
-
-
         //현재 날짜
         selectedDate=LocalDate.now()
-
         //화면 설정
         setMonthView()
-
         //저번달 버튼 이벤트
         viewBinding.calendarPreBtn.setOnClickListener {
             selectedDate=selectedDate.minusMonths(1)
             //새롭게 화면 설정
             setMonthView()
         }
-
         //다음달 버튼 이벤트
         viewBinding.calendarNextBtn.setOnClickListener {
             selectedDate=selectedDate.plusMonths(1)
             //새롭게 화면 설정
             setMonthView()
         }
-
         return viewBinding.root
-
     }
 
     //날짜 화면에 보여주기
     private fun setMonthView() {
         //월 텍스트뷰 셋팅
         viewBinding.calendarMonth.text=yearMonthFromDate(selectedDate)
-
-
         //날짜 생성해서 리스트에 담기
         val dayList=dayInMonthArray(selectedDate)
-
         //어댑터 초기화
         val adapter = CalendarAdapter(dayList,this,selectedDate)
-
         //레이아웃 설정(열 7개)
         var manager: RecyclerView.LayoutManager=GridLayoutManager(activity, 7)
-
         //레이아웃 적용
         viewBinding.calendarRv.layoutManager=manager
-
         //어뎁터 적용
         viewBinding.calendarRv.adapter=adapter
     }
@@ -93,7 +84,6 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     //날짜 타입 설정(월)
     private fun yearMonthFromDate(date:LocalDate):String{
         var formatter= DateTimeFormatter.ofPattern("MM월")
-
         //받아온 날짜를 해당 포맷으로 변경
         return date.format(formatter)
     }
@@ -153,9 +143,6 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                     }
                     dayList.add(CalendarData((i-dayOfweek).toString(), expense,income))
             }
-
-
-
             }
         }
         return dayList
@@ -172,9 +159,7 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-
             }
-
             return instance!!
         }
     }
@@ -183,7 +168,6 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     private fun requestAPI(year:Int, month:Int): ArrayList<CalendarServerDataResult>? {
 
         val service: CalendarService =CalendarObject.getInstance().create(CalendarService::class.java)
-
         val call = service.getAmount(year,month)
         var list :ArrayList<CalendarServerDataResult>?=null
 
@@ -201,40 +185,23 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                 Log.w("Retrofit", "Error!", t)
             }
         })
-
         return list
-
 
     }
 
-
     //아이템 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동
     override fun onItemClick(data: CalendarData) {
-        //var yearMonthDay=yearMonthFromDate(selectedDate)+ " "+data.day+ "일"
-        //Toast.makeText(context,yearMonthDay,Toast.LENGTH_SHORT).show()
 
         //해당 연,월,일 값을 fragment로 넘겨주기
         var year=selectedDate.year.toString()
         var month=selectedDate.monthValue.toString()
         var day=data.day
-        var monthDay=month+"월 "+day+"일"
 
-
-        setFragmentResult("calendar", bundleOf("monthDay" to monthDay, "year" to year,"month" to month,
-        "day" to day))
-
-
-/*
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_container, DateRecordFragment())
-            .commit()
-
-
- */
         //해당 날짜 내역 화면으로 이동
-
-        val calendarActivity=activity as BottomNavigationActivity
-        calendarActivity.changeFragment(2)
-
+        val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
+        intent.putExtra("year",year)
+        intent.putExtra("month",month)
+        intent.putExtra("day",day)
+        startActivity(intent)
     }
 }

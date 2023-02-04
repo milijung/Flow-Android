@@ -23,6 +23,7 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_category_food"
+        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

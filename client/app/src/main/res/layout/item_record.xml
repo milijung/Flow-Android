@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_record"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="17일"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="13dp"
+        android:textColor="#515050"
+        android:layout_marginTop="12dp"
+        android:paddingBottom="5dp"/>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/day"
     android:paddingBottom="20dp"
     android:background="@drawable/item_round">
-
     <TextView
         android:id="@+id/tv_expense"
         android:layout_width="22dp"
@@ -16,19 +33,17 @@
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="8sp"
+        android:textSize="8dp"
         android:textAlignment="center"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:fontFamily="@font/spoqahansansneo_regular"
         android:background="@drawable/expense_round"/>
-        <!-- 수입 : @drawable/income/round-->
-
     <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/black_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +55,7 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/ic_category_food"
+        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="73dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:text="(주)우아한형제들"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -68,7 +84,7 @@
         android:textSize="12sp"
         android:fontFamily="@font/spoqahansansneo_regular"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tv_memo"
@@ -81,19 +97,48 @@
         android:textSize="12sp"
         android:fontFamily="@font/spoqahansansneo_regular"
         app:layout_constraintStart_toEndOf="@+id/tv_time"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_money"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="26dp"
-        android:text="11,650원"
-        android:textColor="#0A0707"
-        android:textSize="16sp"
-        android:fontFamily="@font/spoqahansansneo_bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="20dp">
+        <View
+            android:id="@+id/highlight"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/yellow"/>
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11,650"
+            android:paddingLeft="3dp"
+            android:layout_marginBottom="-2dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            app:layout_constraintEnd_toStartOf="@id/unit"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            android:paddingRight="1dp"
+            android:paddingLeft="2dp"
+            android:layout_marginBottom="-2dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

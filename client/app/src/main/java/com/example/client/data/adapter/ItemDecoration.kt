@@ -1,4 +1,4 @@
-package com.example.client
+package com.example.client.data.adapter
 
 import android.graphics.Rect
 import android.view.View

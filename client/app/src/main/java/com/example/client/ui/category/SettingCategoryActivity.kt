@@ -89,9 +89,6 @@ class SettingCategoryActivity : AppCompatActivity() {
             intent.putExtra("categoryId",roomDb!!.CategoryDao().selectByName((currentFocus as AppCompatButton).text.toString()))
             startActivity((intent))
         }
-
-
-
     }
 
     override fun onResume() {

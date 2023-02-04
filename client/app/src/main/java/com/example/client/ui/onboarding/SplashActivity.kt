@@ -57,8 +57,17 @@ class SplashActivity : AppCompatActivity() {
         AppDatabase.getCategoryInstance(context)
             ?.CategoryDao()?.insert(Category("수입", R.drawable.ic_category_income,2,0,false,16))
         AppDatabase.getListInstance(context)
-            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","01","15","03:47","(주)우아한형제들","10,000","",1,true))
+            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","01","15","03:47","(주)우아한형제들","10,000","",1,true,-1))
+        AppDatabase.getListInstance(context)
+            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","02","15","03:47","화라라","8,000","",1,true,-1))
+        AppDatabase.getListInstance(context)
+            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","02","15","02:10","넷플릭스","17,000","",12,true,-1))
+        AppDatabase.getListInstance(context)
+            ?.ListDao()?.insert(com.example.client.data.List(2,"2023","02","10","02:10","정민정","100,000","",16,true,-1))
+        AppDatabase.getListInstance(context)
+            ?.ListDao()?.insert(com.example.client.data.List(1,"2023","02","18","02:10","송약국","21,000","",11,true,-1))
         bankStatementRepository.initCategoryKeywordList()
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
