@@ -9,20 +9,36 @@ import android.view.ViewGroup
 import com.example.client.databinding.FragmentSignUp1Binding
 
 
-class SignUpFragment1 : Fragment() {
+class SignUpFragment1 : Fragment(){
     private lateinit var viewBinding: FragmentSignUp1Binding
-    private lateinit var signUpActivity: SignUpActivity
-
+    private var setPageMover : SetPageMover? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        signUpActivity = context as SignUpActivity
+        if(context is SetPageMover){
+            setPageMover = context
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding= FragmentSignUp1Binding.inflate(layoutInflater)
+        viewBinding= FragmentSignUp1Binding.inflate(inflater,container,false)
+        // 카카오 로그인
+        viewBinding.signupKakao.setOnClickListener {
+            setPageMover?.goNextFragment()
+        }
+        // 네이버 로그인
+        viewBinding.signupNaver.setOnClickListener {
+            setPageMover?.goNextFragment()
+        }
+        // 구글 로그인
+        viewBinding.signupGoogle.setOnClickListener {
+            setPageMover?.goNextFragment()
+        }
         return viewBinding.root
+    }
+    interface SetPageMover{
+        fun goNextFragment()
     }
 }

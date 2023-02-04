@@ -30,7 +30,7 @@ class BoardFragment : androidx.fragment.app.Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentBoardBinding.inflate(layoutInflater)
+        viewBinding = FragmentBoardBinding.inflate(inflater, container, false)
         linearLayoutManager=LinearLayoutManager(bottomNavigationActivity)
         viewBinding.boardList.layoutManager= LinearLayoutManager(bottomNavigationActivity)
 

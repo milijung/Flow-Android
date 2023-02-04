@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentHomeBinding.inflate(layoutInflater)
+        viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
         viewBinding.modifyBtn.setOnClickListener{
             val intent = Intent(bottomNavigationActivity, HomeListActivity::class.java)

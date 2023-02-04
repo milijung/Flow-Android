@@ -3,101 +3,141 @@ package com.example.client.ui.signup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.SeekBar
-import androidx.viewpager2.widget.ViewPager2
-import com.example.client.data.adapter.OnboardingAdapter
+import com.example.client.R
 import com.example.client.data.adapter.SignUpAdapter
 import com.example.client.databinding.ActivitySignUpBinding
-import com.example.client.ui.login.LoginActivity
 import com.example.client.ui.navigation.BottomNavigationActivity
-import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.properties.Delegates
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
     private lateinit var viewBinding: ActivitySignUpBinding
+    private var pageIndex by Delegates.notNull<Int>()
+    private val buttonTextElement : List<Int> = listOf(
+        R.string.go_to_setting,
+        R.string.next_button,
+        R.string.next_button,
+        R.string.next_button,
+        R.string.finish_signup_button,
+    )
+    private val button1Element : List<Boolean> = listOf(
+        false,
+        true,
+        true,
+        false,
+        false
+    )
+    private val passButtonElement : List<Boolean> = listOf(
+        true,
+        true,
+        true,
+        false,
+        false
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        /*
-        supportFragmentManager
-            .beginTransaction()
-            .replace(viewBinding.signupFragment.id, SignUpFragment2())
-            .commitAllowingStateLoss()
-
-         */
-
-
-
         val vpAdapter = SignUpAdapter(supportFragmentManager, lifecycle)
-        var pageIndex = viewBinding.signupFragment.currentItem
+        pageIndex = viewBinding.signupFragment.currentItem
         viewBinding.signupFragment.adapter = vpAdapter
-        viewBinding.seekBar.isEnabled = false //seekBar를 사용자가 못 움직이게 하기
 
-
-        // 페이지 이동(스와이프)
-        viewBinding.signupFragment.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                pageIndex = position
-                viewBinding.seekBar.progress = pageIndex + 1 //상단바 움직이게 함
-            }
-        })
-
+        // 스와이프 이벤트 제거
+        viewBinding.seekBar.isEnabled = false
+        viewBinding.signupFragment.run{
+            isUserInputEnabled = false
+        }
 
         // 페이지 이동(버튼)
         viewBinding.signupButton2.setOnClickListener() {
-            pageIndex = viewBinding.signupFragment.currentItem
-            //viewBinding.signupButton2.text = getText(buttonTextElement[pageIndex])
             when (pageIndex) {
-                4 -> goBottomNavigationActivity()
-                else -> viewBinding.signupFragment.setCurrentItem(pageIndex + 1, true)
+                5 -> goBottomNavigationActivity()
+                else -> goNextFragment()
             }
         }
+        viewBinding.signupButton1.setOnClickListener {
+            goNextFragment()
+        }
 
+        // 건너뛰기
+        viewBinding.signupPassButton.setOnClickListener {
+            goNextFragment()
+        }
 
+        // 뒤로가기
+        viewBinding.signupBackButton.setOnClickListener {
+            goPreviousFragment()
+        }
         //상단바 숫자 바꾸기, 움직이기
         viewBinding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener
         {
             override fun onProgressChanged(seekBar: SeekBar?, p1: Int, p2: Boolean) {
-
                 val value = seekBar?.progress
-                viewBinding.stepNumber.text = "$value"
-                if(value!=0 && value!=5) {
-                    viewBinding.stepNumber.visibility=View.VISIBLE
-
-                    val cur = seekBar!!.width/seekBar.max
-
-                    viewBinding.stepNumber.x = (cur * value!!).toFloat()-20
+                viewBinding.stepNumber.text = value.toString()
+                when(value){
+                    0,5 ->viewBinding.stepNumber.visibility=View.GONE
+                    else ->{
+                        viewBinding.stepNumber.visibility=View.VISIBLE
+                        val cur = seekBar!!.width/seekBar.max
+                        viewBinding.stepNumber.x = (cur * value!!).toFloat()-20
+                    }
                 }
-                else if(value==5){
-                    viewBinding.stepNumber.visibility=View.GONE
-                }
-
             }
-
             override fun onStartTrackingTouch(p0: SeekBar?) {
                 TODO("Not yet implemented")
             }
-
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 TODO("Not yet implemented")
             }
-
-
         })
-
-
     }
 
-    //바텀 네비게이션 액티비티로 이동
+    override fun goNextFragment(){
+        viewBinding.seekBar.progress = pageIndex + 1
+        viewBinding.signupFragment.setCurrentItem(pageIndex + 1, true)
+        viewBinding.signupButton2.setText(buttonTextElement[pageIndex])
+        viewBinding.buttonContainer.visibility = View.VISIBLE
+        when(button1Element[pageIndex]){
+            true -> viewBinding.signupButton1.visibility = View.VISIBLE
+            else -> viewBinding.signupButton1.visibility = View.GONE
+        }
+        when(passButtonElement[pageIndex]){
+            true -> viewBinding.signupPassButton.visibility = View.VISIBLE
+            else -> viewBinding.signupPassButton.visibility = View.GONE
+        }
+        pageIndex += 1
+    }
 
-    fun goBottomNavigationActivity(){
+    private fun goPreviousFragment(){
+        viewBinding.seekBar.progress = pageIndex - 1
+        viewBinding.signupFragment.setCurrentItem(pageIndex - 1, true)
+        when(pageIndex){
+            0 -> super.onBackPressed()
+            1 -> {
+                viewBinding.buttonContainer.visibility = View.GONE
+                viewBinding.signupPassButton.visibility = View.GONE
+            }
+            else -> {
+                viewBinding.buttonContainer.visibility = View.VISIBLE
+                viewBinding.signupButton2.setText(buttonTextElement[pageIndex-2])
+                when(button1Element[pageIndex-2]){
+                    true -> viewBinding.signupButton1.visibility = View.VISIBLE
+                    else -> viewBinding.signupButton1.visibility = View.GONE
+                }
+                when(passButtonElement[pageIndex-2]){
+                    true -> viewBinding.signupPassButton.visibility = View.VISIBLE
+                    else -> viewBinding.signupPassButton.visibility = View.GONE
+                }
+            }
+        }
+        pageIndex -= 1
+    }
+    //바텀 네비게이션 액티비티로 이동
+    private fun goBottomNavigationActivity(){
         val intent = Intent(this, BottomNavigationActivity::class.java)
         startActivity(intent)
     }
+
 }

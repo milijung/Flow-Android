@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.client.ui.signup.*
 
-private const val NUM_TABS = 5
+private const val NUM_TABS = 6
 
 class SignUpAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle) {
     override fun getItemCount(): Int {
@@ -15,12 +15,13 @@ class SignUpAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): Fra
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SignUpFragment2()
-            1 -> SignUpFragment3()
-            2 -> SignUpFragment4()
-            3 -> SignUpFragment5()
-            4 -> SignUpFragment6()
-            else -> SignUpFragment2()
+            0 -> SignUpFragment1()
+            1 -> SignUpFragment2()
+            2 -> SignUpFragment3()
+            3 -> SignUpFragment4()
+            4 -> SignUpFragment5()
+            5 -> SignUpFragment6()
+            else -> SignUpFragment1()
         }
 
     }

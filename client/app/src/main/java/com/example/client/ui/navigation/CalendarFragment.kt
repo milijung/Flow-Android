@@ -45,7 +45,7 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentCalendarBinding.inflate(layoutInflater)
+        viewBinding = FragmentCalendarBinding.inflate(inflater, container, false)
         //현재 날짜
         selectedDate=LocalDate.now()
         //화면 설정

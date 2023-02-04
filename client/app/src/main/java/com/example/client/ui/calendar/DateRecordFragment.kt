@@ -72,7 +72,7 @@ class DateRecordFragment : Fragment() {
         val calendarActivity=activity as BottomNavigationActivity
 
         viewBinding.btnBack.setOnClickListener {
-            calendarActivity.changeFragment(1)
+            calendarActivity.changeSelectedFragment(1)
             //calendarActivity.supportFragmentManager.beginTransaction().remove(this).commit()
             //calendarActivity.supportFragmentManager.popBackStack()
         }

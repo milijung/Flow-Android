@@ -14,20 +14,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityOnboardingBinding
-    fun isNotificationPermissionAllowed(): Boolean {
-        return NotificationManagerCompat.getEnabledListenerPackages(applicationContext)
-            .any { enabledPackageName ->
-                enabledPackageName == packageName
-            }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!isNotificationPermissionAllowed())
-            startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-        /**
-         * Notification 접근 권한 체크 메서드
-         * @return 접근권한이 있을 경우 true, 아니면 false
-         */
         viewBinding= ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         val buttonTextElement : List<Int> = listOf(

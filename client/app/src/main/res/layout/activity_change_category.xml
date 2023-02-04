@@ -101,6 +101,7 @@
         android:insetBottom="0dp"
         android:text=""
         android:textSize="16dp"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

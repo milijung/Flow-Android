@@ -24,7 +24,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentSettingBinding.inflate(layoutInflater)
+        binding = FragmentSettingBinding.inflate(inflater, container, false)
 
         binding.budgetSettingBtn.setOnClickListener(){
             val intent = Intent(activity, SettingBudgetSettingActivity::class.java)

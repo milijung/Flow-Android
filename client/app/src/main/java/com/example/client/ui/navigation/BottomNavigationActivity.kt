@@ -54,15 +54,10 @@ class BottomNavigationActivity : AppCompatActivity() {
                 true
             }
             // 함수지만 변수처럼 쓸 수 있음. 현재 선택한 item을 알려줄 수 있음
-            selectedItemId = R.id.menu_home
+            changeSelectedFragment(pageId)
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        changeFragment(pageId)
-    }
-    fun changeFragment(index: Int){
+    fun changeSelectedFragment(index: Int){
         when(index){
             0 -> viewBinding.bottomNav.selectedItemId = R.id.menu_home
             1 -> viewBinding.bottomNav.selectedItemId = R.id.menu_board

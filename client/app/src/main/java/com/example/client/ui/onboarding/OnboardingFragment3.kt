@@ -22,7 +22,7 @@ class OnboardingFragment3 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding=FragmentOnboarding3Binding.inflate(layoutInflater)
+        viewBinding=FragmentOnboarding3Binding.inflate(inflater, container, false)
         return viewBinding.root
     }
 }
