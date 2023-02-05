@@ -164,12 +164,13 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
 
         call.enqueue(object: Callback<CalendarServerData>{
             override fun onResponse(call: Call<CalendarServerData>, response: Response<CalendarServerData>){
-                if (response.isSuccessful)
+                if (response.isSuccessful){
                     list = response.body()?.result
                     Log.e("Retrofit", list.toString())
                 }
                 else{
                     Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                }
             }
 
             override fun onFailure(call: Call<CalendarServerData>, t: Throwable) {
