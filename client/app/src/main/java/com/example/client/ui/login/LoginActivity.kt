@@ -9,14 +9,24 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.example.client.APIObject
 import com.example.client.databinding.ActivityLoginBinding
 
 import com.example.client.R
+import com.example.client.data.AppDatabase
+import com.example.client.data.Category
+import com.example.client.data.CategoryService
+import com.example.client.data.model.CategoryData
+import com.example.client.data.model.CategoryResult
 import com.example.client.ui.signup.SignUpActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -54,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
                         for(data in list!!){
                             if(data.isUserCreated){ //사용자가 만든 카테고리만 넣기기
                                 var userImageId=0
-                                var userOrderId: Int = roomDb!!.CategoryDao().selectByTypeId(data.typeId).size
+                                var userOrderId: Int = roomDb!!.CategoryDao().selectAll().filter { category -> category.typeId==data.typeId }.size
 
                                 if(data.typeId==1){userImageId=R.drawable.ic_category_user}
                                 else if(data.typeId==2){userImageId=R.drawable.ic_category_income_user}
