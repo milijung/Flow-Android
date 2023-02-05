@@ -88,10 +88,15 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     private fun dayInMonthArray(date:LocalDate):ArrayList<CalendarData>{
 
         var serverList: ArrayList<CalendarServerDataResult>?= arrayListOf()
-        //serverList=requestAPI(selectedDate.year,selectedDate.monthValue)
+        serverList=requestAPI(selectedDate.year,selectedDate.monthValue,1)
+        Log.e("Retrofit", serverList.toString())
+
+        /*
         serverList?.add(CalendarServerDataResult(24,1,1000))
         serverList?.add(CalendarServerDataResult(24,0,20000))
         serverList?.add(CalendarServerDataResult(5,0,5000))
+
+         */
 
         var dayList=ArrayList<CalendarData>()
 
@@ -116,63 +121,54 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                     var expense = ""
                     var income = ""
 
+                    //지출
                     if(serverList?.find(){it.date.toInt()==i && it.isExp.toInt()==1}!=null){
                         expense="-"+serverList.find(){it.date.toInt()==i && it.isExp.toInt()==1}!!.amount
                     }
-                    if(serverList?.find(){it.date.toInt()==i && it.isExp.toInt()==0}!=null){
-                        income="+"+serverList.find(){it.date.toInt()==i && it.isExp.toInt()==0}!!.amount
+                    //수입
+                    if(serverList?.find(){it.date.toInt()==i && it.isExp.toInt()==2}!=null){
+                        income="+"+serverList.find(){it.date.toInt()==i && it.isExp.toInt()==2}!!.amount
                     }
 
                     dayList.add(CalendarData((i).toString(), expense, income))
                 }
+            //첫 번째날 요일이 일요일이 아닐 때
             }else{
                 if(i <= dayOfweek || i>(lastDay+dayOfweek)){
                     dayList.add(CalendarData("", "",""))
                 }else{
                     var expense=""
                     var income=""
+                    //지출
                     if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==1}!=null){
                         expense="-"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==1}!!.amount).toString()
                     }
-                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==0}!=null){
-                        income="+"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==0}!!.amount).toString()
+                    //수입
+                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==2}!=null){
+                        income="+"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==2}!!.amount).toString()
                     }
+
                     dayList.add(CalendarData((i-dayOfweek).toString(), expense,income))
             }
             }
         }
+
         return dayList
     }
 
-    //api 요청 시 필요한 객체
-    object CalendarObject{
-        private const val BASE_URL = ""
-        private var instance: Retrofit? = null
-
-        open fun getInstance() : Retrofit {
-            if (instance == null) {
-                instance = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-            }
-            return instance!!
-        }
-    }
-
     //api 요청
-    private fun requestAPI(year:Int, month:Int): ArrayList<CalendarServerDataResult>? {
-
-        val service: CalendarService =CalendarObject.getInstance().create(CalendarService::class.java)
-        val call = service.getAmount(year,month)
+    private fun requestAPI(year:Int, month:Int, userId:Int): ArrayList<CalendarServerDataResult>? {
+        val service: CalendarService =APIObject.getInstance().create(CalendarService::class.java)
+        val call = service.getAmount(year,month,userId)
         var list :ArrayList<CalendarServerDataResult>?=null
 
         call.enqueue(object: Callback<CalendarServerData>{
             override fun onResponse(call: Call<CalendarServerData>, response: Response<CalendarServerData>){
                 if (response.isSuccessful)
                     list = response.body()?.result
-
-                else
+                    Log.e("Retrofit", list.toString())
+                }
+                else{
                     Log.w("Retrofit", "Response Not Successful ${response.code()}")
             }
 
@@ -180,6 +176,8 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                 Log.w("Retrofit", "Error!", t)
             }
         })
+        Log.e("Retrofit2", list.toString())
+
         return list
     }
 

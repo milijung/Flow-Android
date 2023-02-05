@@ -7,6 +7,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.client.R
 import com.example.client.data.adapter.OnboardingAdapter
+
 import com.example.client.databinding.ActivityOnboardingBinding
 import com.example.client.ui.login.LoginActivity
 import com.google.android.material.tabs.TabLayoutMediator
