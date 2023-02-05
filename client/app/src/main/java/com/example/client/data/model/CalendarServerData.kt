@@ -11,7 +11,7 @@ data class CalendarServerData(
 data class CalendarServerDataResult(
     @SerializedName("date")
     val date:Int,
-    @SerializedName("is_exp")
+    @SerializedName("isExp")
     val isExp:Int,
     @SerializedName("amount")
     val amount:Int,

@@ -4,13 +4,21 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import com.example.client.APIObject
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
+import com.example.client.data.CategoryService
 import com.example.client.data.adapter.CategoryViewAdapter
+import com.example.client.data.model.CategoryRequestData
+import com.example.client.data.model.CategoryResponseData
 import com.example.client.databinding.ActivitySettingCategoryBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 lateinit var settingCatevityViewBinding:ActivitySettingCategoryBinding
 class SettingCategoryActivity : AppCompatActivity() {
@@ -74,7 +82,11 @@ class SettingCategoryActivity : AppCompatActivity() {
                 listDb!!.ListDao().updateListOfDeletedCategory(deleteCategoryId)
                 // 카테고리 삭제
                 roomDb!!.CategoryDao().deleteCategoryById(deleteCategoryId)
-                // 해당 카테고리에 연결된 키워드 삭제
+
+                //서버 카테고리 삭제
+                deleteCategory(1, deleteCategoryId)
+
+               // 해당 카테고리에 연결된 키워드 삭제
                 keywordDb!!.KeywordDao().deleteByCategoryId(deleteCategoryId)
                 // 카테고리 position 재정렬
                 roomDb!!.CategoryDao().updateCategoryOrder(deleteCategoryId, deleteCategory.typeId)
@@ -119,6 +131,32 @@ class SettingCategoryActivity : AppCompatActivity() {
     fun ConvertDPtoPX(context: Context, dp: Int): Int {
         val density: Float = context.getResources().getDisplayMetrics().density
         return Math.round(dp.toFloat() * density)
+    }
+
+    //api 요청 - 카테고리 삭제
+    private fun deleteCategory(userId:Int, categoryId:Int) {
+
+        val service: CategoryService = APIObject.getInstance().create(
+            CategoryService::class.java)
+
+        val call = service.deleteCategory(userId,categoryId)
+
+        call.enqueue(object: Callback<CategoryResponseData> {
+            override fun onResponse(call: Call<CategoryResponseData>, response: Response<CategoryResponseData>) {
+                if (response.isSuccessful){
+                    //Log.d("log",response.toString())
+                    //Log.d("log", response.body().toString())
+                }
+                else{
+                    Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+        })
+
     }
 }
 

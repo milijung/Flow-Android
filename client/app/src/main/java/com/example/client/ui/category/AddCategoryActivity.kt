@@ -3,11 +3,20 @@ package com.example.client.ui.category
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.data.AppDatabase
-import com.example.client.data.BankStatementRepository
 import com.example.client.data.Category
+import com.example.client.data.CategoryService
+import com.example.client.data.model.CategoryData
+import com.example.client.data.model.CategoryRequestData
+import com.example.client.data.model.CategoryResponseData
 import com.example.client.databinding.ActivityAddCategoryBinding
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityAddCategoryBinding
@@ -26,6 +35,9 @@ class AddCategoryActivity : AppCompatActivity() {
         val categoryType : Int = listDetailIntent.getIntExtra("typeId",1)
         val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
         val roomDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
+
+
+
 
         viewBinding.addCategoryButton.text = getText(R.string.add_category_button)
         viewBinding.addCategoryType.check(R.id.addCategory_type1)
@@ -62,6 +74,9 @@ class AddCategoryActivity : AppCompatActivity() {
                 val newCategoryOrder : Int = roomDb!!.CategoryDao().selectByTypeId(typeId).size
                 roomDb.CategoryDao().insert(Category(viewBinding.addCategoryName.text.toString().trim(),iconImage,typeId,newCategoryOrder,true))
 
+                //서버에 카테고리 추가
+                addCategory(1,CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId))
+
                 // 설정 카테고리 화면에서 넘어왔던 경우
                 if(listId == -1){
                     val intent = Intent(this, SettingCategoryActivity::class.java)
@@ -79,4 +94,32 @@ class AddCategoryActivity : AppCompatActivity() {
             }
         }
     }
+
+    //api 요청 - 카테고리 추가
+    private fun addCategory(userId:Int, requestData:CategoryRequestData) {
+
+        val service: CategoryService = APIObject.getInstance().create(
+            CategoryService::class.java)
+
+        val call = service.postCategory(userId,requestData)
+
+        call.enqueue(object: Callback<CategoryResponseData> {
+            override fun onResponse(call: Call<CategoryResponseData>, response: Response<CategoryResponseData>) {
+                if (response.isSuccessful){
+                    //Log.d("Retrofit",response.toString())
+                    //Log.d("Retrofit", response.body().toString())
+                }
+                else{
+                    Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+        })
+
+    }
+
+
 }

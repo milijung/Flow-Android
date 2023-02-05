@@ -4,11 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
+import com.example.client.data.CategoryService
+import com.example.client.data.model.CategoryRequestData
+import com.example.client.data.model.CategoryResponseData
 import com.example.client.databinding.ActivityUpdateCategoryBinding
 import kotlinx.android.synthetic.main.activity_add_category.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UpdateCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityUpdateCategoryBinding
@@ -21,6 +29,8 @@ class UpdateCategoryActivity : AppCompatActivity() {
 
         val categoryIntent = intent
         val categoryId : Int = categoryIntent.getIntExtra("categoryId",1)
+
+
 
         val roomDb = AppDatabase.getCategoryInstance(this)
         if(roomDb != null){
@@ -77,10 +87,39 @@ class UpdateCategoryActivity : AppCompatActivity() {
                         typeId
                     )
 
+                    //서버에 카테고리 수정하기
+                    updateCategory(1,categoryId,CategoryRequestData(newName,typeId))
+
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)
                 }
             }
         }
+    }
+
+    //api 요청 - 카테고리 수정
+    private fun updateCategory(userId:Int, categoryId:Int, requestData: CategoryRequestData) {
+
+        val service: CategoryService = APIObject.getInstance().create(
+            CategoryService::class.java)
+
+        val call = service.patchCategory(userId,categoryId,requestData)
+
+        call.enqueue(object: Callback<CategoryResponseData> {
+            override fun onResponse(call: Call<CategoryResponseData>, response: Response<CategoryResponseData>) {
+                if (response.isSuccessful){
+                    //Log.d("log",response.toString())
+                    //Log.d("log", response.body().toString())
+                }
+                else{
+                    Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+        })
+
     }
 }
