@@ -7,11 +7,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CalendarService {
-    @GET("calendar/{year}/{month}")
+    @GET("/calendar/{year}/{month}")
     fun getAmount(
         @Path("year") year: Int,
         @Path("month") month: Int,
-        @Query("userId") userId:Int=1
+        @Query("userId") userId:Int,
 
         ): Call<CalendarServerData>
 }

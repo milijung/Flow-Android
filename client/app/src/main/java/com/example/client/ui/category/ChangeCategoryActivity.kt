@@ -3,16 +3,21 @@ package com.example.client.ui.category
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.GridView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
+import com.example.client.APIObject
 import com.example.client.data.adapter.CategoryViewAdapter
 import com.example.client.R
-import com.example.client.data.AppDatabase
-import com.example.client.data.Category
-import com.example.client.data.Keyword
+import com.example.client.data.*
+import com.example.client.data.model.CategoryData
+import com.example.client.data.model.CategoryResult
 import com.example.client.databinding.ActivityChangeCategoryBinding
 import com.example.client.ui.board.ListDetailActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.collections.List
 
 class ChangeCategoryActivity : AppCompatActivity() {
@@ -92,5 +97,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
         })
 
     }
+
+
 }
 
