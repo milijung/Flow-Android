@@ -35,8 +35,7 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
     lateinit var selectedDate: LocalDate
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
 
-    var monthFormatter= DateTimeFormatter.ofPattern("MM")
-    var dayFormatter= DateTimeFormatter.ofPattern("dd")
+    var monthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -170,12 +169,11 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
 
         call.enqueue(object: Callback<CalendarServerData>{
             override fun onResponse(call: Call<CalendarServerData>, response: Response<CalendarServerData>){
-                if (response.isSuccessful){
+                if (response.isSuccessful)
                     list = response.body()?.result
-                }
-                else{
+
+                else
                     Log.w("Retrofit", "Response Not Successful ${response.code()}")
-                }
             }
 
             override fun onFailure(call: Call<CalendarServerData>, t: Throwable) {
@@ -183,7 +181,6 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
             }
         })
         return list
-
     }
 
     //아이템 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동

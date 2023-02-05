@@ -1,14 +1,20 @@
 package com.example.client.ui.navigation
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.client.R
+import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityBottomNavigationBinding
+import com.example.client.databinding.FragmentBoardBinding
+import com.example.client.ui.signup.SignUpFragment1
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlinx.coroutines.selects.select
 import kotlin.properties.Delegates
 
-class BottomNavigationActivity : AppCompatActivity() {
+class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnListLongClickListener {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
         ActivityBottomNavigationBinding.inflate(layoutInflater)
     }
@@ -55,8 +61,11 @@ class BottomNavigationActivity : AppCompatActivity() {
             // 함수지만 변수처럼 쓸 수 있음. 현재 선택한 item을 알려줄 수 있음
             changeSelectedFragment(pageId)
         }
+        viewBinding.bottomListDelete.setOnClickListener {
+
+        }
     }
-    fun changeSelectedFragment(index: Int){
+    private fun changeSelectedFragment(index: Int){
         when(index){
             0 -> viewBinding.bottomNav.selectedItemId = R.id.menu_home
             1 -> viewBinding.bottomNav.selectedItemId = R.id.menu_board
@@ -64,4 +73,13 @@ class BottomNavigationActivity : AppCompatActivity() {
             3 -> viewBinding.bottomNav.selectedItemId = R.id.menu_setting
         }
     }
+    override fun onListLongClickStart() {
+        viewBinding.bottomModal.visibility = View.VISIBLE
+    }
+
+    override fun onListLongClickFinish() {
+        viewBinding.bottomModal.visibility = View.GONE
+    }
+
+
 }

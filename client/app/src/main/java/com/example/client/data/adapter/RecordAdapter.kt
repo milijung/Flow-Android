@@ -1,10 +1,8 @@
 package com.example.client.data.adapter
 
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +11,15 @@ import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.databinding.ItemRecordBinding
 import com.example.client.ui.board.ListDetailActivity
+import kotlinx.android.synthetic.main.activity_home_list.view.*
 
-class RecordAdapter(context: Context, private val datas:List<com.example.client.data.List>) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RecordAdapter(context: Context, private var datas:List<com.example.client.data.List>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     val context : Context = context
     val roomDb = AppDatabase.getCategoryInstance(context)
+    var selectedItem : ArrayList<Int> = arrayListOf()
+    private var longClickListener : OnListLongClickListener? = context as OnListLongClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(
             ItemRecordBinding.inflate(
@@ -39,6 +41,9 @@ class RecordAdapter(context: Context, private val datas:List<com.example.client.
 
     override fun getItemViewType(position: Int): Int {
         return datas[position].typeId
+    }
+    fun updateRecordList(list: List<com.example.client.data.List>){
+        datas = list
     }
 
     inner class ItemViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
@@ -73,9 +78,38 @@ class RecordAdapter(context: Context, private val datas:List<com.example.client.
             }
             // list 상세 페이지 연결
             binding.item.setOnClickListener {
-                val intent = Intent(context, ListDetailActivity::class.java)
-                intent.putExtra("listId",data.listId)
-                context.startActivity(intent)
+                when(selectedItem.size){
+                    0 ->{
+                        val intent = Intent(context, ListDetailActivity::class.java)
+                        intent.putExtra("listId",data.listId)
+                        context.startActivity(intent)
+                    }
+                    else ->{
+                        when(binding.item.isSelected){
+                            true ->{
+                                binding.item.isSelected = false
+                                selectedItem.remove(data.listId)
+                                if(selectedItem.size==0)
+                                    longClickListener?.onListLongClickFinish()
+                            }
+                            else ->{
+                                binding.item.isSelected = true
+                                selectedItem.add(data.listId)
+                            }
+                        }
+                        println(selectedItem)
+                    }
+                }
+            }
+            // 길게 클릭
+            binding.item.setOnLongClickListener {
+                if(selectedItem.size==0){
+                    binding.item.isSelected = !binding.item.isSelected
+                    selectedItem.add(data.listId)
+                    println(selectedItem)
+                    longClickListener?.onListLongClickStart()
+                }
+                return@setOnLongClickListener true
             }
             // 지출, 수입 tag
             binding.tag.visibility = View.VISIBLE
@@ -100,5 +134,14 @@ class RecordAdapter(context: Context, private val datas:List<com.example.client.
             }
         }
     }
-
+    interface OnListLongClickListener{
+        fun onListLongClickStart()
+        fun onListLongClickFinish()
+    }
+    fun deleteButtonClickListener() {
+        for(i: Int in selectedItem){
+            roomDb?.ListDao()?.deleteById(i)
+        }
+        longClickListener?.onListLongClickFinish()
+    }
 }

@@ -9,6 +9,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/add_newlist_style.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/bank_modal_style.xml" value="0.17291666666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/black_circle.xml" value="0.17291666666666666" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/board_list_style.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/board_menu_checked.xml" value="0.2421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/board_menu_style.xml" value="0.2421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/board_menu_unchecked.xml" value="0.2421875" />
@@ -53,6 +54,9 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/ic_track_off.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/icon_moneybtn.xml" value="0.17291666666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/income_round.xml" value="0.17291666666666666" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/item_record_selected.xml" value="0.16927083333333334" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/item_record_style.xml" value="0.315625" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/item_record_unselected.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/item_round.xml" value="0.2421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/login_button_style.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/login_icon_style.xml" value="0.265625" />

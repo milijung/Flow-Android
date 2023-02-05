@@ -45,6 +45,9 @@ interface ListDao {
     @Delete
     fun delete(list: List)
 
+    @Query("DELETE FROM List WHERE listId = :listId")
+    fun deleteById(listId: Int)
+
     @Query("SELECT * FROM List ORDER BY year DESC, month DESC, day DESC")
     fun selectAll() : kotlin.collections.List<List>
 

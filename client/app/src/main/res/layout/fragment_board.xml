@@ -69,50 +69,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/board_menu_this_month"
-            app:layout_constraintBottom_toTopOf="@id/board_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:scrollbars="vertical"
             tools:listitem="@layout/item_record"/>
 
-
-
-        <LinearLayout
-            android:id="@+id/board_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:background="@color/white"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
-
-            <Button
-                android:id="@+id/board_delete"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/delete_button"
-                android:textColor="#6F6F6F"
-                android:fontFamily="@font/spoqahansansneo_regular"
-                android:textSize="14sp"
-                android:backgroundTint="@color/lightgray3"
-                android:layout_marginEnd="5dp"
-                android:paddingVertical="12dp"
-                />
-
-            <Button
-                android:id="@+id/board_integrate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/integrate_button"
-                android:fontFamily="@font/spoqahansansneo_regular"
-                android:textSize="14sp"
-                android:layout_marginStart="5dp"
-                android:backgroundTint="@color/yellow"/>
-        </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_add_button"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="기입하기"
