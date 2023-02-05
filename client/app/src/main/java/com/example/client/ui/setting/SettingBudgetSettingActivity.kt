@@ -27,6 +27,9 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
 
         viewBinding.completBtn.text = getText(R.string.finish_button)
 
+        viewBinding.backButton.setOnClickListener(){
+            super.onBackPressed()
+        }
 
         // 예산시작일 고르는 창
         viewBinding.budgetStartBtn.setOnClickListener {
@@ -67,6 +70,8 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
             result.setText("30만원")
         })
 
+        //예산 금액과 시작일 수정 api
+
         val retrofit = Retrofit.Builder()
             .baseUrl("jdbc:mysql://localhost:3306/flow")
             .addConverterFactory(GsonConverterFactory.create())
@@ -76,7 +81,7 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         val apiService = retrofit.create(ApiService::class.java)
 
         // 비동기적 작동위해서 큐에 넣음 - 입력한 주소 중에 하나로 연결 시도!
-        apiService.getBudget(10000).enqueue(object : Callback<Response> {
+        apiService.getBudget(100000).enqueue(object : Callback<Response> {
             override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                 if (response.isSuccessful){
                     val responseData = response.body()
@@ -84,8 +89,8 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
                     if (responseData != null) {
                         Log.d("Retrofit", "Response\nCode: ${responseData.code} Message:${responseData.message}")
 
-                        if (responseData.code == 400){
-                            Toast.makeText(this@SettingBudgetSettingActivity, "예산 설정 실패", Toast.LENGTH_SHORT).show()
+                        if (responseData.code == 200){
+                            Toast.makeText(this@SettingBudgetSettingActivity, "조회 성공", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -98,7 +103,7 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
             }
         })
 
-        apiService.getStartDay(1).enqueue(object : Callback<Response> {
+        apiService.getStartDay(15).enqueue(object : Callback<Response> {
             override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                 if (response.isSuccessful){
                     val responseData = response.body()
