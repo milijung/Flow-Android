@@ -2,18 +2,29 @@ package com.example.client.data.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.client.data.model.CalendarData
-import com.example.client.ui.calendar.OnCalendarItemListener
 import com.example.client.R
+import com.example.client.data.model.CalendarData
 import com.example.client.databinding.ItemCalendarBinding
 import org.threeten.bp.LocalDate
 
 
 class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
-                      private val onCalendarItemListener: OnCalendarItemListener, val selectedDate: LocalDate): RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>(){
+                      private val selectedDate: LocalDate): RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>(){
+
+    private lateinit var mListener: OnItemClickListener
+
+    interface OnItemClickListener{
+        fun onItemClick(v: View, position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.mListener=listener
+    }
 
     class ItemViewHolder(private val binding:ItemCalendarBinding):RecyclerView.ViewHolder(binding.root){
 
@@ -36,13 +47,15 @@ class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
+        //날짜 보여주기
         val data=dayList[holder.adapterPosition]
         holder.dayText.text= data.day
 
+        //지출 없으면 맨 위에 수입 보여주기
         if (data.expense==""){
             holder.expenseText.text=data.income
         }
-        else{
+        else{ //지출 있으면 지출, 수입 순으로 보여주기
             holder.expenseText.text=data.expense
             holder.incomeText.text=data.income
         }
@@ -50,7 +63,7 @@ class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
 
 
         //오늘 날짜에 동그라미 그리기
-        var today = LocalDate.now()
+        val today = LocalDate.now() //오늘 날짜
 
         if(data.day==today.dayOfMonth.toString() && today.month==selectedDate.month){
             holder.dayText.setBackgroundResource(R.drawable.calendar_circle)
@@ -67,11 +80,12 @@ class CalendarAdapter(private val dayList:ArrayList<CalendarData>,
             holder.incomeText.setTextColor(Color.parseColor("#28A9DC"))
         }
 
-        //인터페이스를 통해 클릭한 날짜를 넘겨준다
-        holder.itemView.setOnClickListener{
-            onCalendarItemListener.onItemClick(data)
-        }
 
+
+        //날짜 클릭 리스너
+        holder.itemView.setOnClickListener{
+            mListener.onItemClick(it,position)
+        }
     }
 
     override fun getItemCount(): Int {

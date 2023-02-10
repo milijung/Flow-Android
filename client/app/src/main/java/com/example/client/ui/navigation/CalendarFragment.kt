@@ -13,12 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.*
-import com.example.client.data.adapter.CalendarAdapter
 import com.example.client.data.CalendarService
+import com.example.client.data.adapter.CalendarAdapter
 import com.example.client.data.model.CalendarData
 import com.example.client.databinding.FragmentCalendarBinding
 import com.example.client.ui.calendar.DateRecordActivity
-import com.example.client.ui.calendar.OnCalendarItemListener
 
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -26,14 +25,13 @@ import org.threeten.bp.YearMonth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-class CalendarFragment : Fragment(), OnCalendarItemListener {
+class CalendarFragment : Fragment() {
     private lateinit var viewBinding: FragmentCalendarBinding
     lateinit var selectedDate: LocalDate
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
+
 
     var monthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
 
@@ -67,106 +65,91 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
         return viewBinding.root
     }
 
-    //날짜 화면에 보여주기
+    //날짜, 지출, 수익 화면에 보여주기
     private fun setMonthView() {
         //월 텍스트뷰 셋팅
         viewBinding.calendarMonth.text=selectedDate.format(monthFormatter)+"월"
-        //날짜 생성해서 리스트에 담기
-        val dayList=dayInMonthArray(selectedDate)
-        //어댑터 초기화
-        val adapter = CalendarAdapter(dayList,this,selectedDate)
+
+
         //레이아웃 설정(열 7개)
-        var manager: RecyclerView.LayoutManager=GridLayoutManager(activity, 7)
+        val manager: RecyclerView.LayoutManager=GridLayoutManager(activity, 7)
         //레이아웃 적용
         viewBinding.calendarRv.layoutManager=manager
-        //어뎁터 적용
-        viewBinding.calendarRv.adapter=adapter
-    }
 
 
-    //날짜 설정 / 어뎁터에 날짜, 지출, 수입 리스트 넘겨주기
-    private fun dayInMonthArray(date:LocalDate):ArrayList<CalendarData>{
+        //어뎁터에 넘겨줄 리스트
+        val dayList=ArrayList<CalendarData>()
 
-        var serverList: ArrayList<CalendarServerDataResult>?= arrayListOf()
-        serverList=requestAPI(selectedDate.year,selectedDate.monthValue,1)
-        Log.e("Retrofit", serverList.toString())
-
-        /*
-        serverList?.add(CalendarServerDataResult(24,1,1000))
-        serverList?.add(CalendarServerDataResult(24,0,20000))
-        serverList?.add(CalendarServerDataResult(5,0,5000))
-
-         */
-
-        var dayList=ArrayList<CalendarData>()
-
-        var yearMonth= YearMonth.from(date)
+        //해당 월 가져오기
+        val yearMonth= YearMonth.from(selectedDate)
 
         //해당 월 마지막 날짜 가져오기(예 28, 30, 31)
-        var lastDay = yearMonth.lengthOfMonth()
+        val lastDay = yearMonth.lengthOfMonth()
 
-        //해당 월의 첫 번째 날 가져오기(예: 4월 1일)
-        var firstDay=selectedDate.withDayOfMonth(1)
+        //해당 월의 첫 번째 날 가져오기(예: 2023-01-01)
+        val firstDay=selectedDate.withDayOfMonth(1)
 
         //첫 번째날 요일 가져오기(월:1, 일: 7)
-        var dayOfweek=firstDay.dayOfWeek.value
+        var dayOfWeek=firstDay.dayOfWeek.value
+        if(dayOfWeek==7){dayOfWeek=0} //일:7 ->일:0
 
-        for(i in 1..41){
-            //첫 번째날 요일이 일요일일 때
-            if(dayOfweek==7){
-                if(i>(lastDay)){
-                    dayList.add(CalendarData("", "",""))
-                }
-                else {
-                    var expense = ""
-                    var income = ""
-
-                    //지출
-                    if(serverList?.find(){it.date.toInt()==i && it.isExp.toInt()==1}!=null){
-                        expense="-"+serverList.find(){it.date.toInt()==i && it.isExp.toInt()==1}!!.amount
-                    }
-                    //수입
-                    if(serverList?.find(){it.date.toInt()==i && it.isExp.toInt()==2}!=null){
-                        income="+"+serverList.find(){it.date.toInt()==i && it.isExp.toInt()==2}!!.amount
-                    }
-
-                    dayList.add(CalendarData((i).toString(), expense, income))
-                }
-            //첫 번째날 요일이 일요일이 아닐 때
-            }else{
-                if(i <= dayOfweek || i>(lastDay+dayOfweek)){
-                    dayList.add(CalendarData("", "",""))
-                }else{
-                    var expense=""
-                    var income=""
-                    //지출
-                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==1}!=null){
-                        expense="-"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==1}!!.amount).toString()
-                    }
-                    //수입
-                    if(serverList?.find(){it.date==(i-dayOfweek) && it.isExp==2}!=null){
-                        income="+"+(serverList.find(){it.date==(i-dayOfweek) && it.isExp==2}!!.amount).toString()
-                    }
-
-                    dayList.add(CalendarData((i-dayOfweek).toString(), expense,income))
-            }
-            }
-        }
-
-        return dayList
-    }
-
-    //api 요청
-    private fun requestAPI(year:Int, month:Int, userId:Int): ArrayList<CalendarServerDataResult>? {
+        //api 요청
         val service: CalendarService =APIObject.getInstance().create(CalendarService::class.java)
-        val call = service.getAmount(year,month,userId)
-        var list :ArrayList<CalendarServerDataResult>?=null
+        val call = service.getAmount(selectedDate.year,selectedDate.monthValue,1)
 
         call.enqueue(object: Callback<CalendarServerData>{
             override fun onResponse(call: Call<CalendarServerData>, response: Response<CalendarServerData>){
                 if (response.isSuccessful){
-                    list = response.body()?.result
-                    Log.e("Retrofit", list.toString())
+                    //서버에서 해당 월의 지출, 수입 가져오기
+                    val serverList = response.body()?.result
+
+                    //어뎁터에 넘겨줄 리스트 만들기
+                    for(i in 1..41){
+                        //빈칸
+                        if(i <= dayOfWeek || i>(lastDay+dayOfWeek)){
+                            dayList.add(CalendarData("", "",""))
+                        }else{ //숫자,지출,수입 넣기
+                            var expense=""
+                            var income=""
+                            //지출
+                            if(serverList?.find {it.date==(i-dayOfWeek) && it.isExp==1}!=null){
+                                expense="-"+(serverList.find {it.date==(i-dayOfWeek) && it.isExp==1}!!.amount).toString()
+                            }
+                            //수입
+                            if(serverList?.find {it.date==(i-dayOfWeek) && it.isExp==2}!=null){
+                                income="+"+(serverList.find {it.date==(i-dayOfWeek) && it.isExp==2}!!.amount).toString()
+                            }
+
+                            dayList.add(CalendarData((i-dayOfWeek).toString(), expense,income))
+                        }
+                    }
+
+                    //어댑터 초기화
+                    val adapter = CalendarAdapter(dayList,selectedDate)
+
+                    //날짜 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동
+                    adapter.setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
+                        override fun onItemClick(v: View, position: Int) {
+                            //클릭한 날짜의 CalendarData
+                            val data = dayList[position]
+
+                            val year=selectedDate.year.toString()
+                            val month=selectedDate.format(monthFormatter)
+                            val day="0"+data.day
+
+
+                            //해당 날짜 내역 화면으로 이동
+                            val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
+                            intent.putExtra("year",year)
+                            intent.putExtra("month",month)
+                            intent.putExtra("day",day.substring(day.length -2,day.length))
+                            startActivity(intent)
+                        }
+
+                        }
+                    )
+                    //어뎁터 적용
+                    viewBinding.calendarRv.adapter=adapter
                 }
                 else{
                     Log.w("Retrofit", "Response Not Successful ${response.code()}")
@@ -177,24 +160,5 @@ class CalendarFragment : Fragment(), OnCalendarItemListener {
                 Log.w("Retrofit", "Error!", t)
             }
         })
-        Log.e("Retrofit2", list.toString())
-
-        return list
-    }
-
-    //아이템 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동
-    override fun onItemClick(data: CalendarData) {
-        //해당 연,월,일 값을 fragment로 넘겨주기
-        var year=selectedDate.year.toString()
-        var month=selectedDate.format(monthFormatter)
-        var day="0"+data.day
-
-
-        //해당 날짜 내역 화면으로 이동
-        val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
-        intent.putExtra("year",year)
-        intent.putExtra("month",month)
-        intent.putExtra("day",day.substring(day.length -2,day.length))
-        startActivity(intent)
     }
 }
