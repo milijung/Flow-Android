@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import com.example.client.R
 import com.example.client.databinding.FragmentBottomSheetBinding
 import com.example.client.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
 
 
 class BottomSheet : BottomSheetDialogFragment() {
@@ -17,12 +19,22 @@ class BottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //setupnumberpickervalue()
 
         viewBinding = FragmentBottomSheetBinding.inflate(layoutInflater)
+        viewBinding.chooseBtn.text = getText(R.string.select_button)
 
 
-        viewBinding.startdayPicker.minValue = 1
-        viewBinding.startdayPicker.maxValue = 31
+        //private fun setupnumberpickervalue(){
+
+        //}
+//        viewBinding.startdayPicker.minValue = 1
+//        viewBinding.startdayPicker.maxValue = 31
+
+        val values = arrayOf("1", "2", "3", )
+        viewBinding.startdayPicker.displayedValues = values
+
+
 
         // 날짜 순환 기능
         viewBinding.startdayPicker.wrapSelectorWheel = false

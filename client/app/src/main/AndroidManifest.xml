@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-
     <application
         android:name=".ui.login.GlobalApplication"
         android:allowBackup="true"
