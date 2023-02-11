@@ -5,10 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.R
+import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
-import com.example.client.data.model.CategoryRequestData
 import com.example.client.databinding.ActivityUpdateCategoryBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -84,7 +84,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
                     )
 
                     //서버에 카테고리 수정하기
-                    httpConnection.updateCategory(1,categoryId,CategoryRequestData(newName,typeId))
+                    httpConnection.updateCategory(1,categoryId, CategoryRequestData(newName,typeId))
 
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)

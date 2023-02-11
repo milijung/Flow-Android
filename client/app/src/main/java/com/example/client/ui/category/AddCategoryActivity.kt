@@ -4,10 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.R
+import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
-import com.example.client.data.model.CategoryRequestData
 import com.example.client.databinding.ActivityAddCategoryBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -67,7 +67,9 @@ class AddCategoryActivity : AppCompatActivity() {
                 roomDb.CategoryDao().insert(Category(viewBinding.addCategoryName.text.toString().trim(),iconImage,typeId,newCategoryOrder,true))
 
                 //서버에 카테고리 추가
-                httpConnection.insertCategory(roomDb,1,CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId))
+                httpConnection.insertCategory(roomDb,1,
+                    CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId)
+                )
 
                 // 설정 카테고리 화면에서 넘어왔던 경우
                 if(listId == -1){

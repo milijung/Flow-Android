@@ -1,12 +1,11 @@
 package com.example.client.api
 
-import androidx.room.ColumnInfo
 import com.example.client.data.Category
 import com.example.client.data.Detail
 import com.example.client.data.User
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class ResponseData(
     @SerializedName("isSuccess")
     val isSuccess:Boolean,
     @SerializedName("code")
@@ -27,12 +26,15 @@ data class DetailResponseByList(
     val result: List<Detail>,
 )
 data class UpdateDetailData(
-    @ColumnInfo(name="categoryId") val categoryId: Int,
-    @ColumnInfo(name= "memo") val memo: String,
-    @ColumnInfo(name="isBudgetIncluded") val isBudgetIncluded : Boolean,
-    @ColumnInfo(name="isKeywordIncluded") val isKeywordIncluded : Boolean = false,
+    @SerializedName("categoryId")
+    val categoryId: Int,
+    @SerializedName("memo")
+    val memo: String,
+    @SerializedName("isBudgetIncluded")
+    val isBudgetIncluded : Boolean,
+    @SerializedName("isKeywordIncluded")
+    val isKeywordIncluded : Boolean = false,
 )
-
 data class UserResponseByList(
     @SerializedName("isSuccess")
     val isSuccess:Boolean,
@@ -95,7 +97,22 @@ data class CategoryResponseByList(
     @SerializedName("message")
     val typeId:String,
     @SerializedName("result")
-    val result:ArrayList<Category>
+    val result:ArrayList<CategoryResponse>
 )
-
+data class CategoryResponse(
+    @SerializedName("categoryId")
+    val categoryId: Int,
+    @SerializedName("name")
+    val name:String,
+    @SerializedName("typeId")
+    val typeId: Int,
+    @SerializedName("isUserCreated")
+    val isUserCreated: Boolean
+)
+data class CategoryRequestData(
+    @SerializedName("name")
+    val name:String,
+    @SerializedName("typeId")
+    val typeId: Int,
+)
 

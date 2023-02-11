@@ -1,9 +1,6 @@
 package com.example.client.api
 
 import com.example.client.data.Detail
-import com.example.client.data.UpdateDetailData
-import com.example.client.data.User
-import com.example.client.data.model.*
 import retrofit2.Call
 import retrofit2.http.*
 

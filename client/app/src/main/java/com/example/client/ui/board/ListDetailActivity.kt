@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.client.ui.category.ChangeCategoryActivity
 import com.example.client.R
 import com.example.client.api.HttpConnection
+import com.example.client.api.UpdateDetailData
 import com.example.client.data.*
 import com.example.client.databinding.ActivityListDetailBinding
 import com.example.client.ui.navigation.BottomNavigationActivity
