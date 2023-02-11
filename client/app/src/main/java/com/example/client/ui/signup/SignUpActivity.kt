@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import com.example.client.R
+import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.User
 import com.example.client.data.adapter.SignUpAdapter
@@ -16,6 +17,7 @@ import kotlin.properties.Delegates
 @InternalCoroutinesApi
 class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
     private lateinit var viewBinding: ActivitySignUpBinding
+    private val httpConnection  = HttpConnection()
     private var pageIndex by Delegates.notNull<Int>()
     private val buttonTextElement : List<Int> = listOf(
         R.string.go_to_setting,
@@ -60,6 +62,9 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
                 5 -> goBottomNavigationActivity()
                 4 -> {
                     roomDb!!.UserDao().insert(User(1,400000,1))
+                    val userId : Int = 1
+//                    httpConnection.getUserInfo(roomDb!!, userId)
+                    httpConnection.getCategory(roomDb, userId)
                     goNextFragment()
                 }
                 else -> goNextFragment()

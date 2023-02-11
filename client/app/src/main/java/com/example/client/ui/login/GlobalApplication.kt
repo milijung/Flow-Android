@@ -10,6 +10,6 @@ class GlobalApplication : Application() {
         // KaKao SDK 초기화
         KakaoSdk.init(this, "a176cb9610d769c4c9ca064705633b70")
         // 네이버 SDK 초기화
-        NaverIdLoginSDK.initialize(this,"xr2COSDB3sry_QeeLe9F","cbJYHJ1bEY","Flow")
+//        NaverIdLoginSDK.initialize(this,"xr2COSDB3sry_QeeLe9F","cbJYHJ1bEY","Flow")
     }
 }

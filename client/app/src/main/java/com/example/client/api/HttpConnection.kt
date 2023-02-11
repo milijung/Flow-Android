@@ -94,7 +94,8 @@ open class HttpConnection {
                                 order = roomDb.CategoryDao().selectByTypeId(2).size
                             }
                         }
-                        roomDb.CategoryDao().insert(Category(category.name, image, category.typeId,order,category.isUserCreated,category.categoryId))
+                        if(roomDb.CategoryDao().selectById(category.categoryId) == null)
+                            roomDb.CategoryDao().insert(Category(category.name, image, category.typeId,order,category.isUserCreated,category.categoryId))
                     }
                 }
                 else{

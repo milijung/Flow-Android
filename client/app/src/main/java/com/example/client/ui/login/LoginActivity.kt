@@ -15,9 +15,9 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val httpConnection = HttpConnection()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val httpConnection  = HttpConnection()
         val roomDb = AppDatabase.getInstance(this)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,8 +26,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 로그인 버튼 클릭리스너에 넣기
-//        val userId : Int = 1
-//        httpConnection.getUserInfo(roomDb, userId)
-//        httpConnection.getCategory(userId)
+        binding.kakaoLogin.setOnClickListener {
+            val userId : Int = 1
+            httpConnection.getUserInfo(roomDb!!, userId)
+            httpConnection.getCategory(roomDb, userId)
+        }
     }
 }
