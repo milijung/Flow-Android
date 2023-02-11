@@ -1,6 +1,5 @@
 package com.example.client.ui.setting
 
-import com.example.client.data.Result
 
 data class Response(
     val isSuccess : Boolean,

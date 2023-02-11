@@ -10,8 +10,6 @@ import com.example.client.R
 import com.example.client.databinding.FragmentBottomSheetBinding
 import com.example.client.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
-
 
 class BottomSheet : BottomSheetDialogFragment() {
     private lateinit var viewBinding: FragmentBottomSheetBinding
