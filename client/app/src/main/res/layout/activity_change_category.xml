@@ -6,59 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".ui.category.ChangeCategoryActivity">
 
-<LinearLayout
-    android:id="@+id/header"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:gravity="end">
-
-    <ImageButton
-        android:id="@+id/changeCategory_back_button"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="20dp"
-        android:src="@drawable/ic_close"
-        android:background="@color/white"/>
-</LinearLayout>
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/topBar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/header"
-    android:layout_marginTop="40dp"
-    android:layout_marginHorizontal="20dp"
-    >
-    <TextView
-        android:id="@+id/category_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/spoqahansansneo_bold"
-        android:text="카테고리"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/searchView"
-        app:layout_constraintStart_toStartOf="parent"
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textStyle="bold" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="end">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+        <ImageButton
+            android:id="@+id/changeCategory_back_button"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:src="@drawable/ic_close"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/searchview"
-        app:layout_constraintTop_toBottomOf="@id/category_txt"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="128dp"
-        android:layout_marginBottom="20dp"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="20dp"
+        >
+        <TextView
+            android:id="@+id/category_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            android:text="카테고리"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textStyle="bold" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/searchview"
+            app:layout_constraintTop_toBottomOf="@id/category_txt"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="128dp"
+            android:layout_marginBottom="20dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <GridView
         android:id="@+id/changeCategory_list"
         android:layout_width="0dp"
@@ -75,22 +75,22 @@
         android:scrollbars="vertical"
         android:gravity="center"
         />
-<androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/changeCategory_addButton"
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:background="@drawable/newcategoryregistration_btn"
-    android:drawableLeft="@drawable/ic_category_add"
-    android:drawablePadding="8dp"
-    android:padding="10dp"
-    android:fontFamily="@font/spoqahansansneo_regular"
-    android:text="새 카테고리 등록"
-    android:textSize="14dp"
-    app:layout_constraintBottom_toTopOf="@id/changeCategory_button"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="20dp"
-    android:stateListAnimator="@null"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/changeCategory_addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/newcategoryregistration_btn"
+        android:drawableLeft="@drawable/ic_category_add"
+        android:drawablePadding="8dp"
+        android:padding="10dp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:text="새 카테고리 등록"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@id/changeCategory_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:stateListAnimator="@null"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/changeCategory_button"

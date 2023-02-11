@@ -1,6 +1,4 @@
 package com.example.client.data.adapter
-
-
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,15 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.R
 import com.example.client.data.AppDatabase
+import com.example.client.data.Detail
 import com.example.client.databinding.ItemRecordBinding
 import com.example.client.ui.board.ListDetailActivity
-import kotlinx.android.synthetic.main.activity_home_list.view.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
-class RecordAdapter(context: Context, private var datas:List<com.example.client.data.List>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+@InternalCoroutinesApi
+class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     val context : Context = context
-    val roomDb = AppDatabase.getCategoryInstance(context)
-    var selectedItem : ArrayList<Int> = arrayListOf()
+    val roomDb = AppDatabase.getInstance(context)
+    var selectedItem : ArrayList<Int>? = null
     private var longClickListener : OnListLongClickListener? = context as OnListLongClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -31,31 +31,31 @@ class RecordAdapter(context: Context, private var datas:List<com.example.client.
 
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
-        (holder as ItemViewHolder).bind(datas[position])
+        (holder as ItemViewHolder).bind(data[position])
         holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int {
-        return datas.size
+        return data.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return datas[position].typeId
+        return data[position].typeId
     }
-    fun updateRecordList(list: List<com.example.client.data.List>){
-        datas = list
+    fun updateRecordList(detail: List<Detail>){
+        data = detail
     }
 
     inner class ItemViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data: com.example.client.data.List){
+        fun bind(data: Detail){
             binding.tvTime.text=data.time
             binding.tvMoney.text=data.price
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
             // 날짜 visibility
             if(adapterPosition != 0){
-                when(datas[adapterPosition-1].day){
-                    datas[adapterPosition].day -> {
+                when(this@RecordAdapter.data[adapterPosition-1].day){
+                    this@RecordAdapter.data[adapterPosition].day -> {
                         binding.day.visibility = View.GONE
                     }
                     else -> {
@@ -78,23 +78,35 @@ class RecordAdapter(context: Context, private var datas:List<com.example.client.
             }
             // list 상세 페이지 연결
             binding.item.setOnClickListener {
-                when(selectedItem.size){
+                when(selectedItem!!.size){
                     0 ->{
                         val intent = Intent(context, ListDetailActivity::class.java)
-                        intent.putExtra("listId",data.listId)
+                        intent.putExtra("userId",data.userId)
+                        intent.putExtra("detailId",data.detailId)
+                        intent.putExtra("typeId",data.typeId)
+                        intent.putExtra("categoryId",data.categoryId)
+                        intent.putExtra("price",data.price)
+                        intent.putExtra("memo",data.memo)
+                        intent.putExtra("shop",data.shop)
+                        intent.putExtra("year",data.year)
+                        intent.putExtra("month",data.month)
+                        intent.putExtra("day",data.day)
+                        intent.putExtra("time",data.time)
+                        intent.putExtra("isBudgetIncluded",data.isBudgetIncluded)
+                        intent.putExtra("isKeywordIncluded",data.isKeywordIncluded)
                         context.startActivity(intent)
                     }
                     else ->{
                         when(binding.item.isSelected){
                             true ->{
                                 binding.item.isSelected = false
-                                selectedItem.remove(data.listId)
-                                if(selectedItem.size==0)
+                                selectedItem?.remove(data.detailId)
+                                if(selectedItem!!.size ==0)
                                     longClickListener?.onListLongClickFinish()
                             }
                             else ->{
                                 binding.item.isSelected = true
-                                selectedItem.add(data.listId)
+                                selectedItem!!.add(data.detailId)
                             }
                         }
                         println(selectedItem)
@@ -103,9 +115,9 @@ class RecordAdapter(context: Context, private var datas:List<com.example.client.
             }
             // 길게 클릭
             binding.item.setOnLongClickListener {
-                if(selectedItem.size==0){
+                if(selectedItem!!.size==0){
                     binding.item.isSelected = !binding.item.isSelected
-                    selectedItem.add(data.listId)
+                    selectedItem!!.add(data.detailId)
                     println(selectedItem)
                     longClickListener?.onListLongClickStart()
                 }
@@ -126,11 +138,7 @@ class RecordAdapter(context: Context, private var datas:List<com.example.client.
             // 통합내역 표시 highlight
             when(data.integratedId){
                 -1 -> binding.highlight.visibility = View.GONE
-                data.listId -> binding.highlight.visibility = View.VISIBLE
-                else ->{
-                    binding.item.visibility = View.GONE
-                    binding.day.visibility = View.GONE
-                }
+                data.detailId -> binding.highlight.visibility = View.VISIBLE
             }
         }
     }
@@ -139,7 +147,7 @@ class RecordAdapter(context: Context, private var datas:List<com.example.client.
         fun onListLongClickFinish()
     }
     fun deleteButtonClickListener() {
-        for(i: Int in selectedItem){
+        for(i: Int in selectedItem!!){
             roomDb?.ListDao()?.deleteById(i)
         }
         longClickListener?.onListLongClickFinish()

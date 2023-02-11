@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions' // Unresolved reference: app 오류 해결
+    id 'kotlin-parcelize'
 }
 android {
     compileSdk 31
@@ -29,6 +29,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
     viewBinding {
         enabled true
@@ -69,6 +70,9 @@ dependencies {
     //retrofit 관련 선언
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
@@ -93,6 +97,6 @@ dependencies {
 
     implementation 'com.navercorp.nid:oauth:5.1.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
-
+    implementation 'com.android.databinding:viewbinding:7.2.2'
 
 }

@@ -11,9 +11,11 @@ import com.example.client.databinding.ActivityBottomNavigationBinding
 import com.example.client.databinding.FragmentBoardBinding
 import com.example.client.ui.signup.SignUpFragment1
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.selects.select
 import kotlin.properties.Delegates
 
+@InternalCoroutinesApi
 class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnListLongClickListener {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
         ActivityBottomNavigationBinding.inflate(layoutInflater)

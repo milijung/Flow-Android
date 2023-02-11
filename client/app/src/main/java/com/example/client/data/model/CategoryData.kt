@@ -1,6 +1,7 @@
 package com.example.client.data.model
 
 
+import com.example.client.data.Detail
 import com.google.gson.annotations.SerializedName
 
 data class CategoryData(
@@ -33,7 +34,7 @@ data class CategoryRequestData(
     val typeId:Int,
 )
 
-data class CategoryResponseData(
+data class ResponseData(
     @SerializedName("isSuccess")
     val isSuccess:Boolean,
     @SerializedName("code")
@@ -42,6 +43,16 @@ data class CategoryResponseData(
     val message:String,
     @SerializedName("result")
     val result:String,
+)
+data class ResponseListData(
+    @SerializedName("isSuccess")
+    val isSuccess:Boolean,
+    @SerializedName("code")
+    val code:Int,
+    @SerializedName("message")
+    val message:String,
+    @SerializedName("result")
+    val result: List<Detail>,
 )
 
 

@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import com.example.client.R
+import com.example.client.data.AppDatabase
+import com.example.client.data.User
 import com.example.client.data.adapter.SignUpAdapter
 import com.example.client.databinding.ActivitySignUpBinding
 import com.example.client.ui.navigation.BottomNavigationActivity
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlin.properties.Delegates
-
+@InternalCoroutinesApi
 class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
     private lateinit var viewBinding: ActivitySignUpBinding
     private var pageIndex by Delegates.notNull<Int>()
@@ -43,6 +46,7 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
         val vpAdapter = SignUpAdapter(supportFragmentManager, lifecycle)
         pageIndex = viewBinding.signupFragment.currentItem
         viewBinding.signupFragment.adapter = vpAdapter
+        val roomDb = AppDatabase.getInstance(this)
 
         // 스와이프 이벤트 제거
         viewBinding.seekBar.isEnabled = false
@@ -54,6 +58,10 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
         viewBinding.signupButton2.setOnClickListener() {
             when (pageIndex) {
                 5 -> goBottomNavigationActivity()
+                4 -> {
+                    roomDb!!.UserDao().insert(User(1,400000,1))
+                    goNextFragment()
+                }
                 else -> goNextFragment()
             }
         }
@@ -86,10 +94,10 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
                 }
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {
-                TODO("Not yet implemented")
+
             }
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                TODO("Not yet implemented")
+
             }
         })
     }

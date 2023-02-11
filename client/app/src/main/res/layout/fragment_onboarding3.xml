@@ -7,29 +7,29 @@
     android:background="#F8F8F8"
     tools:context=".ui.onboarding.OnboardingFragment1">
 
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="center_horizontal"
-            android:text="입출금 문자·알림을 읽어\n자동으로 내역을 기록해줘요"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:fontFamily="@font/spoqahansansneo_regular"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_horizontal"
+        android:text="입출금 문자·알림을 읽어\n자동으로 내역을 기록해줘요"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
-        <ImageView
-            android:id="@id/image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/onboarding_image3"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tv_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+    <ImageView
+        android:id="@id/image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/onboarding_image3"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".ui.board.AddListActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.setting.SettingBudgetSettingActivity"
             android:exported="false">

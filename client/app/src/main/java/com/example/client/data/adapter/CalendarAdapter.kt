@@ -4,11 +4,10 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.R
-import com.example.client.data.model.CalendarData
+import com.example.client.api.CalendarData
 import com.example.client.databinding.ItemCalendarBinding
 import org.threeten.bp.LocalDate
 

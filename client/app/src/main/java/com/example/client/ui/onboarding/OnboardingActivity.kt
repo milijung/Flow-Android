@@ -11,8 +11,9 @@ import com.example.client.data.adapter.OnboardingAdapter
 import com.example.client.databinding.ActivityOnboardingBinding
 import com.example.client.ui.login.LoginActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.InternalCoroutinesApi
 
-
+@InternalCoroutinesApi
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityOnboardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {

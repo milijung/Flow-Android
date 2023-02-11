@@ -7,9 +7,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.client.ui.onboarding.OnboardingFragment1
 import com.example.client.ui.onboarding.OnboardingFragment2
 import com.example.client.ui.onboarding.OnboardingFragment3
+import kotlinx.coroutines.InternalCoroutinesApi
 
 private const val NUM_TABS = 3
-
+@InternalCoroutinesApi
 class OnboardingAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle) {
     override fun getItemCount(): Int {
         return NUM_TABS

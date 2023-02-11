@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.client.databinding.FragmentOnboarding2Binding
 import com.example.client.ui.onboarding.OnboardingActivity
+import kotlinx.coroutines.InternalCoroutinesApi
 
-
+@InternalCoroutinesApi
 class OnboardingFragment2 : Fragment() {
     private lateinit var viewBinding: FragmentOnboarding2Binding
     private lateinit var onBoardingActivity : OnboardingActivity
