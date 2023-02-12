@@ -95,9 +95,16 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         viewBinding.completBtn.setOnClickListener{
             if(viewBinding.edit.text.toString() == "")
                 Toast.makeText(this,"예산을 입력해주세요",Toast.LENGTH_SHORT).show()
-            else
-                httpConnection.updateBudget(this, roomDatabase, user.userId, BudgetRequest(Integer.parseInt(viewBinding.edit.text.toString()),bottomSheet.getBudgetStartDate()))
-
+            else {
+                val budget = Integer.parseInt(viewBinding.edit.text.toString())
+                val startDate = bottomSheet.getBudgetStartDate()
+                httpConnection.updateBudget(
+                    this,
+                    roomDatabase,
+                    user.userId,
+                    BudgetRequest(budget, startDate)
+                )
+            }
         }
 
 

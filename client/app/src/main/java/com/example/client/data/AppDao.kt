@@ -123,6 +123,6 @@ interface UserDao {
     @Query("SELECT * FROM User")
     fun getUserInfo() : User
 
-    @Query("UPDATE User SET budget = :budget and budgetStartDay = :budgetStartDay WHERE userId = :userId")
+    @Query("UPDATE User SET budget = :budget,budgetStartDay = :budgetStartDay WHERE userId = :userId")
     fun updateBudgetInfo(userId: Int, budget: Int, budgetStartDay : Int)
 }
