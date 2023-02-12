@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.client.R
 import com.example.client.databinding.ActivitySettingBudgetSettingBinding
-import kotlinx.android.synthetic.main.activity_setting_budget_setting.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
+//import kotlinx.android.synthetic.main.activity_setting_budget_setting.*
+//import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -51,23 +51,23 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         })
 
         viewBinding.oneBtn.setOnClickListener(View.OnClickListener {
-            result.setText("1만원")
+            viewBinding.result.setText("1만원")
         })
 
         viewBinding.fiveBtn.setOnClickListener(View.OnClickListener {
-            result.setText("5만원")
+            viewBinding.result.setText("5만원")
         })
 
         viewBinding.tenBtn.setOnClickListener(View.OnClickListener {
-            result.setText("10만원")
+            viewBinding.result.setText("10만원")
         })
 
         viewBinding.twentyBtn.setOnClickListener(View.OnClickListener {
-            result.setText("20만원")
+            viewBinding.result.setText("20만원")
         })
 
         viewBinding.thirtyBtn.setOnClickListener(View.OnClickListener {
-            result.setText("30만원")
+            viewBinding.result.setText("30만원")
         })
 
         //예산 금액과 시작일 수정 api
