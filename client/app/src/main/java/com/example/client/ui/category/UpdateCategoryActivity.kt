@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.client.R
 import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
@@ -71,24 +72,21 @@ class UpdateCategoryActivity : AppCompatActivity() {
         viewBinding.updateCategoryButton.setOnClickListener(){
             if (roomDb != null) {
                 val newName : String  = viewBinding.updateCategoryName.text.toString().trim()
-                if(newName == ""){
-                    // 공백 안된다는 modal창 띄우기
-                }else if((roomDb.CategoryDao().selectByName(newName) != 0) and (newName != viewBinding.updateCategoryIconName.text)){
-                    // 같은 이름의 카테고리가 있다는 modal창 띄우기
+                when {
+                    newName == "" -> {
+                        Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                    }
+                    (roomDb.CategoryDao().selectByName(newName) != 0) and (newName != viewBinding.updateCategoryIconName.text) -> {
+                        Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        //카테고리 수정하기
+                        httpConnection.updateCategory(this,roomDb,1,categoryId, CategoryRequestData(newName,typeId))
 
-                }else {
-                    roomDb.CategoryDao().updateCategoryInfo(
-                        categoryId,
-                        newName,
-                        typeId
-                    )
-
-                    //서버에 카테고리 수정하기
-                    httpConnection.updateCategory(this,1,categoryId, CategoryRequestData(newName,typeId))
-
-                    val intent = Intent(this, SettingCategoryActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                        val intent = Intent(this, SettingCategoryActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
         }

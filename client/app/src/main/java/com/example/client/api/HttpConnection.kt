@@ -1,10 +1,15 @@
 package com.example.client.api
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.data.*
+import com.example.client.ui.category.ChangeCategoryActivity
+import com.example.client.ui.category.SettingCategoryActivity
+import com.example.client.ui.navigation.BottomNavigationActivity
+import kotlinx.coroutines.InternalCoroutinesApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,11 +36,16 @@ open class HttpConnection {
             }
         })
     }
-    fun insertList(context:Context,userId:Int, requestData: Detail) {
+    @InternalCoroutinesApi
+    fun insertList(context:Context, userId:Int, requestData: Detail) {
         val call = request.insertDetail(userId,requestData)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 if (response.body()!!.isSuccess){
+                    val intent = Intent(context, BottomNavigationActivity::class.java)
+                    intent.putExtra("pageId",1)
+                    context.startActivity(intent)
+
                     Toast.makeText(context, "내역이 성공적으로 추가되었습니다", Toast.LENGTH_SHORT).show()
                     println("${response.body()?.result}")
                 }
@@ -118,7 +128,8 @@ open class HttpConnection {
             }
         })
     }
-    fun insertCategory(context: Context,roomDb: AppDatabase, userId:Int, category: CategoryRequestData, order: Int) {
+    @InternalCoroutinesApi
+    fun insertCategory(context: Context, listId: Int, selectedCategoryPosition:Int, roomDb: AppDatabase, userId:Int, category: CategoryRequestData, order: Int) {
         val call = request.insertCategory(userId, category)
 
         call.enqueue(object: Callback<ResponseData> {
@@ -130,7 +141,20 @@ open class HttpConnection {
                         else -> R.drawable.ic_category_income_user
                     }
                     roomDb.CategoryDao().insert(Category(category.name,image, category.typeId, order, true))
-
+                    Toast.makeText(context, "카테고리가 성공적으로 추가되었습니다", Toast.LENGTH_SHORT).show()
+                    // 설정 카테고리 화면에서 넘어왔던 경우
+                    if(listId == -1){
+                        val intent = Intent(context, SettingCategoryActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    // 내역의 카테고리 변경 화면에서 넘어왔던 경우
+                    else{
+                        val intent = Intent(context, ChangeCategoryActivity::class.java)
+                        intent.putExtra("listId",listId)
+                        intent.putExtra("typeId",category.typeId)
+                        intent.putExtra("order",selectedCategoryPosition)
+                        context.startActivity(intent)
+                    }
                 } else{
                     Toast.makeText(context, "카테고리가 추가되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
@@ -141,29 +165,17 @@ open class HttpConnection {
             }
         })
     }
-    fun deleteCategory(context: Context,roomDb: AppDatabase, userId:Int, categoryId:Int) {
-        val call = request.deleteCategory(userId,categoryId)
-
-        call.enqueue(object: Callback<ResponseData> {
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                if(response.body()!!.isSuccess){
-                    roomDb.CategoryDao().deleteCategoryById(categoryId)
-                } else{
-                    Toast.makeText(context, "카테고리가 삭제되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-                }
-                println(response.body()!!.message)
-            }
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-    fun updateCategory(context: Context,userId:Int, categoryId:Int, requestData: CategoryRequestData) {
+    fun updateCategory(context: Context,roomDb: AppDatabase,userId:Int, categoryId:Int, requestData: CategoryRequestData) {
         val call = request.updateCategory(userId,categoryId,requestData)
 
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 if(response.body()!!.isSuccess){
+                    roomDb.CategoryDao().updateCategoryInfo(
+                        categoryId,
+                        requestData.name,
+                        requestData.typeId
+                    )
                     Toast.makeText(context, "카테고리가 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
                 } else{
                     Toast.makeText(context, "카테고리가 수정되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()

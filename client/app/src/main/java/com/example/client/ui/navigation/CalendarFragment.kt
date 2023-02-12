@@ -96,6 +96,7 @@ class CalendarFragment : Fragment() {
     }
     private fun getCalendarInfo(context: Context, year: Int, month: Int, lastDay: Int, dayOfWeek:Int, userId: Int) {
         val call = request.getCalendar(year, month, userId)
+        viewBinding.progressBar.visibility = View.VISIBLE
         call.enqueue(object: Callback<CalendarResponseByList> {
             override fun onResponse(
                 call: Call<CalendarResponseByList>,
@@ -154,9 +155,11 @@ class CalendarFragment : Fragment() {
                 else{
                     Toast.makeText(context, "캘린더를 불러오지 못했습니다\n   나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
+                viewBinding.progressBar.visibility = View.GONE
                 println(response.body()?.message)
             }
             override fun onFailure(call: Call<CalendarResponseByList>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.GONE
                 Toast.makeText(context, "캘린더를 불러오지 못했습니다\n   나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })

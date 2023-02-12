@@ -37,7 +37,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     private var linearLayoutManager: RecyclerView.LayoutManager? = null
     private lateinit var roomDb : AppDatabase
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
-    private lateinit var adapter: RecordAdapter
+    private var adapter: RecordAdapter? = null
     private lateinit var longClickListener : RecordAdapter.OnListLongClickListener
     private val request: api = APIObject.getInstance().create(api::class.java)
     override fun onAttach(context: Context) {
@@ -58,8 +58,6 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         viewBinding.boardList.layoutManager= LinearLayoutManager(bottomNavigationActivity)
         val userId = roomDb.UserDao().getUserId()
         var page = 1
-        adapter = RecordAdapter(bottomNavigationActivity,listOf())
-        viewBinding.boardList.adapter = adapter
         getList(userId,"all","all",page )
 
         val decoration = ItemDecoration(20)
@@ -96,15 +94,19 @@ class BoardFragment : androidx.fragment.app.Fragment(){
 
     private fun onMenuChangeListener(detail: List<Detail>){
         longClickListener?.onListLongClickFinish()
-        adapter.selectedItem = arrayListOf()
+        if(adapter == null){
+            adapter = RecordAdapter(bottomNavigationActivity,listOf())
+        }
+        adapter!!.selectedItem = arrayListOf()
         val sortedDetail = detail.sortedWith(compareBy({-it.year.toInt()},{-it.month.toInt()},{-it.day.toInt()},{-it.detailId}))
         sortedDetail.filter{detail -> ((detail.integratedId == -1) or (detail.integratedId == detail.detailId) )}
-        adapter.updateRecordList(sortedDetail)
+        adapter!!.updateRecordList(sortedDetail)
         viewBinding.boardList.adapter= adapter
         (viewBinding.boardList.adapter as RecordAdapter).notifyDataSetChanged()
     }
     private fun getList(userId:Int, year : String, month : String, page: Int) {
         val call = request.getDetailsOfRange(userId,year, month, page)
+        viewBinding.progressBar.visibility = View.VISIBLE
         call.enqueue(object: Callback<DetailResponseByList> {
             override fun onResponse(call: Call<DetailResponseByList>, response: Response<DetailResponseByList>)  {
                 if (response.body()!!.isSuccess){
@@ -115,8 +117,10 @@ class BoardFragment : androidx.fragment.app.Fragment(){
                     Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
                 println(response.body()?.message)
+                viewBinding.progressBar.visibility = View.GONE
             }
             override fun onFailure(call: Call<DetailResponseByList>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.GONE
                 Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })

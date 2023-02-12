@@ -88,11 +88,11 @@ class AddListActivity : AppCompatActivity() {
                 Toast.makeText(this, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
             }else if (viewBinding.addListTime.text.toString()== ""){
                 Toast.makeText(this, "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
-            }else if(viewBinding.addListPlace.text.toString()==""){
-                Toast.makeText(this, "거래처를 입력해주세요", Toast.LENGTH_SHORT).show()
             }else if (viewBinding.addListPrice.text.toString()==""){
                 Toast.makeText(this, "가격을 입력해주세요", Toast.LENGTH_SHORT).show()
-            }else{
+            }else if(viewBinding.addListPlace.text.toString()==""){
+                Toast.makeText(this, "거래처를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }            else{
                 httpConnection.insertList(this, userId,Detail(
                     userId,
                     categoryId,
@@ -100,7 +100,7 @@ class AddListActivity : AppCompatActivity() {
                     (viewBinding.addListDatepicker.month+1).toString(),
                     viewBinding.addListDatepicker.dayOfMonth.toString(),
                     viewBinding.addListTime.text.toString(),
-                    viewBinding.addListPrice.text.toString(),
+                    Integer.parseInt(viewBinding.addListPrice.text.toString()),
                     viewBinding.addListPlace.text.toString(),
                     typeId,
                     viewBinding.addListSwitch1.isChecked,

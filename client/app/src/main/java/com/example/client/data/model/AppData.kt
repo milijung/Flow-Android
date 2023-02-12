@@ -21,7 +21,7 @@ data class Detail(
     @ColumnInfo(name = "month") val month: String,
     @ColumnInfo(name = "day") val day: String,
     @ColumnInfo(name = "time") val time: String,
-    @ColumnInfo(name = "price") val price : String,
+    @ColumnInfo(name = "price") val price : Int,
     @ColumnInfo(name = "shop") val shop: String,
     @ColumnInfo(name="typeId") val typeId:Int,  // 지출: 1, 수입: 2
     @ColumnInfo(name="isBudgetIncluded") val isBudgetIncluded : Boolean,

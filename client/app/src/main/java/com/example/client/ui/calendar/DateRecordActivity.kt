@@ -47,7 +47,7 @@ class DateRecordActivity : AppCompatActivity() {
     }
     private fun getRecordsOfDate(userId: Int, year: Int, month: Int, day : Int) {
         val call = request.getRecordsOfDate(year,month,day,userId)
-
+        viewBinding.progressBar.visibility = View.VISIBLE
         call.enqueue(object: Callback<RecordsOfDate> {
             override fun onResponse(call: Call<RecordsOfDate>, response: Response<RecordsOfDate>){
                 if(response.body()!!.isSuccess){
@@ -89,10 +89,15 @@ class DateRecordActivity : AppCompatActivity() {
                             viewBinding.lvIncome.adapter= RecordAdapter(applicationContext,incomeList!!)
                         }
                     }
+                    viewBinding.progressBar.visibility = View.GONE
                 }
-                else{ Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show() }
+                else{
+                    viewBinding.progressBar.visibility = View.GONE
+                    Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
             }
             override fun onFailure(call: Call<RecordsOfDate>, t: Throwable) {
+                viewBinding.progressBar.visibility = View.GONE
                 Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })

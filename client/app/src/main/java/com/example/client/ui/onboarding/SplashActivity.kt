@@ -25,23 +25,25 @@ class SplashActivity : AppCompatActivity() {
         val bankStatementRepository : BankStatementRepository = BankStatementRepository(this)
         val roomDb = AppDatabase.getInstance(this) // 카테고리 DB
         // 앱 설치 후, 처음 시작한 경우 -> 온보딩 화면으로 이동
-        if(roomDb?.CategoryDao()?.selectAll()?.size!! == 0) {
-            insertData(this)
-            val intent = Intent(this, OnboardingActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        // 로그인 안된 경우 -> LoginView로 이동
-            else if(roomDb.UserDao().isLogin()==0){
+        when {
+            roomDb?.CategoryDao()?.selectAll()?.size!! == 0 -> {
+                insertData(this)
+                val intent = Intent(this, OnboardingActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            // 로그인 안된 경우 -> LoginView로 이동
+            roomDb.UserDao().isLogin()==0 -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-        // 로그인한 경우 -> BottomNavigationView로 이동
-        else{
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            startActivity(intent)
-            finish()
+            // 로그인한 경우 -> BottomNavigationView로 이동
+            else -> {
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         } //OnboardingActivity SettingCategoryActivity BottomNavigationActivity
     }
 }

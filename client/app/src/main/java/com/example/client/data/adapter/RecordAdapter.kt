@@ -49,7 +49,7 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
     inner class ItemViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(data: Detail){
             binding.tvTime.text=data.time
-            binding.tvMoney.text=data.price
+            binding.tvMoney.text=data.price.toString()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
             // 날짜 visibility

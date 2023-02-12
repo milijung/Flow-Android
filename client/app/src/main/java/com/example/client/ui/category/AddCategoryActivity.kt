@@ -3,6 +3,7 @@ package com.example.client.ui.category
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.client.R
 import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
@@ -57,33 +58,16 @@ class AddCategoryActivity : AppCompatActivity() {
         viewBinding.addCategoryButton.setOnClickListener(){
             // 카테고리 이름이 비어있는 경우
             if(viewBinding.addCategoryName.text.toString().trim() == ""){
-                //이름을 작성해달라는 modal창 띄우기
+                Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
             } else if(roomDb?.CategoryDao()?.selectByName(viewBinding.addCategoryName.text.toString().trim()) != 0){
-                // 같은 이름의 카테고리가 있다는 modal창 띄우기
+                Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
             }
             else{
-                // 카테고리 추가 후 뒤로가기
-                val newCategoryOrder : Int = roomDb!!.CategoryDao().selectByTypeId(typeId).size
-
-                httpConnection.insertCategory(this, roomDb,1,
+                // 카테고리 추가
+                val newCategoryOrder : Int = roomDb.CategoryDao().selectByTypeId(typeId).size
+                httpConnection.insertCategory(this, listId, selectedCategoryPosition, roomDb,1,
                     CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId), newCategoryOrder
                 )
-
-                // 설정 카테고리 화면에서 넘어왔던 경우
-                if(listId == -1){
-                    val intent = Intent(this, SettingCategoryActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                // 내역의 카테고리 변경 화면에서 넘어왔던 경우
-                else{
-                    val intent = Intent(this, ChangeCategoryActivity::class.java)
-                    intent.putExtra("listId",listId)
-                    intent.putExtra("typeId",categoryType)
-                    intent.putExtra("order",selectedCategoryPosition)
-                    startActivity(intent)
-                    finish()
-                }
             }
         }
     }
