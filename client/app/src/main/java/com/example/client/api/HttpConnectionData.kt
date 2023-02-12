@@ -35,6 +35,14 @@ data class UpdateDetailData(
     @SerializedName("isKeywordIncluded")
     val isKeywordIncluded : Boolean = false,
 )
+
+data class JoinDetailData(
+    @SerializedName("integratedId")
+    val integratedId: Int,
+    @SerializedName("detailId")
+    val detailId: List<Int>,
+)
+
 data class UserResponseByList(
     @SerializedName("isSuccess")
     val isSuccess:Boolean,

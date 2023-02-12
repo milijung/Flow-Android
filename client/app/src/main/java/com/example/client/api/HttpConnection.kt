@@ -1,5 +1,4 @@
 package com.example.client.api
-import android.content.Context
 import android.util.Log
 import com.example.client.APIObject
 import com.example.client.R
@@ -44,8 +43,8 @@ open class HttpConnection {
             }
         })
     }
-    fun updateList(userId:Int, detailId : Int, body : UpdateDetailData) {
-        val call = request.updateDetail(userId,detailId, body)
+    fun updateList(userId:Int, detailId : Int, requestBody : UpdateDetailData) {
+        val call = request.updateDetail(userId,detailId, requestBody)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>)  {
                 println(response.body()?.message)
@@ -53,6 +52,34 @@ open class HttpConnection {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 Log.w("Retrofit", "Error!", t)
             }
+        })
+    }
+
+    fun joinDetail(userId:Int, requestBody:JoinDetailData){
+        val call = request.joinDetail(userId,requestBody)
+        call.enqueue(object:Callback<ResponseData>{
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                println(response.body()?.message)
+            }
+
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+
+        })
+    }
+
+    fun deleteDetail(userId: Int, requestBody:HashMap<String,List<Int>>){
+        val call = request.deleteDetail(userId,requestBody)
+        call.enqueue(object:Callback<ResponseData>{
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                println(response.body()?.message)
+            }
+
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+
         })
     }
 
