@@ -16,13 +16,13 @@ class ModalActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         var list = arrayListOf(Detail(1,1,"2023","1","4",
-            "11","12","dks",1,true,false,
+            "11",12,"dks",1,true,false,
             "hi",-1,0))
         list.add(Detail(1,1,"2023","1","4",
-            "11","12","dks",1,true,false,
+            "11",12,"dks",1,true,false,
             "hi",-1,5))
         list.add(Detail(1,1,"2023","1","4",
-            "11","12","dks",1,true,false,
+            "11",12,"dks",1,true,false,
             "hi",-1,6))
 
         val detailId=list.map { it.detailId }

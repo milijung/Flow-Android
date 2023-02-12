@@ -106,7 +106,7 @@ open class HttpConnection {
         })
     }
 
-    fun getCategory(roomDb: AppDatabase,userId:Int) {
+    fun getCategory(context: Context, roomDb: AppDatabase,userId:Int) {
         val call = request.getCategory(userId)
 
         call.enqueue(object: Callback<CategoryResponseByList> {
