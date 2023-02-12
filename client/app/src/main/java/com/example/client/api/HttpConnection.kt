@@ -187,4 +187,44 @@ open class HttpConnection {
             }
         })
     }
+   fun updateBudget(context:Context, userId: Int, budgetRequest: BudgetRequest) {
+       val call = request.updateBudget(userId, budgetRequest)
+
+       call.enqueue(object : Callback<ResponseData> {
+           override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+               if (response.body()!!.isSuccess) {
+                   Toast.makeText(context, "조회 성공", Toast.LENGTH_SHORT).show()
+               } else {
+                   Toast.makeText(context, "조회 실패", Toast.LENGTH_SHORT).show()
+               }
+               println(response.body()?.message)
+           }
+
+           override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+               Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+           }
+       })
+   }
+
+//    apiService.getStartDay(15).enqueue(object : Callback<com.example.client.ui.setting.Response> {
+//        override fun onResponse(call: Call<com.example.client.ui.setting.Response>, response: retrofit2.Response<com.example.client.ui.setting.Response>) {
+//            if (response.isSuccessful){
+//                val responseData = response.body()
+//
+//                if (responseData != null) {
+//                    Log.d("Retrofit", "Response\nCode: ${responseData.code} Message:${responseData.message}")
+//
+//                    if (responseData.code == 400){
+//                        Toast.makeText(this@SettingBudgetSettingActivity, "예산 설정 실패", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//            else{
+//                Log.w("Retrofit", "Response Not Successful ${response.code()}")
+//            }
+//        }
+//        override fun onFailure(call: Call<com.example.client.ui.setting.Response>, t: Throwable) {
+//            Log.e("Retrofit", "Error!",t)
+//        }
+//    })
 }

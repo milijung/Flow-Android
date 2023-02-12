@@ -122,3 +122,10 @@ data class CategoryRequestData(
     val typeId: Int,
 )
 
+data class BudgetRequest(
+    @SerializedName("budget")
+    val budget:Int,
+    @SerializedName("startDate")
+    val startDate:Int,
+)
+

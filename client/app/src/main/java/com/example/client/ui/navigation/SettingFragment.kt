@@ -79,6 +79,4 @@ class SettingFragment : Fragment() {
 //        }
         return binding.root
     }
-
-
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import com.example.client.R
+import com.example.client.api.BudgetRequest
 import com.example.client.databinding.FragmentBottomSheetBinding
 import com.example.client.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -43,6 +44,10 @@ class BottomSheet : BottomSheetDialogFragment() {
         }
         return viewBinding.root
 
+    }
+
+    fun getBudgetStartDate():Int{
+        return viewBinding.startdayPicker.value
     }
 
 

@@ -7,10 +7,10 @@ import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface ApiService {
-//    @GET("users/selectForms")
-//    fun getBankAppChoice(
-//        @Query("bankName") bankName: String
-//    ):Call<Response>
+    @GET("users/selectForms")
+    fun getBankAppChoice(
+        @Query("bankName") bankName: String
+    ):Call<Response>
 
     //예산금액과 시작일 수정
 
