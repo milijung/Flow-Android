@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.client">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ui.login.GlobalApplication"
@@ -15,10 +15,24 @@
         android:networkSecurityConfig="@xml/network_security_config">
 
         <activity
+            android:name=".ModalGetOutActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ModalAllDataDelteActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.category.SettingCategoryActivity"
             android:exported="true" />
         <activity
-                    android:name=".ui.setting.SettingBankAppChoiceActivity"
+            android:name=".ui.setting.SettingBankAppChoiceActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -59,6 +73,13 @@
         </activity>
         <activity
             android:name=".ui.onboarding.OnboardingActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".RecordActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

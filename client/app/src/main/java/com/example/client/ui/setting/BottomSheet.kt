@@ -22,15 +22,13 @@ class BottomSheet : BottomSheetDialogFragment() {
         viewBinding = FragmentBottomSheetBinding.inflate(layoutInflater)
         viewBinding.chooseBtn.text = getText(R.string.select_button)
 
-
         //private fun setupnumberpickervalue(){
+        viewBinding.startdayPicker.minValue = 1
+        viewBinding.startdayPicker.maxValue = 28
 
-        //}
-//        viewBinding.startdayPicker.minValue = 1
-//        viewBinding.startdayPicker.maxValue = 31
-
-        val values = arrayOf("1", "2", "3", )
-        viewBinding.startdayPicker.displayedValues = values
+        // numberpicker에 string 넣기
+//        val values = arrayOf("1", "2", "3", )
+//        viewBinding.startdayPicker.displayedValues = values
 
 
 

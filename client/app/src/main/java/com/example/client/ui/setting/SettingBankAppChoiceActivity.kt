@@ -24,6 +24,11 @@ class SettingBankAppChoiceActivity : AppCompatActivity() {
         viewbinding.applyBtn.text = getText(R.string.apply_button)
 
 //        // retrofit 객체 만들기 - 웹 브라우저 창 열기
+        viewbinding.backButton.setOnClickListener(){
+            super.onBackPressed()
+        }
+
+        // retrofit 객체 만들기 - 웹 브라우저 창 열기
 //        val retrofit = Retrofit.Builder()
 //            .baseUrl("jdbc:mysql://localhost:3306/flow")
 //            .addConverterFactory(GsonConverterFactory.create())

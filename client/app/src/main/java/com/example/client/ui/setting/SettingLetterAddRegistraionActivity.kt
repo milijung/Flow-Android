@@ -19,11 +19,17 @@ class SettingLetterAddRegistraionActivity : AppCompatActivity() {
         binding.directInputBtn.text = getText(R.string.direct_input_button)
         binding.registraionBtn.text = getText(R.string.register_button)
 
-
+        binding.backButton.setOnClickListener(){
+            super.onBackPressed()
+        }
 
         binding.directInputBtn.setOnClickListener(){
             val intent = Intent(this, ActivitySettingLetterAddInputBinding::class.java)
             startActivity(intent)
         }
+//
+//        binding.registraionBtn.setOnClickListener(){
+//            val intent = Intent(this, @Activity::class.java)
+//        }
     }
 }
