@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import com.example.client.HomeListActivity
 import com.example.client.R
 import com.example.client.data.AppDatabase
 import com.example.client.data.BankStatementRepository
@@ -11,6 +12,7 @@ import com.example.client.data.Category
 import com.example.client.data.List
 import com.example.client.ui.board.ListDetailActivity
 import com.example.client.ui.category.SettingCategoryActivity
+import com.example.client.ui.login.LoginActivity
 import com.example.client.ui.navigation.BottomNavigationActivity
 
 
@@ -92,9 +94,9 @@ class SplashActivity : AppCompatActivity() {
             println("카테고리 -> "+categoryDb.CategoryDao().selectById(list.categoryId).name)
 
            // val intent = Intent(this, BottomNavigationActivity::class.java)
-            val intent = Intent(this, BottomNavigationActivity::class.java)
+            val intent = Intent(this, HomeListActivity::class.java)
             startActivity(intent)
             finish()
-        } //OnboardingActivity SettingCategoryActivity BottomNavigationActivity
+        } //OnboardingActivity SettingCategoryActivity BottomNavigationActivity HomeListActivity
     }
 }
