@@ -100,7 +100,7 @@ class CalendarFragment : Fragment() {
                 call: Call<CalendarResponseByList>,
                 response: Response<CalendarResponseByList>
             ) {
-                if (response.isSuccessful){
+                if (response.body()!!.isSuccess){
                     //서버에서 해당 월의 지출, 수입 가져오기
                     val calendarInfo = response.body()?.result!!
                     //어뎁터에 넘겨줄 리스트 만들기

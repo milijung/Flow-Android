@@ -26,9 +26,9 @@ class DateRecordActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         val roomDb = AppDatabase.getInstance(this)
         val calendarIntent = intent
-        val year = calendarIntent.getStringExtra("year") as Int
-        val month = calendarIntent.getStringExtra("month") as Int
-        val day = calendarIntent.getStringExtra("day") as Int
+        val year = calendarIntent.getStringExtra("year")!!.toInt()
+        val month = calendarIntent.getStringExtra("month")!!.toInt()
+        val day = calendarIntent.getStringExtra("day")!!.toInt()
         val userId = roomDb!!.UserDao().getUserId()
 
         val decoration = ItemDecoration(20)
@@ -49,7 +49,7 @@ class DateRecordActivity : AppCompatActivity() {
 
         call.enqueue(object: Callback<RecordsOfDate> {
             override fun onResponse(call: Call<RecordsOfDate>, response: Response<RecordsOfDate>){
-                if(response.isSuccessful){
+                if(response.body()!!.isSuccess){
                     val recordsInfo = response.body()?.result!!
                     // 총 지출금액과 수입금액 가져오기
                     if (recordsInfo != null) {

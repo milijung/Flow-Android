@@ -1,5 +1,4 @@
 package com.example.client.api
-import android.content.Context
 import android.util.Log
 import com.example.client.APIObject
 import com.example.client.R
@@ -17,7 +16,7 @@ open class HttpConnection {
                 call: Call<UserResponseByList>,
                 response: Response<UserResponseByList>
             ) {
-                if(response.isSuccessful)
+                if(response.body()!!.isSuccess)
                     roomDb.UserDao().insert(response.body()?.result!!)
                 println(response.body()?.message)
             }
@@ -31,7 +30,7 @@ open class HttpConnection {
         val call = request.insertDetail(userId,requestData)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                if (response.isSuccessful){
+                if (response.body()!!.isSuccess){
                     println("${response.body()?.message}")
                     println("${response.body()?.result}")
                 }
@@ -61,7 +60,7 @@ open class HttpConnection {
 
         call.enqueue(object: Callback<CategoryResponseByList> {
             override fun onResponse(call: Call<CategoryResponseByList>, response: Response<CategoryResponseByList>) {
-                if (response.isSuccessful){
+                if (response.body()!!.isSuccess){
                     roomDb.CategoryDao()?.insert(Category("하루세끼", R.drawable.ic_category_food,1,0,false,1))
                     roomDb.CategoryDao()?.insert(Category("주거·통신", R.drawable.ic_category_living,1,1,false,2))
                     roomDb.CategoryDao()?.insert(Category("교통관련", R.drawable.ic_category_traffic,1,2,false,3))

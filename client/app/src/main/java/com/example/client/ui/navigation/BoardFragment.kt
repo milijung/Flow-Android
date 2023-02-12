@@ -106,7 +106,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         val call = request.getDetailsOfRange(userId,year, month, page)
         call.enqueue(object: Callback<DetailResponseByList> {
             override fun onResponse(call: Call<DetailResponseByList>, response: Response<DetailResponseByList>)  {
-                if (response.isSuccessful){
+                if (response.body()!!.isSuccess){
                     println(response.body()?.message)
                     println(response.body()!!.result)
                     onMenuChangeListener(response.body()!!.result)
