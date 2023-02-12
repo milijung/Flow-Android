@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import com.example.client.ui.setting.SettingBudgetSettingActivity
 import com.example.client.databinding.FragmentSettingBinding
 import com.example.client.ui.category.SettingCategoryActivity
+import com.example.client.ui.login.LoginActivity
+import com.example.client.ui.modal.SettingInitializationModal
+import com.example.client.ui.modal.SettingUserDeleteModal
 import com.example.client.ui.setting.SettingBankAppChoiceActivity
 import com.example.client.ui.setting.SettingLetterAddRegistraionActivity
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -45,6 +48,21 @@ class SettingFragment : Fragment() {
 
         binding.bankAppBtn.setOnClickListener(){
             val intent = Intent(activity, SettingBankAppChoiceActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.initDataBtn.setOnClickListener {
+            val intent = Intent(activity, SettingInitializationModal::class.java)
+            startActivity(intent)
+        }
+
+        binding.userDeleteBtn.setOnClickListener {
+            val intent = Intent(activity, SettingUserDeleteModal::class.java)
             startActivity(intent)
         }
 

@@ -413,7 +413,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/quit_btn"
+                    android:id="@+id/userDelete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -431,8 +431,8 @@
                     android:layout_width="55dp"
                     android:layout_height="2px"
                     android:background="@color/gray"
-                    app:layout_constraintStart_toStartOf="@id/quit_btn"
-                    app:layout_constraintTop_toBottomOf="@id/quit_btn" />
+                    app:layout_constraintStart_toStartOf="@id/userDelete_btn"
+                    app:layout_constraintTop_toBottomOf="@id/userDelete_btn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

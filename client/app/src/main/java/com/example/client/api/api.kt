@@ -1,7 +1,6 @@
 package com.example.client.api
 
 import com.example.client.data.Detail
-import com.example.client.ui.setting.Response
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -93,13 +92,12 @@ interface api {
 
     @DELETE("users/reset/{userId}")
     fun allDataDelete(
-        @Query("userId") userId: Int,
-        
-    ): Call<Response>
+        @Query("userId") userId: Int
+    ): Call<ResponseData>
 
     //탈퇴하기
     @DELETE("users/deleteUser/{userId}")
     fun getOut(
-        @Query("getOut") getOut : String
-    ): Call<Response>
+        @Query("userId") userId: Int
+    ): Call<ResponseData>
 }
