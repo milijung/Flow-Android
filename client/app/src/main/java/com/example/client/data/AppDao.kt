@@ -119,4 +119,10 @@ interface UserDao {
 
     @Query("SELECT COUNT(*) FROM User")
     fun isLogin() : Int
+
+    @Query("SELECT * FROM User")
+    fun getUserInfo() : User
+
+    @Query("UPDATE User SET budget = :budget and budgetStartDay = :budgetStartDay WHERE userId = :userId")
+    fun updateBudgetInfo(userId: Int, budget: Int, budgetStartDay : Int)
 }

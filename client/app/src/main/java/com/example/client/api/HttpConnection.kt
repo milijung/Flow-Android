@@ -187,15 +187,20 @@ open class HttpConnection {
             }
         })
     }
-   fun updateBudget(context:Context, userId: Int, budgetRequest: BudgetRequest) {
+   @InternalCoroutinesApi
+   fun updateBudget(context:Context, roomDb: AppDatabase,userId: Int, budgetRequest: BudgetRequest) {
        val call = request.updateBudget(userId, budgetRequest)
 
        call.enqueue(object : Callback<ResponseData> {
            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                if (response.body()!!.isSuccess) {
-                   Toast.makeText(context, "조회 성공", Toast.LENGTH_SHORT).show()
+                   roomDb.UserDao().updateBudgetInfo(userId,budgetRequest.budget, budgetRequest.startDate)
+                   val intent = Intent(context, BottomNavigationActivity::class.java)
+                   intent.putExtra("pageId",3)
+                   context.startActivity(intent)
+                   Toast.makeText(context, "예산이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
                } else {
-                   Toast.makeText(context, "조회 실패", Toast.LENGTH_SHORT).show()
+                   Toast.makeText(context, "예산이 수정되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                }
                println(response.body()?.message)
            }

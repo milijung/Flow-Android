@@ -61,10 +61,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/spoqahansansneo_bold"
-            android:paddingVertical="20dp"
+            android:paddingTop="20dp"
             android:text="한달 예산은 얼마인가요?"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,10 +72,10 @@
         <EditText
             android:id="@+id/edit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="16dp"
+            android:layout_height="70dp"
+            android:textSize="18dp"
             android:text=""
-            android:hint=""
+            android:inputType="number"
             android:layout_weight="1.5"
             android:textColor="@color/black"
             android:backgroundTint="@color/black"
@@ -90,9 +90,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/edit"
+            app:layout_constraintBottom_toBottomOf="@id/edit"
             app:layout_constraintEnd_toEndOf="@id/edit"
             android:layout_marginEnd="10dp"
-            android:text="result"/>
+            android:text=""/>
 
         <LinearLayout
             android:id="@+id/money_btn"
@@ -103,67 +104,72 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:weightSum="5"
             >
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/one_btn"
-                android:layout_width="65dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/icon_moneybtn"
                 android:fontFamily="@font/spoqahansansneo_regular"
                 android:stateListAnimator="@null"
                 android:text="1만"
-                android:textColor="#ACAEAD"
-                android:textSize="12sp"
-                />
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/five_btn"
-                android:layout_width="70dp"
-                android:layout_height="29dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/icon_moneybtn"
                 android:fontFamily="@font/spoqahansansneo_regular"
                 android:stateListAnimator="@null"
                 android:text="5만"
-                android:textColor="#ACAEAD"
-                android:textSize="12sp" />
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/ten_btn"
-                android:layout_width="65dp"
-                android:layout_height="29dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/icon_moneybtn"
                 android:fontFamily="@font/spoqahansansneo_regular"
                 android:stateListAnimator="@null"
                 android:text="10만"
                 android:textColor="#ACAEAD"
-                android:textSize="12sp" />
+                android:textSize="14dp"
+                android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/twenty_btn"
-                android:layout_width="65dp"
-                android:layout_height="29dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/icon_moneybtn"
                 android:fontFamily="@font/spoqahansansneo_regular"
                 android:stateListAnimator="@null"
                 android:text="20만"
                 android:textColor="#ACAEAD"
-                android:textSize="12sp" />
+                android:textSize="14dp"
+                android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/thirty_btn"
-                android:layout_width="65dp"
-                android:layout_height="29dp"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
                 android:background="@drawable/icon_moneybtn"
                 android:fontFamily="@font/spoqahansansneo_regular"
                 android:stateListAnimator="@null"
                 android:text="30만"
                 android:textColor="#ACAEAD"
-                android:textSize="12sp" />
+                android:textSize="14dp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
 
@@ -190,18 +196,16 @@
             android:fontFamily="@font/spoqahansansneo_bold"
             android:text="예산 시작일"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
-
-
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/completBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:fontFamily="@font/suit_regular"
+        android:fontFamily="@font/suit_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text=""

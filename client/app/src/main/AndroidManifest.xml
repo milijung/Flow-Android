@@ -15,35 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
         <activity
-            android:name=".SettingInitializationModal"
+            android:name=".ui.modal.SettingInitializationModal"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FingerPrintActivity"
+            android:name=".ui.setting.FingerPrintActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FingerprintActivity"
+            android:name=".ui.setting.ModalGetOutActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ModalGetOutActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ModalAllDataDelteActivity"
+            android:name=".ui.setting.ModalAllDataDelteActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -95,13 +88,6 @@
         </activity>
         <activity
             android:name=".ui.onboarding.OnboardingActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".RecordActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

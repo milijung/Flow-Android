@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.StrictMath.round
 
 class SettingBudgetSettingActivity : AppCompatActivity() {
 
@@ -33,24 +34,30 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         val roomDatabase = AppDatabase.getInstance(this)
-        val userId = roomDatabase!!.UserDao().getUserId()
+        val user = roomDatabase!!.UserDao().getUserInfo()
 
         viewBinding.completBtn.text = getText(R.string.finish_button)
-
+        viewBinding.edit.setText(user.budget.toString())
+        viewBinding.result.text = "${user.budget.div(10000)}만원"
         viewBinding.backButton.setOnClickListener(){
             super.onBackPressed()
         }
 
         // 예산시작일 고르는 창
         viewBinding.budgetStartBtn.setOnClickListener {
-            bottomSheet = BottomSheet()
+            bottomSheet = BottomSheet(user.budgetStartDay)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 
         viewBinding.edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                val edit : String = Integer.parseInt(p0.toString()).div(10000).toString()+"만 원"
-                viewBinding.result.text = edit
+                if(p0.toString() == ""){
+                    viewBinding.result.text = ""
+                }else{
+                    val edit : Int = Integer.parseInt(p0.toString()).div(10000)
+                    viewBinding.result.text = "${edit}만원"
+                }
+
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -61,27 +68,36 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
         })
 
         viewBinding.oneBtn.setOnClickListener(View.OnClickListener {
-            viewBinding.result.setText("1만원")
+            viewBinding.edit.setText("10000")
+            viewBinding.result.text = "1만원"
         })
 
         viewBinding.fiveBtn.setOnClickListener(View.OnClickListener {
-            viewBinding.result.setText("5만원")
+            viewBinding.edit.setText("50000")
+            viewBinding.result.text = "5만원"
         })
 
         viewBinding.tenBtn.setOnClickListener(View.OnClickListener {
-            viewBinding.result.setText("10만원")
+            viewBinding.edit.setText("100000")
+            viewBinding.result.text = "10만원"
         })
 
         viewBinding.twentyBtn.setOnClickListener(View.OnClickListener {
-            viewBinding.result.setText("20만원")
+            viewBinding.edit.setText("200000")
+            viewBinding.result.text = "20만원"
         })
 
         viewBinding.thirtyBtn.setOnClickListener(View.OnClickListener {
-            viewBinding.result.setText("30만원")
+            viewBinding.edit.setText("300000")
+            viewBinding.result.text = "30만원"
         })
 
         viewBinding.completBtn.setOnClickListener{
-            httpConnection.updateBudget(this, userId, BudgetRequest(Integer.parseInt(viewBinding.edit.text.toString()),bottomSheet.getBudgetStartDate()) )
+            if(viewBinding.edit.text.toString() == "")
+                Toast.makeText(this,"예산을 입력해주세요",Toast.LENGTH_SHORT).show()
+            else{
+                httpConnection.updateBudget(this, roomDatabase, user.userId, BudgetRequest(Integer.parseInt(viewBinding.edit.text.toString()),bottomSheet.getBudgetStartDate()))
+
         }
 
 

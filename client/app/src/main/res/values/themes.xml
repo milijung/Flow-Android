@@ -43,4 +43,9 @@
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="background">@android:color/transparent</item>
     </style>
+    <style name="BottomSheetPickerStyle">
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+    </style>
+
 </resources>
