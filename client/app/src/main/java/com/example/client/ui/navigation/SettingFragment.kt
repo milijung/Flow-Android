@@ -73,8 +73,12 @@ class SettingFragment : Fragment() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
-        return binding.root
-    }
+
+//        binding.fingerprintSwitch.setOnClickListener(){
+//            if ()
+//        }
+//        return binding.root
+//    }
 
 
 }

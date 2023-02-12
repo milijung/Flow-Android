@@ -29,6 +29,7 @@
     <string name="go_to_setting">설정으로 이동하기</string>
     <string name="finish_signup_button">지출 흐름 보러가기</string>
     <string name="direct_input_button">직접 입력하기</string>
+    <string name="fingerprint_button">지문 인식</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
