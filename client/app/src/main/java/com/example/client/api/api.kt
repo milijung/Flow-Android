@@ -32,6 +32,18 @@ interface api {
         @Body updateDetailRequest : UpdateDetailData,
     ): Call<ResponseData>
 
+    @PATCH("/details/{userId}/join")
+    fun joinDetail(
+        @Path("userId") userId:Int,
+        @Body joinDetailRequest:JoinDetailData
+    ):Call<ResponseData>
+
+    @DELETE("/details/{userId}")
+    fun deleteDetail(
+        @Path("userId") userId:Int,
+        @Body deleteDetailRequest:HashMap<String, List<Int>>
+    ):Call<ResponseData>
+
     // Category api
     @GET("/category/{userId}")
     fun getCategory(

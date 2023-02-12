@@ -45,6 +45,9 @@
         <activity
             android:name=".ui.setting.ModalAllDataDelteActivity"
             android:exported="false">
+        <activity
+            android:name=".ui.modal.ModalActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

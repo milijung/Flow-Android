@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
+    android:layout_width="400dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="16dp">
+    android:paddingVertical="16dp"
+    android:maxHeight="200dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
@@ -46,11 +47,12 @@
         android:paddingVertical="30dp"/>
 
 
-    <include layout="@layout/item_record"
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/modal_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:maxWidth="150dp"/>
 
 
     <Button
@@ -59,7 +61,7 @@
         android:layout_height="wrap_content"
 
         android:fontFamily="@font/suit_regular"
-        android:text="@string/select_button"
+        android:text="@string/select_complete_button"
         android:textSize="14sp"
         android:backgroundTint="@color/yellow"
         android:layout_marginTop="35dp"

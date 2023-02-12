@@ -1,6 +1,7 @@
 package com.example.client.api
 import android.content.Context
 import android.content.Intent
+
 import android.util.Log
 import android.widget.Toast
 import com.example.client.APIObject
@@ -77,7 +78,35 @@ open class HttpConnection {
         })
     }
 
-    fun getCategory(context: Context,roomDb: AppDatabase,userId:Int) {
+    fun joinDetail(userId:Int, requestBody:JoinDetailData){
+        val call = request.joinDetail(userId,requestBody)
+        call.enqueue(object:Callback<ResponseData>{
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                println(response.body()?.message)
+            }
+
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+
+        })
+    }
+
+    fun deleteDetail(userId: Int, requestBody:HashMap<String,List<Int>>){
+        val call = request.deleteDetail(userId,requestBody)
+        call.enqueue(object:Callback<ResponseData>{
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                println(response.body()?.message)
+            }
+
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                Log.w("Retrofit", "Error!", t)
+            }
+
+        })
+    }
+
+    fun getCategory(roomDb: AppDatabase,userId:Int) {
         val call = request.getCategory(userId)
 
         call.enqueue(object: Callback<CategoryResponseByList> {
