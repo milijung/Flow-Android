@@ -1,6 +1,7 @@
 package com.example.client.api
 
 import com.example.client.data.Detail
+import com.example.client.ui.setting.Response
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -72,4 +73,33 @@ interface api {
         @Path("date") date:Int,
         @Query("userId") userId:Int,
     ): Call<RecordsOfDate>
+
+    // setting fragment api
+
+    // 은행 앱 추가 선택
+//    @GET("users/selectForms")
+//    fun getBankAppChoice(
+//        @Query("bankName") bankName: String
+//    ):Call<Response>
+
+    //예산금액과 시작일 수정
+    @PATCH("/users/modifyBudget")
+    fun updateBudget(
+        @Query("userId") userId: Int,
+        @Body budgetRequest: BudgetRequest
+    ): Call<ResponseData>
+
+    //모든 데이터 삭제
+
+    @DELETE("users/reset/{userId}")
+    fun allDataDelete(
+        @Query("userId") userId: Int,
+        
+    ): Call<Response>
+
+    //탈퇴하기
+    @DELETE("users/deleteUser/{userId}")
+    fun getOut(
+        @Query("getOut") getOut : String
+    ): Call<Response>
 }

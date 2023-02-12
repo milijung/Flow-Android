@@ -77,8 +77,6 @@ class SettingFragment : Fragment() {
 //        binding.fingerprintSwitch.setOnClickListener(){
 //            if ()
 //        }
-//        return binding.root
-//    }
-
-
+        return binding.root
+    }
 }
