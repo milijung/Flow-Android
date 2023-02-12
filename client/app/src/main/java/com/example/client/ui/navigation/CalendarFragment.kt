@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -91,9 +92,9 @@ class CalendarFragment : Fragment() {
 
         dayList = arrayListOf()
 
-        getCalendarInfo(TodayDate.year, TodayDate.monthValue, lastDay, dayOfWeek,userId)
+        getCalendarInfo(bottomNavigationActivity,TodayDate.year, TodayDate.monthValue, lastDay, dayOfWeek,userId)
     }
-    private fun getCalendarInfo(year: Int, month: Int, lastDay: Int, dayOfWeek:Int, userId: Int) {
+    private fun getCalendarInfo(context: Context, year: Int, month: Int, lastDay: Int, dayOfWeek:Int, userId: Int) {
         val call = request.getCalendar(year, month, userId)
         call.enqueue(object: Callback<CalendarResponseByList> {
             override fun onResponse(
@@ -151,12 +152,12 @@ class CalendarFragment : Fragment() {
                     viewBinding.calendarRv.adapter=adapter
                 }
                 else{
-                    Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                    Toast.makeText(context, "캘린더를 불러오지 못했습니다\n   나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
                 println(response.body()?.message)
             }
             override fun onFailure(call: Call<CalendarResponseByList>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "캘린더를 불러오지 못했습니다\n   나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }

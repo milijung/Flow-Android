@@ -63,8 +63,8 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
                 4 -> {
                     roomDb!!.UserDao().insert(User(1,400000,1))
                     val userId : Int = 1
-//                    httpConnection.getUserInfo(roomDb!!, userId)
-                    httpConnection.getCategory(roomDb, userId)
+//                    httpConnection.getUserInfo(this, roomDb!!, userId)
+                    httpConnection.getCategory(this, roomDb, userId)
                     goNextFragment()
                 }
                 else -> goNextFragment()

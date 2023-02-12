@@ -1,5 +1,7 @@
 package com.example.client.api
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.data.*
@@ -9,7 +11,7 @@ import retrofit2.Response
 open class HttpConnection {
     private val request: api = APIObject.getInstance().create(api::class.java)
 
-    fun getUserInfo(roomDb: AppDatabase, userId: Int) {
+    fun getUserInfo(context: Context, roomDb: AppDatabase, userId: Int) {
         val call = request.getUser(userId)
         call.enqueue(object : Callback<UserResponseByList>{
             override fun onResponse(
@@ -18,44 +20,54 @@ open class HttpConnection {
             ) {
                 if(response.body()!!.isSuccess)
                     roomDb.UserDao().insert(response.body()?.result!!)
+                else{
+                    Toast.makeText(context, "사용자 정보를 받아오지 못했습니다\n      나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
                 println(response.body()?.message)
             }
 
             override fun onFailure(call: Call<UserResponseByList>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "사용자 정보를 받아오지 못했습니다\n      나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
-    fun insertList(userId:Int, requestData: Detail) {
+    fun insertList(context:Context,userId:Int, requestData: Detail) {
         val call = request.insertDetail(userId,requestData)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 if (response.body()!!.isSuccess){
-                    println("${response.body()?.message}")
+                    Toast.makeText(context, "내역이 성공적으로 추가되었습니다", Toast.LENGTH_SHORT).show()
                     println("${response.body()?.result}")
                 }
                 else{
-                    println("${response.body()?.message}")
+                    Toast.makeText(context, "내역이 추가되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+
                 }
+                println("${response.body()?.message}")
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다.\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
-    fun updateList(userId:Int, detailId : Int, body : UpdateDetailData) {
+    fun updateList(context: Context, userId:Int, detailId : Int, body : UpdateDetailData) {
         val call = request.updateDetail(userId,detailId, body)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>)  {
+                if(response.body()!!.isSuccess){
+                    Toast.makeText(context, "내역이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(context, "내역이 수정되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
                 println(response.body()?.message)
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    fun getCategory(roomDb: AppDatabase,userId:Int) {
+    fun getCategory(context: Context,roomDb: AppDatabase,userId:Int) {
         val call = request.getCategory(userId)
 
         call.enqueue(object: Callback<CategoryResponseByList> {
@@ -98,49 +110,68 @@ open class HttpConnection {
                     }
                 }
                 else{
-                    Log.w("Retrofit", "Response Not Successful ${response.code()}")
+                    Toast.makeText(context, "사용자 정보를 받아오지 못했습니다\n      나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<CategoryResponseByList>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "사용자 정보를 받아오지 못했습니다\n      나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
-    fun insertCategory(roomDb: AppDatabase, userId:Int, category: CategoryRequestData) {
+    fun insertCategory(context: Context,roomDb: AppDatabase, userId:Int, category: CategoryRequestData, order: Int) {
         val call = request.insertCategory(userId, category)
 
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                // roomDb에 카테고리 추가하는 코드 작성하기
+                if(response.body()!!.isSuccess){
+                    // roomDb에 카테고리 추가하는 코드 작성하기
+                    val image = when(category.typeId){
+                        1-> R.drawable.ic_category_user
+                        else -> R.drawable.ic_category_income_user
+                    }
+                    roomDb.CategoryDao().insert(Category(category.name,image, category.typeId, order, true))
+
+                } else{
+                    Toast.makeText(context, "카테고리가 추가되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
                 println(response.body()!!.message)
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
-    fun deleteCategory(roomDb: AppDatabase, userId:Int, categoryId:Int) {
+    fun deleteCategory(context: Context,roomDb: AppDatabase, userId:Int, categoryId:Int) {
         val call = request.deleteCategory(userId,categoryId)
 
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                roomDb.CategoryDao().deleteCategoryById(categoryId)
+                if(response.body()!!.isSuccess){
+                    roomDb.CategoryDao().deleteCategoryById(categoryId)
+                } else{
+                    Toast.makeText(context, "카테고리가 삭제되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
                 println(response.body()!!.message)
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
-    fun updateCategory(userId:Int, categoryId:Int, requestData: CategoryRequestData) {
+    fun updateCategory(context: Context,userId:Int, categoryId:Int, requestData: CategoryRequestData) {
         val call = request.updateCategory(userId,categoryId,requestData)
 
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                if(response.body()!!.isSuccess){
+                    Toast.makeText(context, "카테고리가 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(context, "카테고리가 수정되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
                 println(response.body()?.message)
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }

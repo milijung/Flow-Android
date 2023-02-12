@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.client.R
@@ -83,14 +84,16 @@ class AddListActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewBinding.addListButton.setOnClickListener {
-            if((viewBinding.addListDate.text.toString()=="")
-                or (viewBinding.addListTime.text.toString()== "")
-                or (viewBinding.addListPrice.text.toString()=="")
-                or (viewBinding.addListPlace.text.toString()=="")
-            ){
-                // 내용 작성해달라는 모달창
+            if(viewBinding.addListDate.text.toString()==""){
+                Toast.makeText(this, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
+            }else if (viewBinding.addListTime.text.toString()== ""){
+                Toast.makeText(this, "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+            }else if(viewBinding.addListPlace.text.toString()==""){
+                Toast.makeText(this, "거래처를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }else if (viewBinding.addListPrice.text.toString()==""){
+                Toast.makeText(this, "가격을 입력해주세요", Toast.LENGTH_SHORT).show()
             }else{
-                httpConnection.insertList(userId,Detail(
+                httpConnection.insertList(this, userId,Detail(
                     userId,
                     categoryId,
                     viewBinding.addListDatepicker.year.toString(),

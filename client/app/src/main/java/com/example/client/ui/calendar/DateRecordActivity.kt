@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.client.APIObject
 import com.example.client.api.RecordsOfDate
@@ -89,10 +90,10 @@ class DateRecordActivity : AppCompatActivity() {
                         }
                     }
                 }
-                else{ Log.w("Retrofit", "Response Not Successful ${response.code()}") }
+                else{ Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show() }
             }
             override fun onFailure(call: Call<RecordsOfDate>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }

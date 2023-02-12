@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 버튼 클릭리스너에 넣기
         binding.kakaoLogin.setOnClickListener {
             val userId : Int = 1
-            httpConnection.getUserInfo(roomDb!!, userId)
-            httpConnection.getCategory(roomDb, userId)
+            httpConnection.getUserInfo(this, roomDb!!, userId)
+            httpConnection.getCategory(this,roomDb, userId)
         }
     }
 }

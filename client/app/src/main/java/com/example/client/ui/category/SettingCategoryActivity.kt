@@ -75,7 +75,7 @@ class SettingCategoryActivity : AppCompatActivity() {
                 roomDb!!.CategoryDao().deleteCategoryById(deleteCategoryId)
 
                 //서버 카테고리 삭제
-                httpConnection.deleteCategory(roomDb,1, deleteCategoryId)
+                httpConnection.deleteCategory(this, roomDb,1, deleteCategoryId)
 
                // 해당 카테고리에 연결된 키워드 삭제
                 roomDb!!.KeywordDao().deleteByCategoryId(deleteCategoryId)

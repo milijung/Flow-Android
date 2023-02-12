@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -107,16 +108,16 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         call.enqueue(object: Callback<DetailResponseByList> {
             override fun onResponse(call: Call<DetailResponseByList>, response: Response<DetailResponseByList>)  {
                 if (response.body()!!.isSuccess){
-                    println(response.body()?.message)
                     println(response.body()!!.result)
                     onMenuChangeListener(response.body()!!.result)
                 }
                 else{
-                    println(response.body()?.message)
+                    Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
+                println(response.body()?.message)
             }
             override fun onFailure(call: Call<DetailResponseByList>, t: Throwable) {
-                Log.w("Retrofit", "Error!", t)
+                Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }

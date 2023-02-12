@@ -84,7 +84,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
                     )
 
                     //서버에 카테고리 수정하기
-                    httpConnection.updateCategory(1,categoryId, CategoryRequestData(newName,typeId))
+                    httpConnection.updateCategory(this,1,categoryId, CategoryRequestData(newName,typeId))
 
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)

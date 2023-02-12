@@ -81,7 +81,7 @@ class ListDetailActivity : AppCompatActivity() {
         }
         viewBinding.listDetailButton.setOnClickListener(){
             // Memo 내용, 예산 저장 여부 DB에 update
-            httpConnection.updateList(userId, detailId, UpdateDetailData(categoryId,viewBinding.listDetailMemoContent.text.toString(),viewBinding.listDetailSwitch1.isChecked, viewBinding.listDetailSwitch2.isChecked))
+            httpConnection.updateList(this, userId, detailId, UpdateDetailData(categoryId,viewBinding.listDetailMemoContent.text.toString(),viewBinding.listDetailSwitch1.isChecked, viewBinding.listDetailSwitch2.isChecked))
             // Board 화면으로 이동
             val intent = Intent(this, BottomNavigationActivity::class.java)
             intent.putExtra("pageId",1)
