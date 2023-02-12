@@ -3,17 +3,19 @@ package com.example.client.ui.onboarding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.NotificationManagerCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.client.R
-import com.example.client.data.OnboardingAdapter
+import com.example.client.data.adapter.OnboardingAdapter
+
 import com.example.client.databinding.ActivityOnboardingBinding
 import com.example.client.ui.login.LoginActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.InternalCoroutinesApi
 
-
+@InternalCoroutinesApi
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityOnboardingBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityOnboardingBinding.inflate(layoutInflater)

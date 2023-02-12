@@ -20,33 +20,10 @@ class SettingLetterAddInputActivity : AppCompatActivity() {
 
         binding.registrationBtn.text = getText(R.string.register_button)
 
+        binding.backButton.setOnClickListener(){
+                super.onBackPressed()
+        }
 
-        //에딧텍스트 생성 버튼
-//        binding.addBtn.setOnClickListener{
-//           createEditText()
-//        }
     }
 
-//    private fun createEditText(){
-//
-//        //에딧텍스트 생성
-//        val editText:EditText = EditText(applicationContext)
-//
-//        //에딧텍스트 힌트글자
-//        editText.hint = "입출금 문자를 복사하여 입력해주세요"
-//
-//        editText.textSize = 16f
-//
-//        editText.id = 0
-//
-//        val param: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-//            LinearLayout.LayoutParams.MATCH_PARENT,
-//            LinearLayout.LayoutParams.WRAP_CONTENT )
-//
-//        param.leftMargin = 20
-//
-//        editText.layoutParams = param
-//
-//        editText.setTextColor(Color.GRAY)
-//    }
 }

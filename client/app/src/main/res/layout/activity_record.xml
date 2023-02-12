@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <android.widget.Button
-            android:id="@+id/btn_month"
+            android:id="@+id/board_menu_this_month"
             android:layout_width="63dp"
             android:layout_height="33dp"
             android:text="이번달"
@@ -69,7 +69,7 @@
             android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_month"
+            app:layout_constraintTop_toBottomOf="@id/board_menu_this_month"
             tools:listitem="@layout/item_record" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

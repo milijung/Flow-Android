@@ -5,14 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.R
+import com.example.client.api.CategoryRequestData
+import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
 import com.example.client.databinding.ActivityUpdateCategoryBinding
-import kotlinx.android.synthetic.main.activity_add_category.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class UpdateCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityUpdateCategoryBinding
     private lateinit var category: Category
+    private val httpConnection : HttpConnection = HttpConnection()
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,9 @@ class UpdateCategoryActivity : AppCompatActivity() {
         val categoryIntent = intent
         val categoryId : Int = categoryIntent.getIntExtra("categoryId",1)
 
-        val roomDb = AppDatabase.getCategoryInstance(this)
+
+
+        val roomDb = AppDatabase.getInstance(this)
         if(roomDb != null){
             category = roomDb.CategoryDao().selectById(categoryId)
         }
@@ -77,10 +83,15 @@ class UpdateCategoryActivity : AppCompatActivity() {
                         typeId
                     )
 
+                    //서버에 카테고리 수정하기
+                    httpConnection.updateCategory(1,categoryId, CategoryRequestData(newName,typeId))
+
                     val intent = Intent(this, SettingCategoryActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }
     }
+
 }

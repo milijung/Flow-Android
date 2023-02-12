@@ -138,6 +138,7 @@
         android:fontFamily="@font/suit_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        app:cornerRadius="0dp"
         android:text=""
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

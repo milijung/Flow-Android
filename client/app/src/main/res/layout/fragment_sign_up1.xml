@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.signup.SignUpFragment1">
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="가입할 계정을 선택해주세요"
+        android:fontFamily="@font/spoqahansansneo_regular"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="45dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signup_kakao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_kakao_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/login_icon_style"
+        android:text="카카오"
+        android:paddingVertical="7dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/signup_naver"
+        android:paddingHorizontal="20dp"
+        android:backgroundTint="#FEE500"
+        android:fontFamily="@font/suit_regular"
+
+        android:textSize="14dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signup_naver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_naver_icon"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@drawable/login_icon_style"
+        android:text="네이버"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#00C73C"
+        android:fontFamily="@font/suit_regular"
+        android:textSize="14dp"
+        android:textColor="@color/white"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signup_google"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/login_icon_style"
+        android:backgroundTint="#EFEFEF"
+        android:drawableStart="@drawable/ic_google_icon"
+        android:fontFamily="@font/suit_regular"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="7dp"
+        android:text="구글"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signup_naver" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

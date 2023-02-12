@@ -13,12 +13,21 @@
     <string name="add_category_button">카테고리 추가하기</string>
     <string name="no_button">아니요</string>
     <string name="title_modal">알림</string>
+    <string name="no_notification_button">알림을 받지 않아요</string>
     <string name="delete_modal">정말 삭제하시겠어요?\n선택된 내역은 영구적으로 삭제되어\n복구할 수 없어요.</string>
+    <string name="delete_button_modal">네, 삭제할게요</string>
     <string name="select_modal">대표 내역을 선택해주세요.</string>
+    <string name="initialize_modal">정말  초기화하시겠어요?\n모든 데이터는 영구적으로 삭제되어\n복구할 수 없어요.</string>
+    <string name="initialize_button_modal">네, 초기화할게요</string>
+    <string name="duplicate_modal">이미 등록된 양식입니다.</string>
+    <string name="duplicate_button_modal">확인했습니다!</string>
+    <string name="bank_duplicate_modal">내역이 중복 등록되므로\n알림 받을 형식 하나만 선택해주세요</string>
     <string name="home_nav">분석</string>
     <string name="list_nav">내역</string>
     <string name="calendar_nav">캘린더</string>
     <string name="setting_nav">설정</string>
+    <string name="go_to_setting">설정으로 이동하기</string>
+    <string name="finish_signup_button">지출 흐름 보러가기</string>
     <string name="direct_input_button">직접 입력하기</string>
 
     <!-- TODO: Remove or change this placeholder text -->

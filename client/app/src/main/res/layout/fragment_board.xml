@@ -5,79 +5,96 @@
     android:layout_height="match_parent"
     tools:context=".ui.navigation.BoardFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        tools:context=".RecordActivity"
+        android:paddingHorizontal="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이번달 나의 금융 패턴은?"
+            android:layout_marginTop="60dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/spoqahansansneo_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_menu"
+            android:layout_width="70dp"
+            android:layout_height="33dp"
+            android:text="전체"
+            android:focusedByDefault="true"
+            android:gravity="center"
+            android:focusableInTouchMode="true"
+            android:textSize="13dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:background="@drawable/board_menu_checked"
+            app:layout_constraintStart_toStartOf="parent"
+            android:stateListAnimator="@null"
+            android:focusable="true"
+            android:paddingHorizontal="11dp"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:drawableRight="@drawable/ic_down"
+            android:elevation="5dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/board_menu_option"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/board_menu"
+            app:layout_constraintStart_toStartOf="@id/board_menu"
+            app:layout_constraintEnd_toEndOf="@id/board_menu"
+            android:text="월별"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:textColor="@color/black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#FAFAFA"
+            app:strokeColor="#DADADA"
+            app:strokeWidth="1dp"
+            app:cornerRadius="10dp"
+            android:stateListAnimator="@null"
+            android:gravity="bottom"
+            android:textSize="13dp"
+            android:paddingBottom="7dp"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/board_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".RecordActivity">
+            android:layout_height="0dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/board_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_record"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_logo"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이번달 나의 금융 패턴은?"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="80dp"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:fontFamily="@font/spoqahansansneo_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <android.widget.Button
-                android:id="@+id/btn_month"
-                android:layout_width="63dp"
-                android:layout_height="33dp"
-                android:text="이번달"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="125dp"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:fontFamily="@font/spoqahansansneo_regular"
-                android:background="@drawable/this_month_round_clicked"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <android.widget.Button
-                android:layout_width="50dp"
-                android:layout_height="33dp"
-                android:text="전체"
-                android:layout_marginStart="87dp"
-                android:layout_marginTop="125dp"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:fontFamily="@font/spoqahansansneo_regular"
-                android:background="@drawable/this_month_round"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/board_list"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="36dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_month"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:scrollbars="vertical"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="기입하기"
+            android:drawableStart="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:background="@drawable/add_newlist_style"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="15dp"
+            android:stateListAnimator="@null"
+            android:elevation="4dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

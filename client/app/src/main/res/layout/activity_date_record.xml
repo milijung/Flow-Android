@@ -10,21 +10,33 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DateRecordActivity">
+        tools:context=".ui.calendar.DateRecordActivity">
 
-        <ImageButton
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="21dp"
-            android:src="@drawable/ic_back"
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/listDetail_title"
+                android:paddingLeft="20dp"
+                android:src="@drawable/ic_back"
+                android:background="@color/white"/>
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:text="12월 11일"
             android:textSize="20sp"
@@ -32,7 +44,7 @@
             android:fontFamily="@font/spoqahansansneo_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/header"/>
 
         <TextView
             android:id="@+id/tv_expense"
@@ -40,9 +52,9 @@
             android:layout_height="20dp"
             android:text="지출"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="153dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date"
             android:textSize="10sp"
             android:textAlignment="center"
             android:gravity="center"
@@ -51,11 +63,12 @@
             android:background="@drawable/expense_round"/>
 
         <TextView
+            android:id="@+id/price_expense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="0dp"
-            android:text="-69,000"
+            android:text="0"
             android:textSize="12sp"
             android:textColor="#E73A40"
             android:fontFamily="@font/spoqahansansneo_regular"
@@ -75,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_expense"
-            tools:listitem="@layout/item_date_record" />
+            tools:listitem="@layout/item_record" />
 
 
         <TextView
@@ -84,7 +97,7 @@
             android:layout_height="20dp"
             android:text="수입"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lv_expense"
             android:textSize="10sp"
@@ -95,11 +108,12 @@
             android:background="@drawable/income_round"/>
 
         <TextView
+            android:id="@+id/price_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="0dp"
-            android:text="+42,500"
+            android:text="0"
             android:textSize="12sp"
             android:textColor="#28A9DC"
             android:fontFamily="@font/spoqahansansneo_regular"
@@ -119,7 +133,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_income"
 
-            tools:listitem="@layout/item_date_record" />
+            tools:listitem="@layout/item_record" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

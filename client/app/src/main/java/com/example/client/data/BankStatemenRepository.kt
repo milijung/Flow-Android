@@ -1,10 +1,9 @@
 package com.example.client.data
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.room.RoomDatabase
+import kotlinx.coroutines.InternalCoroutinesApi
 import java.time.LocalDateTime
 import kotlin.collections.List
 
@@ -15,26 +14,28 @@ class BankStatementRepository(context: Context) {
     private var entertainmentCategoryKeywordList : ArrayList<String> = arrayListOf("NETFLIX","디즈니플러스","티빙","웨이브","왓챠","CGV","롯데시네마","메가박스","영화","롯데월드","애버랜드")
     private var healthCategoryKeywordList : ArrayList<String> = arrayListOf("약국","병원","산부인과","이비인후과","치과","피부과","비뇨기과","안과","소아과","소아청소년과","외과","내과")
     private var livingCategoryKeywordList : ArrayList<String> = arrayListOf("한국전력공사","도시가스")
-    private val roomDb : AppDatabase? = AppDatabase.getKeywordInstance(context)
+    @InternalCoroutinesApi
+    private val roomDb : AppDatabase? = AppDatabase.getInstance(context)
 
     @RequiresApi(Build.VERSION_CODES.O)
     val date = LocalDateTime.now().toString() // 현재 날짜와 시간
-    private var hour : String = date.substring(11,13)
-    private var min : String = date.substring(14,16)
-    private var year : String = date.substring(0,4)
-    private var month : String = date.substring(5,7)
-    private var day : String = date.substring(8,10)
+    private var hour : String = date.subSequence(11,13).toString()
+    private var min : String = date.subSequence(14,16).toString()
+    private var year : String = date.subSequence(0,4).toString()
+    private var month : String = date.subSequence(5,7).toString()
+    private var day : String = date.subSequence(8,10).toString()
     private var type : Int = 1
     private var price : String = "0"
     private var shop = "카카오택시"
     private var categoryId : Int = 15
 
-    fun getListInfo(statement: String): com.example.client.data.List {
+    @InternalCoroutinesApi
+    fun getListInfo(statement: String) {
         ExtractlistContent(statement)
-        return List(type, year, month, day, hour + ":" + min, shop, price, "", categoryId, true)
     }
 
     // 앱 처음 실행 시 초기 keyword값 삽입
+    @InternalCoroutinesApi
     fun initCategoryKeywordList() {
         if (roomDb != null) {
             for (keyW in livingCategoryKeywordList)
@@ -49,6 +50,7 @@ class BankStatementRepository(context: Context) {
     }
 
 
+    @InternalCoroutinesApi
     fun ExtractlistContent(statement: String) {
         var statement = statement.replace("[", "")
         statement = statement.replace("]", "")
@@ -168,6 +170,7 @@ class BankStatementRepository(context: Context) {
     }
 
     // 카테고리 추출
+    @InternalCoroutinesApi
     fun extractCategory(shop: String, typeId: Int): Int {
         for (x in roomDb!!.KeywordDao().selectByTypeId(typeId)) {
             if (shop.contains(x))

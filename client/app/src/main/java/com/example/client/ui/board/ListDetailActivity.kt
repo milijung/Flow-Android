@@ -5,47 +5,55 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.ui.category.ChangeCategoryActivity
 import com.example.client.R
-import com.example.client.data.AppDatabase
-import com.example.client.data.BankStatementRepository
-import com.example.client.data.Category
-import com.example.client.data.Keyword
+import com.example.client.api.HttpConnection
+import com.example.client.api.UpdateDetailData
+import com.example.client.data.*
 import com.example.client.databinding.ActivityListDetailBinding
+import com.example.client.ui.navigation.BottomNavigationActivity
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class ListDetailActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityListDetailBinding
-    private lateinit var listItem : com.example.client.data.List
     private lateinit var selectedCategory : Category
-
+    private val httpConnection : HttpConnection = HttpConnection()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityListDetailBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
         val listDetailIntent = intent
-        val listId = listDetailIntent.getIntExtra("listId",1) // 넘겨받은 내역 id
-        val listDb = AppDatabase.getListInstance(this) // 내역 DB
-        val categoryDb = AppDatabase.getCategoryInstance(this) // 카테고리 DB
-        val keywordDb = AppDatabase.getKeywordInstance(this) // 키워드 DB
+        val userId = listDetailIntent.getIntExtra("userId",-1)
+        val detailId = listDetailIntent.getIntExtra("detailId",1) // 넘겨받은 내역 id
+        val typeId = listDetailIntent.getIntExtra("typeId",1)
+        val categoryId = listDetailIntent.getIntExtra("categoryId",1)
+        val price = listDetailIntent.getStringExtra("price")
+        var memo = listDetailIntent.getStringExtra("memo")
+        val shop = listDetailIntent.getStringExtra("shop")
+        val year = listDetailIntent.getStringExtra("year")
+        val month = listDetailIntent.getStringExtra("month")
+        val day = listDetailIntent.getStringExtra("day")
+        val time = listDetailIntent.getStringExtra("time")
+        var isBudgetIncluded = listDetailIntent.getBooleanExtra("isBudgetIncluded",true)
+        var isKeywordIncluded = listDetailIntent.getBooleanExtra("isKeywordIncluded",false)
+
+        val roomDb = AppDatabase.getInstance(this) // 내역 DB
         val bankStatementRepository = BankStatementRepository(this)
 
-        if (listDb != null) {
-            listItem = listDb.ListDao().selectById(listId) // 넘겨받은 내역의 Data
-        }
-        if (categoryDb != null) {
-            selectedCategory = categoryDb.CategoryDao().selectById(listItem.categoryId)
+        if (roomDb != null) {
+            selectedCategory = roomDb.CategoryDao().selectById(categoryId)
         }// 넘겨받은 내역의 카테고리 Data
-
 
         // 넘겨받은 내역의 Data를 화면에 표시
         viewBinding.listDetailButton.text = getText(R.string.finish_button)
-        viewBinding.listDetailMemoContent.setText(listItem.memo)
-        viewBinding.listDetailTime.text = listItem.year + "년 "+listItem.month+"월 "+listItem.day+"일 "+listItem.time
-        viewBinding.listDetailPlace.text = listItem.shop
-        viewBinding.listDetailPrice.text = listItem.price+"원"
+        viewBinding.listDetailMemoContent.setText(memo)
+        viewBinding.listDetailTime.text = "${year}년 ${month}월 ${day}일 ${time}"
+        viewBinding.listDetailPlace.text = shop
+        viewBinding.listDetailPrice.text = "${price}원"
         viewBinding.listDetailCategoryNameButton.text = selectedCategory.name
-        viewBinding.listDetailBubble.text = listItem.shop+" 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
-        viewBinding.listDetailSwitch1.isChecked = listItem.isBudgetIncluded
-        viewBinding.listDetailQuestion2.isChecked = listItem.isKeywordIncluded
+        viewBinding.listDetailBubble.text = "${shop} 내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
+        viewBinding.listDetailSwitch1.isChecked = isBudgetIncluded
+        viewBinding.listDetailSwitch2.isChecked = isKeywordIncluded
 
         viewBinding.listDetailBackButton.setOnClickListener(){
             // 내용이 변경되지 않는다는 modal창 추가
@@ -54,32 +62,31 @@ class ListDetailActivity : AppCompatActivity() {
         }
 
         viewBinding.listDetailCategoryNameButton.setOnClickListener(){
-            // 카테고리 수정 화면으로 이동. 내역의 id와 typeId와 categoryId를 담아서 전송
+            // 카테고리 수정 화면으로 이동
             val intent = Intent(this, ChangeCategoryActivity::class.java)
-            intent.putExtra("listId",listItem.listId)
-            intent.putExtra("typeId",listItem.typeId)
+            intent.putExtra("detailId",detailId)
+            intent.putExtra("typeId",typeId)
             intent.putExtra("order",selectedCategory.order)
+            intent.putExtra("userId",userId)
+            intent.putExtra("price",price)
+            intent.putExtra("memo",viewBinding.listDetailMemoContent.text.toString())
+            intent.putExtra("shop",shop)
+            intent.putExtra("year",year)
+            intent.putExtra("month",month)
+            intent.putExtra("day",day)
+            intent.putExtra("time",time)
+            intent.putExtra("isBudgetIncluded",viewBinding.listDetailSwitch1.isChecked)
+            intent.putExtra("isKeywordIncluded",viewBinding.listDetailSwitch2.isChecked)
             startActivity(intent)
         }
         viewBinding.listDetailButton.setOnClickListener(){
             // Memo 내용, 예산 저장 여부 DB에 update
-            if (listDb != null) {
-                listDb.ListDao().updateMemo(listId,viewBinding.listDetailMemoContent.text.toString())
-                listDb.ListDao().updateIsBudgetIncluded(listId, viewBinding.listDetailSwitch1.isChecked)
-                listDb.ListDao().updateIsBudgetIncluded(listId,viewBinding.listDetailQuestion2.isChecked)
-                when(viewBinding.listDetailQuestion2.isChecked){
-                    true -> {
-                        keywordDb!!.KeywordDao().insert(Keyword(listItem.categoryId,listItem.shop,true))
-                        keywordDb!!.KeywordDao().updateListCategoryByKeyword(listItem.shop, listItem.categoryId)
-                    }
-                    else -> {
-                        keywordDb!!.KeywordDao().deleteKeyword(listItem.categoryId, listItem.shop)
-                        val newCategoryId : Int = bankStatementRepository.extractCategory(listItem.shop,listItem.typeId)
-                        keywordDb!!.KeywordDao().updateListCategoryByKeyword(listItem.shop, newCategoryId)
-                    }
-                }
-            }
-
+            httpConnection.updateList(userId, detailId, UpdateDetailData(categoryId,viewBinding.listDetailMemoContent.text.toString(),viewBinding.listDetailSwitch1.isChecked, viewBinding.listDetailSwitch2.isChecked))
+            // Board 화면으로 이동
+            val intent = Intent(this, BottomNavigationActivity::class.java)
+            intent.putExtra("pageId",1)
+            startActivity(intent)
+            finish()
         }
     }
 }

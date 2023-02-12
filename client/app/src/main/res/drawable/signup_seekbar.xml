@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- seekbar 배경 1 -->
+    <item android:id="@android:id/background">
+        <!-- 선 : 길이 -->
+        <shape android:shape="line">
+            <stroke android:width="2dp" android:color="#F8F8F8" />
+        </shape>
+    </item>
+
+    <!-- seekbar 프로그래스 바 -->
+    <item android:id="@+id/progressBar" >
+        <clip>
+            <shape android:shape="line">
+                <stroke android:width="2dp" android:color="#0A0707" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

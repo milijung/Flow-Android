@@ -300,7 +300,7 @@
                 android:fontFamily="@font/suit_bold"
                 android:textColor="@color/black"/>
             <Switch
-                android:id="@+id/listDetail_question2"
+                android:id="@+id/listDetail_switch2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -319,12 +319,11 @@
             android:text=""
             android:textColor="@color/white"
             android:fontFamily="@font/spoqahansansneo_regular"
-            android:paddingTop="7dp"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:gravity="center"
+            android:paddingTop="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/question2"
-            android:layout_gravity="center"
             app:layout_constraintBottom_toTopOf="@id/listDetail_button"/>
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
@@ -336,6 +335,7 @@
         android:insetBottom="0dp"
         android:text=""
         android:textSize="16dp"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

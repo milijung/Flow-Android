@@ -1,25 +1,32 @@
 package com.example.client.ui.navigation
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.client.DateRecordFragment
+import android.view.View
 import com.example.client.R
+import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityBottomNavigationBinding
+import com.example.client.databinding.FragmentBoardBinding
+import com.example.client.ui.signup.SignUpFragment1
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.selects.select
+import kotlin.properties.Delegates
 
-class BottomNavigationActivity : AppCompatActivity() {
+@InternalCoroutinesApi
+class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnListLongClickListener {
     private val viewBinding: ActivityBottomNavigationBinding by lazy {
         ActivityBottomNavigationBinding.inflate(layoutInflater)
     }
+    private var pageId by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val intent : Intent = intent
+        pageId = intent.getIntExtra("pageId",0)
         AndroidThreeTen.init(this)
         setContentView(viewBinding.root)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(viewBinding.navContainer.id, HomeFragment())
-            .commitAllowingStateLoss()
 
         // run을 쓰면 연결된 요소에 코드를 바로 작성 가능
         viewBinding.bottomNav.run{
@@ -54,26 +61,27 @@ class BottomNavigationActivity : AppCompatActivity() {
                 true
             }
             // 함수지만 변수처럼 쓸 수 있음. 현재 선택한 item을 알려줄 수 있음
-            selectedItemId = R.id.menu_home
+            changeSelectedFragment(pageId)
+        }
+        viewBinding.bottomListDelete.setOnClickListener {
+
         }
     }
-
-    fun changeFragment(index: Int){
+    private fun changeSelectedFragment(index: Int){
         when(index){
-            1 -> {
-                supportFragmentManager.
-                beginTransaction()
-                    .replace(viewBinding.navContainer.id, CalendarFragment())
-                    .commit()
-            }
-            2 -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(viewBinding.navContainer.id, DateRecordFragment())
-                    .commit()
-
-
-            }
+            0 -> viewBinding.bottomNav.selectedItemId = R.id.menu_home
+            1 -> viewBinding.bottomNav.selectedItemId = R.id.menu_board
+            2 -> viewBinding.bottomNav.selectedItemId = R.id.menu_calendar
+            3 -> viewBinding.bottomNav.selectedItemId = R.id.menu_setting
         }
     }
+    override fun onListLongClickStart() {
+        viewBinding.bottomModal.visibility = View.VISIBLE
+    }
+
+    override fun onListLongClickFinish() {
+        viewBinding.bottomModal.visibility = View.GONE
+    }
+
+
 }

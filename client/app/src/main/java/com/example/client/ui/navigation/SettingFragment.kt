@@ -9,12 +9,15 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.example.client.ui.setting.SettingBudgetSettingActivity
 import com.example.client.databinding.FragmentSettingBinding
+import com.example.client.ui.category.SettingCategoryActivity
 import com.example.client.ui.setting.SettingBankAppChoiceActivity
 import com.example.client.ui.setting.SettingLetterAddRegistraionActivity
-import kotlinx.android.synthetic.main.fragment_setting.*
-import kotlinx.android.synthetic.main.fragment_setting.view.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
+//import kotlinx.android.synthetic.main.fragment_setting.*
+//import kotlinx.android.synthetic.main.fragment_setting.view.*
 
+@InternalCoroutinesApi
 class SettingFragment : Fragment() {
    private lateinit var binding: FragmentSettingBinding
 
@@ -24,7 +27,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentSettingBinding.inflate(layoutInflater)
+        binding = FragmentSettingBinding.inflate(inflater, container, false)
 
         binding.budgetSettingBtn.setOnClickListener(){
             val intent = Intent(activity, SettingBudgetSettingActivity::class.java)
@@ -33,6 +36,10 @@ class SettingFragment : Fragment() {
 
         binding.letterAddRegistrationBtn.setOnClickListener(){
             val intent = Intent(activity, SettingLetterAddRegistraionActivity::class.java)
+            startActivity(intent)
+        }
+        binding.incomeExpenseCategoryManagementBtn.setOnClickListener {
+            val intent = Intent(activity, SettingCategoryActivity::class.java)
             startActivity(intent)
         }
 
@@ -57,7 +64,7 @@ class SettingFragment : Fragment() {
 
         binding.seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                userProgress.text = "${progress}%"
+//                userProgress.text = "${progress}%"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

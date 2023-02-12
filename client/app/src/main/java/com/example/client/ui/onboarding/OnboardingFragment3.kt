@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.client.databinding.FragmentOnboarding3Binding
 import com.example.client.ui.onboarding.OnboardingActivity
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 class OnboardingFragment3 : Fragment() {
     private lateinit var viewBinding: FragmentOnboarding3Binding
     private lateinit var onBoardingActivity : OnboardingActivity
@@ -22,7 +24,7 @@ class OnboardingFragment3 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding=FragmentOnboarding3Binding.inflate(layoutInflater)
+        viewBinding=FragmentOnboarding3Binding.inflate(inflater, container, false)
         return viewBinding.root
     }
 }
