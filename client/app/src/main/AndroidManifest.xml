@@ -15,6 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
         <activity
+            android:name=".SettingUserDeleteModal"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SettingInitializationModal"
             android:exported="false">
             <meta-data

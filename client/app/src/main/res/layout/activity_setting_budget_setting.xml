@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="@id/edit"
             app:layout_constraintEnd_toEndOf="@id/edit"
             android:layout_marginEnd="10dp"
-            android:text="result"/>
+            android:text=""/>
 
         <LinearLayout
             android:id="@+id/money_btn"
