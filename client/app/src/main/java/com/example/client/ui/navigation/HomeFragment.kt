@@ -139,24 +139,13 @@ class HomeFragment : Fragment() {
                 axisMaximum = 90f
                 axisMinimum = 0f
                 granularity = 90f
-                setDrawLabels(true) // 값 적는거 허용
-                setDrawGridLines(true) //격자 라인 활용
-                setDrawAxisLine(false) // 축 그리기 설정
-                axisLineColor = ContextCompat.getColor(
+                setDrawAxisLine(false)// 축 그리기 설정
+                textColor= ContextCompat.getColor(
                     context,
                     R.color.gray
-                ) // 축 색깔 설정
-                gridColor = ContextCompat.getColor(
-                    context,
-                    R.color.gray
-                ) // 축 아닌 격자 색깔 설정
-                textColor = ContextCompat.getColor(
-                    context,
-                    R.color.gray
-                ) // 라벨 텍스트 컬러 설정
-                textSize = 13f //라벨 텍스트 크기
-                setDrawLabels(false) // 값 셋팅 설정
-                addLimitLine(line) //average line
+                )// 라벨 텍스트 컬러 설정
+                setDrawLabels(false)// 값 셋팅 설정
+                addLimitLine(line)//average line
             }
             //X축
             xAxis.run {
@@ -186,9 +175,9 @@ class HomeFragment : Fragment() {
             invalidate()
         }
 
-        //graphStackedBar
+        //graphStackedBar 가로 그래프
         val entries2 = ArrayList<BarEntry>()
-        entries2.add(BarEntry(0f, floatArrayOf(50f, 30f, 20f))) //graph_stackedBar 값
+        entries2.add(BarEntry(0f, floatArrayOf(50f, 30f, 10f, 0f, 10f, 0f))) //graph_stackedBar 값
 
         val set2 = BarDataSet(entries2, "")
         set2.colors = mutableListOf(
@@ -200,7 +189,7 @@ class HomeFragment : Fragment() {
         val data2 = BarData(set2)
         val xAxis: XAxis = graphStackedBar.getXAxis()
         data2.setDrawValues(false)
-        data2.setBarWidth(3f);
+        data2.setBarWidth(5f)
         data2.isHighlightEnabled = false
         graphStackedBar.data = data2
         graphStackedBar.axisLeft.setDrawGridLines(false)
@@ -212,7 +201,10 @@ class HomeFragment : Fragment() {
         graphStackedBar.legend.isEnabled = false
         graphStackedBar.invalidate()
         graphStackedBar.setPinchZoom(false)
-        graphStackedBar.axisRight.isEnabled = false // Y축 안보이게
+        graphStackedBar.axisLeft.isEnabled= false
+        graphStackedBar.axisLeft.axisMaximum= 100f
+        graphStackedBar.axisLeft.axisMinimum= 0f
+        graphStackedBar.xAxis.setDrawAxisLine(false)
     }
 
     //graphBar X축 라벨값
