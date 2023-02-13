@@ -5,14 +5,7 @@
     android:layout_height="wrap_content"
     tools:context=".ui.setting.BottomSheet"
     android:orientation="vertical"
-    android:background="#3D3D3D">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="30dp"
-        android:background="@drawable/bottom_dialog">
+    android:padding="30dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="언제 시작할까요?"
-            android:textSize="23dp"
+            android:textSize="20dp"
             android:textColor="@color/black"
             android:fontFamily="@font/spoqahansansneo_bold"/>
 
@@ -50,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:theme="@style/BottomSheetPickerStyle"
-        android:layout_marginVertical="15dp" />
+        android:layout_marginVertical="10dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/choose_btn"
@@ -64,5 +57,4 @@
         android:textColor="@color/white"
         android:fontFamily="@font/suit_bold"
         android:background="@drawable/choose_btn"/>
-    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

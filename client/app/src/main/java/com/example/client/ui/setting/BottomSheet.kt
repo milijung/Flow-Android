@@ -16,7 +16,7 @@ import com.example.client.databinding.FragmentBottomSheetBinding
 import com.example.client.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheet(private val defaultValue : Int) : BottomSheetDialogFragment() {
+class BottomSheet(private var defaultValue : Int) : BottomSheetDialogFragment() {
     private lateinit var viewBinding: FragmentBottomSheetBinding
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
@@ -29,12 +29,13 @@ class BottomSheet(private val defaultValue : Int) : BottomSheetDialogFragment() 
 
         viewBinding.startdayPicker.minValue = 1
         viewBinding.startdayPicker.maxValue = 28
-        viewBinding.startdayPicker.value = defaultValue
 
+        viewBinding.startdayPicker.value = defaultValue
         // 날짜 순환 기능
-        viewBinding.startdayPicker.wrapSelectorWheel = false
+        viewBinding.startdayPicker.wrapSelectorWheel = true
 
         viewBinding.closeBtn.setOnClickListener{
+            viewBinding.startdayPicker.value = defaultValue
             dismiss()
         }
         viewBinding.chooseBtn.setOnClickListener {

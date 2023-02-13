@@ -27,7 +27,7 @@ class ListDetailActivity : AppCompatActivity() {
         val detailId = listDetailIntent.getIntExtra("detailId",1) // 넘겨받은 내역 id
         val typeId = listDetailIntent.getIntExtra("typeId",1)
         val categoryId = listDetailIntent.getIntExtra("categoryId",1)
-        val price = listDetailIntent.getStringExtra("price")
+        val price = listDetailIntent.getIntExtra("price",0)
         var memo = listDetailIntent.getStringExtra("memo")
         val shop = listDetailIntent.getStringExtra("shop")
         val year = listDetailIntent.getStringExtra("year")
