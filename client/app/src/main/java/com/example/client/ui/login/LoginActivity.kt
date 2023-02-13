@@ -157,12 +157,12 @@ class LoginActivity : AppCompatActivity() {
 
         val mGoogleSignInClient = GoogleSignIn.getClient(this,gso)
 
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account == null) {
-            Log.e("Google account", "로그인 안되있음")
-        } else {
-            Log.e("Google account", "로그인 완료된 상태")
-        }
+//        val account = GoogleSignIn.getLastSignedInAccount(this)
+//        if (account == null) {
+//            Log.e("Google account", "로그인 안되있음")
+//        } else {
+//            Log.e("Google account", "로그인 완료된 상태")
+//        }
 
         GoogleSignResultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){ result ->
