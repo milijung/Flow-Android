@@ -102,14 +102,20 @@ interface api {
 
     //모든 데이터 삭제
 
-    @DELETE("users/reset/{userId}")
-    fun allDataDelete(
+    @DELETE("/users/reset/{userId}")
+    fun deleteData(
         @Query("userId") userId: Int
     ): Call<ResponseData>
 
     //탈퇴하기
-    @DELETE("users/deleteUser/{userId}")
-    fun getOut(
+    @DELETE("/users/deleteUser/{userId}")
+    fun deleteAccount(
         @Query("userId") userId: Int
     ): Call<ResponseData>
+
+    @GET("/home/{userId}/{month}")
+    fun getAnalysis(
+        @Path("userId") userId : Int,
+        @Path("month") month : Int
+    ): Call<AnalysisResponseByList>
 }

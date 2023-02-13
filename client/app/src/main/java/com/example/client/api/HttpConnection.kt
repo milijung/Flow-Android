@@ -221,7 +221,7 @@ open class HttpConnection {
         })
     }
    @InternalCoroutinesApi
-   fun updateBudget(context:Context, roomDb: AppDatabase,userId: Int, budgetRequest: BudgetRequest) {
+   fun updateBudget(context:Context, roomDb: AppDatabase,pageId:Int,userId: Int, budgetRequest: BudgetRequest) {
        val call = request.updateBudget(userId, budgetRequest)
 
        call.enqueue(object : Callback<ResponseData> {
@@ -229,7 +229,7 @@ open class HttpConnection {
                if (response.body()!!.isSuccess) {
                    roomDb.UserDao().updateBudgetInfo(userId,budgetRequest.budget, budgetRequest.startDate)
                    val intent = Intent(context, BottomNavigationActivity::class.java)
-                   intent.putExtra("pageId",3)
+                   intent.putExtra("pageId",pageId)
                    context.startActivity(intent)
                    Toast.makeText(context, "예산이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
                } else {
@@ -244,7 +244,7 @@ open class HttpConnection {
        })
    }
     fun allDataDelete(context:Context, userId: Int) {
-        val call = request.allDataDelete(userId)
+        val call = request.deleteData(userId)
 
         call.enqueue(object : Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {

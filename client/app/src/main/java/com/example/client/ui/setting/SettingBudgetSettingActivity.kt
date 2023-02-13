@@ -35,6 +35,9 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
 
         val roomDatabase = AppDatabase.getInstance(this)
         val user = roomDatabase!!.UserDao().getUserInfo()
+        val budgetSettingIntent = intent
+        val pageId = budgetSettingIntent.getIntExtra("pageId",-1)
+        bottomSheet = BottomSheet(user.budgetStartDay)
 
         viewBinding.completBtn.text = getText(R.string.finish_button)
         viewBinding.edit.setText(user.budget.toString())
@@ -45,7 +48,6 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
 
         // 예산시작일 고르는 창
         viewBinding.budgetStartBtn.setOnClickListener {
-            bottomSheet = BottomSheet(user.budgetStartDay)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 
@@ -97,10 +99,13 @@ class SettingBudgetSettingActivity : AppCompatActivity() {
                 Toast.makeText(this,"예산을 입력해주세요",Toast.LENGTH_SHORT).show()
             else {
                 val budget = Integer.parseInt(viewBinding.edit.text.toString())
-                val startDate = bottomSheet.getBudgetStartDate()
+                var startDate = bottomSheet.getBudgetStartDate()
+
+                println("날짜: $startDate")
                 httpConnection.updateBudget(
                     this,
                     roomDatabase,
+                    pageId,
                     user.userId,
                     BudgetRequest(budget, startDate)
                 )

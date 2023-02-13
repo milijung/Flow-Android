@@ -71,6 +71,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/signup_seekbar.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/switchstyle.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/this_month_button.xml" value="0.1609375" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/this_month_round.xml" value="0.1921875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/drawable/this_month_round_clicked.xml" value="0.17291666666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23203125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout-w936dp/activity_login.xml" value="0.152" />
@@ -103,7 +104,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_icon.xml" value="0.8" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_icon_setting.xml" value="0.3" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_date_record.xml" value="0.20637732506643047" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_income_expense_category_management.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_onboarding1.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_onboarding2.xml" value="0.22" />

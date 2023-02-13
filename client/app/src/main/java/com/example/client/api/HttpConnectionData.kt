@@ -165,4 +165,44 @@ data class BudgetRequest(
     @SerializedName("startDate")
     val startDate:Int,
 )
+data class AnalysisResponseByList(
+    @SerializedName("isSuccess")
+    val isSuccess:Boolean,
+    @SerializedName("code")
+    val code:Int,
+    @SerializedName("message")
+    val message:String,
+    @SerializedName("result")
+    val result: AnalysisResponseData,
+)
+data class AnalysisResponseData(
+    @SerializedName("budget")
+    val budget: Int,
+    @SerializedName("consumption")
+    val consumption:Int,
+    @SerializedName("latsConsumption")
+    val latsConsumption:Int,
+    @SerializedName("percent")
+    val percent:Int,
+    @SerializedName("categoryData")
+    val categoryData: List<CategoryAnalysisData>,
+    @SerializedName("expenditureData")
+    val cexpenditureData: List<ExpenditureAnalysisData>
+)
+data class CategoryAnalysisData(
+    @SerializedName("categoryId")
+    val categoryId: Int,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("consumption")
+    val consumption:Int,
+    @SerializedName("percent")
+    val percent:Int,
+)
+data class ExpenditureAnalysisData(
+    @SerializedName("month")
+    val month: Int,
+    @SerializedName("expenditure")
+    val expenditure: Int,
+)
 

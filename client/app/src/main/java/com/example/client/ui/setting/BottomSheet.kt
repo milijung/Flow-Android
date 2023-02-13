@@ -46,7 +46,14 @@ class BottomSheet(private var defaultValue : Int) : BottomSheetDialogFragment() 
     }
 
     fun getBudgetStartDate():Int{
-        return viewBinding.startdayPicker.value
+        return try {
+            viewBinding.startdayPicker.value
+        }catch(e:IllegalStateException){
+            defaultValue
+        }catch (e: UninitializedPropertyAccessException){
+            defaultValue
+        }
+
     }
 
 

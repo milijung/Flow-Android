@@ -34,6 +34,7 @@ class SettingFragment : Fragment() {
 
         binding.budgetSettingBtn.setOnClickListener(){
             val intent = Intent(activity, SettingBudgetSettingActivity::class.java)
+            intent.putExtra("pageId",3)
             startActivity(intent)
         }
 
