@@ -27,8 +27,6 @@ class UpdateCategoryActivity : AppCompatActivity() {
         val categoryIntent = intent
         val categoryId : Int = categoryIntent.getIntExtra("categoryId",1)
 
-
-
         val roomDb = AppDatabase.getInstance(this)
         if(roomDb != null){
             category = roomDb.CategoryDao().selectById(categoryId)

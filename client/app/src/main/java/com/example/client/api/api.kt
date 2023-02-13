@@ -14,8 +14,8 @@ interface api {
     @POST("/details/{userId}")
     fun insertDetail(
         @Path("userId") userId:Int,
-        @Body detailRequest : Detail,
-    ): Call<ResponseData>
+        @Body detailRequest : InsertDetailRequestData,
+    ): Call<InsertDetailResponseData>
 
     @GET("/details/{userId}")
     fun getDetailsOfRange(

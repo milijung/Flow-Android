@@ -93,13 +93,13 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     }
 
     private fun onMenuChangeListener(detail: List<Detail>){
-        longClickListener?.onListLongClickFinish()
+        longClickListener.onListLongClickFinish()
         if(adapter == null){
             adapter = RecordAdapter(bottomNavigationActivity,listOf())
         }
-        adapter!!.selectedItem = arrayListOf()
+        adapter!!.selectedItem?.clear()
         val sortedDetail = detail.sortedWith(compareBy({-it.year.toInt()},{-it.month.toInt()},{-it.day.toInt()},{-it.detailId}))
-        sortedDetail.filter{detail -> ((detail.integratedId == -1) or (detail.integratedId == detail.detailId) )}
+        sortedDetail.filter{detail : Detail-> ((detail.integratedId == -1) or (detail.integratedId == detail.detailId) )}
         adapter!!.updateRecordList(sortedDetail)
         viewBinding.boardList.adapter= adapter
         (viewBinding.boardList.adapter as RecordAdapter).notifyDataSetChanged()

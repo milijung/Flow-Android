@@ -1,24 +1,61 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.Client" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Hide action bar  -->
-        <item name="windowNoTitle">true</item>
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryVariant">@color/lightgray</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. (checkbox, radiobox, ...) -->
-        <item name="colorSecondary">@color/yellow</item>
-        <item name="colorSecondaryVariant">@color/darkgray</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <!-- Navigation bar color. -->
-        <item name="android:navigationBarColor">@color/lightgray</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="q">true</item>
-        <!-- Radio Button color.-->
-        <item name="colorAccent">@color/red</item>
-        <item name="colorControlNormal">@color/lightgray2</item>
-    </style>
+  <!-- Base application theme. -->
+  <style name="Theme.Client" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <!-- Hide action bar  -->
+    <item name="windowNoTitle">true</item>
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/red</item>
+    <item name="colorPrimaryVariant">@color/gray</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <!-- Secondary brand color. (checkbox, radiobox, ...) -->
+    <item name="colorSecondary">@color/yellow</item>
+    <item name="colorSecondaryVariant">@color/darkgray</item>
+    <item name="colorOnSecondary">@color/black</item>
+    <!-- Status bar color. -->
+    <item name="android:statusBarColor" tools:targetApi="l">@color/lightgray</item>
+    <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    <!-- Navigation bar color. -->
+    <item name="android:navigationBarColor">@color/lightgray</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="q">true</item>
+    <!-- Radio Button color.-->
+    <item name="colorAccent">@color/red</item>
+    <item name="colorControlNormal">@color/gray</item>
+    <!-- BottomSheetDialog style.-->
+    <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+  </style>
+  <!-- Splash screen theme.-->
+  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@drawable/ic_splash</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
+
+  <style name="Theme.Client.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="Theme.Client.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="Theme.Client.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+  </style>
+
+  <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+  </style>
+
+  <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeTopRight">20dp</item>
+    <item name="cornerSizeTopLeft">20dp</item>
+    <item name="cornerSizeBottomRight">0dp</item>
+    <item name="cornerSizeBottomLeft">0dp</item>
+  </style>
+
+  <style name="BottomSheetPickerStyle">
+    <item name="android:textSize">20dp</item>
+    <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+  </style>
+
 </resources>

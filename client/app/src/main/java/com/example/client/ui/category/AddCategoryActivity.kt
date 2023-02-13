@@ -10,6 +10,7 @@ import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
 import com.example.client.databinding.ActivityAddCategoryBinding
+import com.example.client.ui.navigation.BottomNavigationActivity
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
@@ -68,6 +69,10 @@ class AddCategoryActivity : AppCompatActivity() {
                 httpConnection.insertCategory(this, listId, selectedCategoryPosition, roomDb,1,
                     CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId), newCategoryOrder
                 )
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                intent.putExtra("pageId",1)
+                startActivity(intent)
+                finish()
             }
         }
     }

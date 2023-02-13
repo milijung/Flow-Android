@@ -9,6 +9,7 @@ import com.example.client.APIObject
 import com.example.client.api.RecordsOfDate
 import com.example.client.api.api
 import com.example.client.data.AppDatabase
+import com.example.client.data.Detail
 import com.example.client.data.adapter.ItemDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityDateRecordBinding
@@ -21,6 +22,8 @@ import retrofit2.Response
 class DateRecordActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDateRecordBinding
     private val request: api = APIObject.getInstance().create(api::class.java)
+    var expenseList = ArrayList<Detail>()
+    var incomeList = ArrayList<Detail>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding=ActivityDateRecordBinding.inflate(layoutInflater)
@@ -48,10 +51,13 @@ class DateRecordActivity : AppCompatActivity() {
     private fun getRecordsOfDate(userId: Int, year: Int, month: Int, day : Int) {
         val call = request.getRecordsOfDate(year,month,day,userId)
         viewBinding.progressBar.visibility = View.VISIBLE
+        expenseList.clear()
+        incomeList.clear()
         call.enqueue(object: Callback<RecordsOfDate> {
             override fun onResponse(call: Call<RecordsOfDate>, response: Response<RecordsOfDate>){
                 if(response.body()!!.isSuccess){
                     val recordsInfo = response.body()?.result!!
+                    println(recordsInfo)
                     // 총 지출금액과 수입금액 가져오기
                     if (recordsInfo != null) {
                         for(price in recordsInfo.totalAmount){
@@ -60,11 +66,17 @@ class DateRecordActivity : AppCompatActivity() {
                             else
                                 viewBinding.priceIncome.text = "+${price.total}"
                         }
+                        // 내역 가져오기
+                        val records= recordsInfo.detail
+                        if(records != null){
+                            for(r in records){
+                                when(r.typeId){
+                                    1 -> expenseList.add(r)
+                                    else -> incomeList.add(r)
+                                }
+                            }
+                        }
                     }
-                    // 내역 가져오기
-                    val records= recordsInfo?.transaction
-                    val expenseList= records?.filter { it.typeId==1}
-                    val incomeList=records?.filter{it.typeId==2}
 
                     when(expenseList?.size){
                         0 -> {

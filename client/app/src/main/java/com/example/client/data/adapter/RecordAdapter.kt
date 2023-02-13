@@ -17,7 +17,7 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
 
     val context : Context = context
     val roomDb = AppDatabase.getInstance(context)
-    var selectedItem : ArrayList<Int>? = null
+    var selectedItem = ArrayList<Int>()
     private var longClickListener : OnListLongClickListener? = context as OnListLongClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

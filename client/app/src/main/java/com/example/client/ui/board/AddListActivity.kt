@@ -9,8 +9,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.client.R
 import com.example.client.api.HttpConnection
+import com.example.client.api.InsertDetailRequestData
 import com.example.client.data.AppDatabase
-import com.example.client.data.Detail
 import com.example.client.databinding.ActivityAddListBinding
 import com.example.client.ui.category.ChangeCategoryActivity
 import com.example.client.ui.navigation.BottomNavigationActivity
@@ -92,8 +92,8 @@ class AddListActivity : AppCompatActivity() {
                 Toast.makeText(this, "가격을 입력해주세요", Toast.LENGTH_SHORT).show()
             }else if(viewBinding.addListPlace.text.toString()==""){
                 Toast.makeText(this, "거래처를 입력해주세요", Toast.LENGTH_SHORT).show()
-            }            else{
-                httpConnection.insertList(this, userId,Detail(
+            }else{
+                httpConnection.insertList(this, userId,InsertDetailRequestData(
                     userId,
                     categoryId,
                     viewBinding.addListDatepicker.year.toString(),
@@ -107,10 +107,6 @@ class AddListActivity : AppCompatActivity() {
                     viewBinding.addListSwitch2.isChecked,
                     viewBinding.addListMemoContent.text.toString()
                 ))
-                val intent = Intent(this, BottomNavigationActivity::class.java)
-                intent.putExtra("pageId",1)
-                startActivity(intent)
-                finish()
             }
         }
     }

@@ -38,17 +38,16 @@ open class HttpConnection {
         })
     }
     @InternalCoroutinesApi
-    fun insertList(context:Context, userId:Int, requestData: Detail) {
+    fun insertList(context:Context, userId:Int, requestData: InsertDetailRequestData) {
         val call = request.insertDetail(userId,requestData)
-        call.enqueue(object: Callback<ResponseData> {
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+        call.enqueue(object: Callback<InsertDetailResponseData> {
+            override fun onResponse(call: Call<InsertDetailResponseData>, response: Response<InsertDetailResponseData>) {
                 if (response.body()!!.isSuccess){
+                    // Board 화면으로 이동
                     val intent = Intent(context, BottomNavigationActivity::class.java)
                     intent.putExtra("pageId",1)
                     context.startActivity(intent)
-
                     Toast.makeText(context, "내역이 성공적으로 추가되었습니다", Toast.LENGTH_SHORT).show()
-                    println("${response.body()?.result}")
                 }
                 else{
                     Toast.makeText(context, "내역이 추가되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -56,16 +55,21 @@ open class HttpConnection {
                 }
                 println("${response.body()?.message}")
             }
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+            override fun onFailure(call: Call<InsertDetailResponseData>, t: Throwable) {
                 Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다.\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }
+    @InternalCoroutinesApi
     fun updateList(context: Context, userId:Int, detailId : Int, body : UpdateDetailData) {
         val call = request.updateDetail(userId,detailId, body)
         call.enqueue(object: Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>)  {
                 if(response.body()!!.isSuccess){
+                    // Board 화면으로 이동
+                    val intent = Intent(context, BottomNavigationActivity::class.java)
+                    intent.putExtra("pageId",1)
+                    context.startActivity(intent)
                     Toast.makeText(context, "내역이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
                 } else{
                     Toast.makeText(context, "내역이 수정되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()

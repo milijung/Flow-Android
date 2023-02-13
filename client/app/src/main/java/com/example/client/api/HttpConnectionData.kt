@@ -1,5 +1,6 @@
 package com.example.client.api
 
+import androidx.room.ColumnInfo
 import com.example.client.data.Category
 import com.example.client.data.Detail
 import com.example.client.data.User
@@ -88,12 +89,40 @@ data class RecordsOfDate(
     @SerializedName("result")
     val result:RecordsInfoOfDate
 )
-
+data class InsertDetailRequestData(
+    @SerializedName("userId") val userId:Int,
+    @SerializedName("categoryId") val categoryId: Int,
+    @SerializedName( "year") val year: String,
+    @SerializedName( "month") val month: String,
+    @SerializedName("day") val day: String,
+    @SerializedName("time") val time: String,
+    @SerializedName( "price") val price : Int,
+    @SerializedName("shop") val shop: String,
+    @SerializedName("typeId") val typeId:Int,  // 지출: 1, 수입: 2
+    @SerializedName("isBudgetIncluded") val isBudgetIncluded : Boolean,
+    @SerializedName("isKeywordIncluded") val isKeywordIncluded : Boolean = false,
+    @SerializedName( "memo") val memo : String,
+    @SerializedName("integratedId") val integratedId : Int = -1,
+)
+data class InsertDetailResponseData(
+    @SerializedName("isSuccess")
+    val isSuccess:Boolean,
+    @SerializedName("code")
+    val code:Int,
+    @SerializedName("message")
+    val message:String,
+    @SerializedName("result")
+    val result:DetailId
+)
+data class DetailId(
+    @SerializedName("detailId")
+    val detailId:Int
+)
 data class RecordsInfoOfDate(
     @SerializedName("totalAmount")
     val totalAmount:ArrayList<TotalAmount>,
     @SerializedName("transaction")
-    val transaction:ArrayList<Detail>,
+    val detail:List<Detail>,
 )
 
 data class TotalAmount(

@@ -31,7 +31,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val categoryType : Int = listDetailIntent.getIntExtra("typeId",1)
         val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
         val userId = listDetailIntent.getIntExtra("userId",-1)
-        val price = listDetailIntent.getStringExtra("price")
+        val price = listDetailIntent.getIntExtra("price",0)
         var memo = listDetailIntent.getStringExtra("memo")
         val shop = listDetailIntent.getStringExtra("shop")
         val year = listDetailIntent.getStringExtra("year")
