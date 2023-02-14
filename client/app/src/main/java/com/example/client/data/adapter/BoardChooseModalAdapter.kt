@@ -30,6 +30,7 @@ class BoardChooseModalAdapter(private val recordList:List<Detail>): RecyclerView
             binding.tvMoney.text=data.price.toString()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
+            binding.highlight.visibility = View.GONE
         }
     }
 

@@ -2,7 +2,6 @@ package com.example.client.ui.modal
 
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.client.databinding.ModalBoardDeleteBinding
 import com.example.client.databinding.ModalSignupDuplicateBinding
 
 class SignUpDuplicateModal(private val context : AppCompatActivity) {

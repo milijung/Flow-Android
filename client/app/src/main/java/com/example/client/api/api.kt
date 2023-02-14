@@ -38,10 +38,10 @@ interface api {
         @Body joinDetailRequest:JoinDetailData
     ):Call<ResponseData>
 
-    @DELETE("/details/{userId}")
+    @HTTP(method = "DELETE", path = "/details/{userId}", hasBody = true)
     fun deleteDetail(
         @Path("userId") userId:Int,
-        @Body deleteDetailRequest:HashMap<String, List<Int>>
+        @Body deleteDetailRequest: DeleteDetailRequestData
     ):Call<ResponseData>
 
     // Category api

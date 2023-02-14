@@ -92,8 +92,8 @@
             android:paddingBottom="7dp"
             android:visibility="gone"
             android:elevation="0.5dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/board_list"
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
@@ -102,8 +102,14 @@
             app:layout_constraintTop_toBottomOf="@id/calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item_record"/>
-
+            app:srl_direction="bottom">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/board_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            tools:listitem="@layout/item_record" />
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/board_add_button"
             android:layout_width="wrap_content"

@@ -118,6 +118,10 @@ data class DetailId(
     @SerializedName("detailId")
     val detailId:Int
 )
+data class DeleteDetailRequestData(
+    @SerializedName("detailId")
+    val detailList:List<Int>
+)
 data class RecordsInfoOfDate(
     @SerializedName("totalAmount")
     val totalAmount:ArrayList<TotalAmount>,

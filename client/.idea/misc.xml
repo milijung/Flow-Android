@@ -118,6 +118,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_list_detail.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_main.xml" value="0.22565687789799072" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_modal.xml" value="0.1703125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_onboarding.xml" value="0.3467181467181467" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_record.xml" value="0.536" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/activity_setting_bank_app_choice.xml" value="0.14635416666666667" />
@@ -130,6 +131,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/category_icon.xml" value="1.0" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_big_button.xml" value="0.3" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_board.xml" value="0.3059895833333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_board_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_calendar.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/fragment_category_change.xml" value="0.2" />
@@ -156,11 +158,12 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_date_record.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_income.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/item_record.xml" value="0.4" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_board_choose.xml" value="0.15677083333333333" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_board_delete.xml" value="0.13125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_board_choose.xml" value="0.2" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_board_delete.xml" value="0.136" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_login_duplicate.xml" value="0.13125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_setting_duplicate.xml" value="0.13125" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_setting_initialization.xml" value="0.13125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_setting_initialization.xml" value="0.176" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/layout/modal_setting_user_delete.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/menu/menu_bottomnav.xml" value="0.536" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Flow/client/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11145833333333334" />

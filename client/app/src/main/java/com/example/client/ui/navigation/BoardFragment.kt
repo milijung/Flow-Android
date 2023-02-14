@@ -5,19 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.APIObject
-import com.example.client.R
 import com.example.client.api.DetailResponseByList
-import com.example.client.api.HttpConnection
 import com.example.client.api.api
 import com.example.client.data.AppDatabase
 import com.example.client.data.Detail
@@ -33,6 +31,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.util.*
+import kotlin.properties.Delegates
 
 @InternalCoroutinesApi
 class BoardFragment : androidx.fragment.app.Fragment(){
@@ -43,6 +42,8 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     private var adapter: RecordAdapter? = null
     private lateinit var longClickListener : RecordAdapter.OnListLongClickListener
     private val request: api = APIObject.getInstance().create(api::class.java)
+    var page = 1
+    private var userId by Delegates.notNull<Int>()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomNavigationActivity = context as BottomNavigationActivity
@@ -55,14 +56,14 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): FrameLayout {
         viewBinding = FragmentBoardBinding.inflate(inflater, container, false)
         linearLayoutManager=LinearLayoutManager(bottomNavigationActivity)
         viewBinding.boardList.layoutManager= LinearLayoutManager(bottomNavigationActivity)
         viewBinding.calendar.visibility = View.GONE
-        val userId = roomDb.UserDao().getUserId()
-        var page = 1
-        getList(userId,"all","all",page )
+        userId = roomDb.UserDao().getUserId()
+
+        getList(userId,"all","all",page)
 
         val decoration = ItemDecoration(25)
         viewBinding.boardList.addItemDecoration(decoration)
@@ -80,8 +81,8 @@ class BoardFragment : androidx.fragment.app.Fragment(){
             viewBinding.boardMenuOption.text = optionText
             viewBinding.boardMenuOption.visibility = View.GONE
 
-            when(optionText){
-                "전체" -> {
+            when(viewBinding.showCalendarButton.isEnabled){
+                false -> {
                     page = 1
                     viewBinding.showCalendarButton.isEnabled = true
                     getList(userId,LocalDate.now().year.toString(),LocalDate.now().monthValue.toString(),page)
@@ -119,20 +120,35 @@ class BoardFragment : androidx.fragment.app.Fragment(){
             page = 1
             getList(userId,date.year.toString(),date.month.toString(),page)
         }
+        viewBinding.refresh.setOnRefreshListener {
+            if(!viewBinding.showCalendarButton.isEnabled){
+                page += 1
+                getList(userId,"all","all",page)
+                viewBinding.refresh.isRefreshing = false
+            }
+            else
+                viewBinding.refresh.isRefreshing = false
+        }
         return viewBinding.root
     }
 
-    private fun onMenuChangeListener(detail: List<Detail>){
-        longClickListener.onListLongClickFinish()
+    private fun onMenuChangeListener(detail: List<Detail>, page: Int){
+        var itemCount = 0
         if(adapter == null){
             adapter = RecordAdapter(bottomNavigationActivity,listOf())
+        }else if(page == 1){
+            adapter!!.selectedItem?.clear()
+        }else{
+            itemCount = adapter!!.itemCount
         }
-        adapter!!.selectedItem?.clear()
-        val sortedDetail = detail.sortedWith(compareBy({-it.year.toInt()},{-it.month.toInt()},{-it.day.toInt()},{-it.detailId}))
+        val sortedDetail : List<Detail> = detail.sortedWith(compareBy({-it.year.toInt()},{-it.month.toInt()},{-it.day.toInt()},{-it.detailId}))
         sortedDetail.filter{detail : Detail-> ((detail.integratedId == -1) or (detail.integratedId == detail.detailId) )}
-        adapter!!.updateRecordList(sortedDetail)
+        adapter!!.updateRecordList(sortedDetail, page)
         viewBinding.boardList.adapter= adapter
-        (viewBinding.boardList.adapter as RecordAdapter).notifyDataSetChanged()
+        when(page){
+            1->(viewBinding.boardList.adapter as RecordAdapter).notifyDataSetChanged()
+            else -> (viewBinding.boardList.adapter as RecordAdapter).notifyItemRangeInserted(itemCount, sortedDetail.size)
+        }
     }
     private fun getList(userId:Int, year : String, month : String, page: Int) {
         val call = request.getDetailsOfRange(userId,year, month, page)
@@ -141,7 +157,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
             override fun onResponse(call: Call<DetailResponseByList>, response: Response<DetailResponseByList>)  {
                 if (response.body()!!.isSuccess){
                     println(response.body()!!.result)
-                    onMenuChangeListener(response.body()!!.result)
+                    onMenuChangeListener(response.body()!!.result, page)
                 }
                 else{
                     Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -154,5 +170,16 @@ class BoardFragment : androidx.fragment.app.Fragment(){
                 Toast.makeText(bottomNavigationActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+    fun getBoardList() : RecyclerView{
+        return viewBinding.boardList
+    }
+    fun getSelectedDetail() : List<Detail>{
+        val list = ArrayList<Detail>()
+        for(d in adapter!!.datas){
+            if(d.detailId in adapter!!.selectedItem)
+                list.add(d)
+        }
+        return list
     }
 }

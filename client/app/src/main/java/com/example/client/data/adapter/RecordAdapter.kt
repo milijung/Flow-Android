@@ -11,14 +11,15 @@ import com.example.client.data.Detail
 import com.example.client.databinding.ItemRecordBinding
 import com.example.client.ui.board.ListDetailActivity
 import kotlinx.coroutines.InternalCoroutinesApi
+import java.lang.Math.abs
 
 @InternalCoroutinesApi
-class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    val context : Context = context
     val roomDb = AppDatabase.getInstance(context)
     var selectedItem = ArrayList<Int>()
     private var longClickListener : OnListLongClickListener? = context as OnListLongClickListener
+    private var adapterData = ArrayList<Detail>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(
@@ -31,35 +32,101 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
 
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
-        (holder as ItemViewHolder).bind(data[position])
+        adapterData = ArrayList()
+        for(d in datas){
+            if(d.detailId == d.integratedId || d.integratedId == -1)
+                adapterData.add(d)
+        }
+        (holder as ItemViewHolder).bind(adapterData[position])
         holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        adapterData = ArrayList()
+        for(d in datas){
+            if(d.detailId == d.integratedId || d.integratedId == -1)
+                adapterData.add(d)
+        }
+        return adapterData.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return data[position].typeId
+        adapterData = ArrayList()
+        for(d in datas){
+            if(d.detailId == d.integratedId || d.integratedId == -1)
+                adapterData.add(d)
+        }
+        return adapterData[position].typeId
     }
-    fun updateRecordList(detail: List<Detail>){
-        data = detail
+    fun updateRecordList(detail: List<Detail>, page:Int){
+        datas = if(page==1){
+            detail
+        } else{
+            val temp= ArrayList<Detail>()
+            for (d in datas){
+                temp.add(d)
+            }
+            for(d in detail){
+                temp.add(d)
+            }
+            temp
+        }
     }
 
     inner class ItemViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(data: Detail){
             binding.tvTime.text=data.time
-            binding.tvMoney.text=data.price.toString()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
+            if(data.detailId in selectedItem)
+                binding.item.isSelected = true
+            val year = this@RecordAdapter.datas[adapterPosition].year
+            val month = this@RecordAdapter.datas[adapterPosition].month
+            val day = this@RecordAdapter.datas[adapterPosition].day
 
-            var year = this@RecordAdapter.data[adapterPosition].year
-            var month = this@RecordAdapter.data[adapterPosition].month
-            var day = this@RecordAdapter.data[adapterPosition].day
+            var price = 0
+            if(data.integratedId == data.detailId){
+                for(d in datas){
+                    if(d.integratedId == data.detailId)
+                        if(d.typeId==1)
+                            price -= d.price
+                        else
+                            price += d.price
+                }
+                // 지출, 수입 tag
+                binding.tag.visibility = View.VISIBLE
+                when(price > 0){
+                    false ->{
+                        binding.tag.text = "지출"
+                        binding.tag.setBackgroundResource(R.drawable.expense_round)
+                    }
+                    else ->{
+                        binding.tag.text="수입"
+                        binding.tag.setBackgroundResource(R.drawable.income_round)
+                    }
+                }
+            }
 
+            else{
+                price = data.price
+                // 지출, 수입 tag
+                binding.tag.visibility = View.VISIBLE
+                when(data.typeId){
+                    1 ->{
+                        binding.tag.text = "지출"
+                        binding.tag.setBackgroundResource(R.drawable.expense_round)
+                    }
+                    else ->{
+                        binding.tag.text="수입"
+                        binding.tag.setBackgroundResource(R.drawable.income_round)
+                    }
+                }
+            }
+
+            binding.tvMoney.text= abs(price).toString()
             // 날짜 visibility
             if(adapterPosition != 0){
-                var prev = this@RecordAdapter.data[adapterPosition-1]
+                val prev = this@RecordAdapter.datas[adapterPosition-1]
                 if(prev.year == year && prev.month == month){
                     binding.yearAndMonth.visibility = View.GONE
                     if(prev.day == day)
@@ -89,7 +156,7 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
             }
             // list 상세 페이지 연결
             binding.item.setOnClickListener {
-                when(selectedItem!!.size){
+                when(selectedItem.size){
                     0 ->{
                         val intent = Intent(context, ListDetailActivity::class.java)
                         intent.putExtra("userId",data.userId)
@@ -129,27 +196,14 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
                 if(selectedItem.size==0){
                     binding.item.isSelected = !binding.item.isSelected
                     selectedItem.add(data.detailId)
-                    println(selectedItem)
                     longClickListener?.onListLongClickStart()
                 }
                 return@setOnLongClickListener true
             }
-            // 지출, 수입 tag
-            binding.tag.visibility = View.VISIBLE
-            when(data.typeId){
-                1 ->{
-                    binding.tag.text = "지출"
-                    binding.tag.setBackgroundResource(R.drawable.expense_round)
-                }
-                else ->{
-                    binding.tag.text="수입"
-                    binding.tag.setBackgroundResource(R.drawable.income_round)
-                }
-            }
             // 통합내역 표시 highlight
             when(data.integratedId){
-                -1 -> binding.highlight.visibility = View.GONE
                 data.detailId -> binding.highlight.visibility = View.VISIBLE
+                -1 -> binding.highlight.visibility = View.GONE
             }
         }
     }
@@ -157,10 +211,14 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
         fun onListLongClickStart()
         fun onListLongClickFinish()
     }
-    fun deleteButtonClickListener() {
-        for(i: Int in selectedItem){
-            roomDb?.ListDao()?.deleteById(i)
+    fun deleteRecordList(deleteItemList : ArrayList<Int>) {
+        var temp = ArrayList<Detail>()
+        for(d in datas){
+            if(d.detailId !in deleteItemList)
+                temp.add(d)
         }
+        datas = temp
+        selectedItem.clear()
         longClickListener?.onListLongClickFinish()
     }
 }
