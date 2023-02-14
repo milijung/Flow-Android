@@ -5,18 +5,47 @@
     android:id="@+id/item_record"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/year_and_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/year_and_month_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="2022년 1월"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="8dp"
+            android:visibility="visible"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/year_and_month"
         app:layout_constraintStart_toStartOf="parent"
         android:text="17일"
         android:fontFamily="@font/spoqahansansneo_regular"
         android:textSize="13dp"
         android:textColor="#515050"
         android:layout_marginTop="12dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:visibility="gone"/>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/item"

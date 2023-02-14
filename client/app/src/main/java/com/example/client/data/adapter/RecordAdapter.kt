@@ -52,18 +52,29 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
             binding.tvMoney.text=data.price.toString()
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
+
+            var year = this@RecordAdapter.data[adapterPosition].year
+            var month = this@RecordAdapter.data[adapterPosition].month
+            var day = this@RecordAdapter.data[adapterPosition].day
+
             // 날짜 visibility
             if(adapterPosition != 0){
-                when(this@RecordAdapter.data[adapterPosition-1].day){
-                    this@RecordAdapter.data[adapterPosition].day -> {
+                var prev = this@RecordAdapter.data[adapterPosition-1]
+                if(prev.year == year && prev.month == month){
+                    binding.yearAndMonth.visibility = View.GONE
+                    if(prev.day == day)
                         binding.day.visibility = View.GONE
-                    }
-                    else -> {
-                        binding.day.text = data.day+"일"
-                        binding.day.visibility = View.VISIBLE
-                    }
+                    else
+                        binding.day.visibility = View.GONE
+                }else{
+                    binding.yearAndMonthText.text = "${year}년 ${month}월"
+                    binding.yearAndMonth.visibility = View.VISIBLE
+                    binding.day.text = "${data.day}일"
+                    binding.day.visibility = View.VISIBLE
                 }
             } else{
+                binding.yearAndMonthText.text = "${year}년 ${month}월"
+                binding.yearAndMonth.visibility = View.VISIBLE
                 binding.day.text = data.day+"일"
                 binding.day.visibility = View.VISIBLE
             }
@@ -100,13 +111,13 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
                         when(binding.item.isSelected){
                             true ->{
                                 binding.item.isSelected = false
-                                selectedItem?.remove(data.detailId)
-                                if(selectedItem!!.size ==0)
+                                selectedItem.remove(data.detailId)
+                                if(selectedItem.size ==0)
                                     longClickListener?.onListLongClickFinish()
                             }
                             else ->{
                                 binding.item.isSelected = true
-                                selectedItem!!.add(data.detailId)
+                                selectedItem.add(data.detailId)
                             }
                         }
                         println(selectedItem)
@@ -115,9 +126,9 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
             }
             // 길게 클릭
             binding.item.setOnLongClickListener {
-                if(selectedItem!!.size==0){
+                if(selectedItem.size==0){
                     binding.item.isSelected = !binding.item.isSelected
-                    selectedItem!!.add(data.detailId)
+                    selectedItem.add(data.detailId)
                     println(selectedItem)
                     longClickListener?.onListLongClickStart()
                 }
@@ -147,7 +158,7 @@ class RecordAdapter(context: Context, private var data:List<Detail>) : RecyclerV
         fun onListLongClickFinish()
     }
     fun deleteButtonClickListener() {
-        for(i: Int in selectedItem!!){
+        for(i: Int in selectedItem){
             roomDb?.ListDao()?.deleteById(i)
         }
         longClickListener?.onListLongClickFinish()

@@ -25,24 +25,50 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/board_menu"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="33dp"
             android:text="전체"
-            android:focusedByDefault="true"
-            android:gravity="center"
-            android:focusableInTouchMode="true"
             android:textSize="13dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/black"
+            android:paddingHorizontal="11dp"
             android:fontFamily="@font/spoqahansansneo_regular"
             android:background="@drawable/board_menu_checked"
             app:layout_constraintStart_toStartOf="parent"
             android:stateListAnimator="@null"
             android:focusable="true"
-            android:paddingHorizontal="11dp"
             app:layout_constraintTop_toBottomOf="@id/title"
             android:drawableRight="@drawable/ic_down"
-            android:elevation="5dp"/>
+            android:elevation="1dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/show_calendar_button"
+            android:layout_width="73dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/board_menu"
+            app:layout_constraintBottom_toBottomOf="@id/board_menu"
+            android:text="달력보기"
+            android:enabled="false"
+            android:letterSpacing="-0.01"
+            android:textSize="12dp"
+            android:fontFamily="@font/spoqahansansneo_regular"
+            android:textColor="@color/white"
+            android:background="@drawable/calendar_show_style"/>
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/show_calendar_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:mcv_selectionMode="single"
+            app:mcv_selectionColor="@color/red"
+            app:mcv_calendarMode="month"
+            app:mcv_dateTextAppearance="@color/black"
+            app:mcv_headerTextAppearance="@color/black"
+            android:orientation="vertical"
+            android:background="@drawable/calendar"
+            android:layout_marginTop="30dp"
+            android:visibility="visible" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/board_menu_option"
             android:layout_width="0dp"
@@ -64,15 +90,16 @@
             android:gravity="bottom"
             android:textSize="13dp"
             android:paddingBottom="7dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:elevation="0.5dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/board_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/board_menu"
+            app:layout_constraintTop_toBottomOf="@id/calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             android:scrollbars="vertical"
             tools:listitem="@layout/item_record"/>
@@ -94,7 +121,7 @@
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="15dp"
             android:stateListAnimator="@null"
-            android:elevation="4dp"/>
+            android:elevation="3dp"/>
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"

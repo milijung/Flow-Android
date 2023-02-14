@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.APIObject
+import com.example.client.R
 import com.example.client.api.DetailResponseByList
 import com.example.client.api.HttpConnection
 import com.example.client.api.api
@@ -23,6 +25,7 @@ import com.example.client.data.adapter.ItemDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.FragmentBoardBinding
 import com.example.client.ui.board.AddListActivity
+import com.example.client.ui.calendar.DateRecordActivity
 import com.google.android.gms.common.util.CollectionUtils.listOf
 import kotlinx.coroutines.InternalCoroutinesApi
 import retrofit2.Call
@@ -56,16 +59,20 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         viewBinding = FragmentBoardBinding.inflate(inflater, container, false)
         linearLayoutManager=LinearLayoutManager(bottomNavigationActivity)
         viewBinding.boardList.layoutManager= LinearLayoutManager(bottomNavigationActivity)
+        viewBinding.calendar.visibility = View.GONE
         val userId = roomDb.UserDao().getUserId()
         var page = 1
         getList(userId,"all","all",page )
 
-        val decoration = ItemDecoration(20)
+        val decoration = ItemDecoration(25)
         viewBinding.boardList.addItemDecoration(decoration)
         viewBinding.boardMenu.requestFocus()
 
         viewBinding.boardMenu.setOnClickListener {
-            viewBinding.boardMenuOption.visibility = View.VISIBLE
+            if(viewBinding.boardMenuOption.isVisible)
+                viewBinding.boardMenuOption.visibility = View.GONE
+            else
+                viewBinding.boardMenuOption.visibility = View.VISIBLE
         }
         viewBinding.boardMenuOption.setOnClickListener {
             val optionText = viewBinding.boardMenu.text
@@ -76,18 +83,41 @@ class BoardFragment : androidx.fragment.app.Fragment(){
             when(optionText){
                 "전체" -> {
                     page = 1
+                    viewBinding.showCalendarButton.isEnabled = true
                     getList(userId,LocalDate.now().year.toString(),LocalDate.now().monthValue.toString(),page)
                 }
                 else -> {
                     page = 1
+                    viewBinding.showCalendarButton.isEnabled = false
+                    viewBinding.calendar.visibility = View.GONE
                     getList(userId,"all","all",page)
                 }
             }
         }
-
+        viewBinding.showCalendarButton.setOnClickListener {
+            if(viewBinding.showCalendarButton.text == "달력보기"){
+                viewBinding.calendar.visibility = View.VISIBLE
+                viewBinding.showCalendarButton.text = "달력접기"
+            }else{
+                viewBinding.calendar.visibility = View.GONE
+                viewBinding.showCalendarButton.text = "달력보기"
+            }
+        }
         viewBinding.boardAddButton.setOnClickListener {
             val intent = Intent(bottomNavigationActivity, AddListActivity::class.java)
             startActivity(intent)
+        }
+        viewBinding.calendar.setOnDateChangedListener { widget, date, selected ->
+            //해당 날짜 내역 화면으로 이동
+            val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
+            intent.putExtra("year",date.year.toString())
+            intent.putExtra("month",date.month.toString())
+            intent.putExtra("day",date.day.toString())
+            startActivity(intent)
+        }
+        viewBinding.calendar.setOnMonthChangedListener { widget, date ->
+            page = 1
+            getList(userId,date.year.toString(),date.month.toString(),page)
         }
         return viewBinding.root
     }
