@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat.getColor
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -135,10 +136,7 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
             }
             if (data.detailId in selectedItem)
                 binding.item.isSelected = true
-            if (integratedId != -1) {
-                binding.tvMoney.setTextColor(R.color.pink)
-                binding.unit.setTextColor(R.color.pink)
-            }
+  
             var price = 0
             if (data.integratedId == data.detailId && integratedId != data.detailId) {
                 for (d in datas) {
