@@ -21,13 +21,13 @@ data class Detail(
     @ColumnInfo(name = "month") val month: String,
     @ColumnInfo(name = "day") val day: String,
     @ColumnInfo(name = "time") val time: String,
-    @ColumnInfo(name = "price") val price : Int,
+    @ColumnInfo(name = "price") var price : Int,
     @ColumnInfo(name = "shop") val shop: String,
-    @ColumnInfo(name="typeId") val typeId:Int,  // 지출: 1, 수입: 2
+    @ColumnInfo(name="typeId") var typeId:Int,  // 지출: 1, 수입: 2
     @ColumnInfo(name="isBudgetIncluded") val isBudgetIncluded : Boolean,
     @ColumnInfo(name="isKeywordIncluded") val isKeywordIncluded : Boolean = false,
     @ColumnInfo(name = "memo") val memo : String,
-    @ColumnInfo(name="integratedId") val integratedId : Int = -1,
+    @ColumnInfo(name="integratedId") var integratedId : Int = -1,
     @PrimaryKey @ColumnInfo(name="detailId") val detailId : Int = 0,
 )
 @Entity(tableName = "Keyword")

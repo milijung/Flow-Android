@@ -82,23 +82,6 @@ open class HttpConnection {
         })
     }
 
-    fun joinDetail(context: Context, userId:Int, requestBody:JoinDetailData){
-        val call = request.joinDetail(userId,requestBody)
-        call.enqueue(object:Callback<ResponseData>{
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                if(response.body()!!.isSuccess){
-                    Toast.makeText(context, "내역이 성공적으로 통합되었습니다", Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(context, "내역이 통합되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-                }
-            }
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Toast.makeText(context, "내역이 통합되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
     fun getCategory(context: Context, roomDb: AppDatabase,userId:Int) {
         val call = request.getCategory(userId)
 

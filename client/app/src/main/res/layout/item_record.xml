@@ -95,7 +95,7 @@
         android:fontFamily="@font/spoqahansansneo_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#F5F6F9"/>
+        />
 
     <TextView
         android:id="@+id/tv_time"
@@ -164,10 +164,22 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sub_item_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item"
+        android:background="@drawable/sublist_style"
+        android:padding="1dp"
+        android:visibility="gone"
+        android:paddingBottom="0dp">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sub_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/item"
-        tools:listitem="@layout/item_record"/>
+        tools:listitem="@layout/item_record"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

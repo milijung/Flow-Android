@@ -67,7 +67,6 @@ class BoardFragment : androidx.fragment.app.Fragment(){
 
         val decoration = ItemDecoration(25)
         viewBinding.boardList.addItemDecoration(decoration)
-        viewBinding.boardMenu.requestFocus()
 
         viewBinding.boardMenu.setOnClickListener {
             if(viewBinding.boardMenuOption.isVisible)

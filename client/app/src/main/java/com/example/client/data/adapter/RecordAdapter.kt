@@ -1,9 +1,12 @@
 package com.example.client.data.adapter
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.R
 import com.example.client.data.AppDatabase
@@ -14,7 +17,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Math.abs
 
 @InternalCoroutinesApi
-class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RecordAdapter(val context: Context, var datas:List<Detail>,val integratedId:Int = -1) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     val roomDb = AppDatabase.getInstance(context)
     var selectedItem = ArrayList<Int>()
@@ -33,9 +36,16 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
         adapterData = ArrayList()
-        for(d in datas){
-            if(d.detailId == d.integratedId || d.integratedId == -1)
-                adapterData.add(d)
+        if(integratedId==-1){
+            for (d in datas) {
+                if (d.detailId == d.integratedId || d.integratedId == -1)
+                    adapterData.add(d)
+            }
+        }else{
+            for (d in datas) {
+                if (d.integratedId == integratedId)
+                    adapterData.add(d)
+            }
         }
         (holder as ItemViewHolder).bind(adapterData[position])
         holder.setIsRecyclable(false)
@@ -43,18 +53,32 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
 
     override fun getItemCount(): Int {
         adapterData = ArrayList()
-        for(d in datas){
-            if(d.detailId == d.integratedId || d.integratedId == -1)
-                adapterData.add(d)
+        if(integratedId == -1){
+            for (d in datas) {
+                if (d.detailId == d.integratedId || d.integratedId == -1)
+                    adapterData.add(d)
+            }
+        }else{
+            for (d in datas) {
+                if (d.integratedId == integratedId)
+                    adapterData.add(d)
+            }
         }
         return adapterData.size
     }
 
     override fun getItemViewType(position: Int): Int {
         adapterData = ArrayList()
-        for(d in datas){
-            if(d.detailId == d.integratedId || d.integratedId == -1)
-                adapterData.add(d)
+        if(integratedId == -1){
+            for (d in datas) {
+                if (d.detailId == d.integratedId || d.integratedId == -1)
+                    adapterData.add(d)
+            }
+        }else{
+            for (d in datas) {
+                if (d.integratedId == integratedId)
+                    adapterData.add(d)
+            }
         }
         return adapterData[position].typeId
     }
@@ -71,21 +95,34 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
             }
             temp
         }
+        selectedItem.clear()
+        longClickListener?.onListLongClickFinish()
     }
 
     inner class ItemViewHolder(private val binding:ItemRecordBinding) : RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("ResourceAsColor")
         fun bind(data: Detail){
             binding.tvTime.text=data.time
             binding.tvMemo.text=data.memo
             binding.tvName.text=data.shop
+            // 통합내역 표시 highlight
+            when(data.integratedId){
+                data.detailId -> {
+                    if(integratedId == -1)
+                        binding.highlight.visibility = View.VISIBLE
+                    else
+                        binding.highlight.visibility = View.GONE
+                }
+                else -> binding.highlight.visibility = View.GONE
+            }
             if(data.detailId in selectedItem)
                 binding.item.isSelected = true
-            val year = this@RecordAdapter.datas[adapterPosition].year
-            val month = this@RecordAdapter.datas[adapterPosition].month
-            val day = this@RecordAdapter.datas[adapterPosition].day
-
+            if(integratedId != -1){
+                binding.tvMoney.setTextColor(R.color.pink)
+                binding.unit.setTextColor(R.color.pink)
+            }
             var price = 0
-            if(data.integratedId == data.detailId){
+            if(data.integratedId == data.detailId && integratedId !=data.detailId){
                 for(d in datas){
                     if(d.integratedId == data.detailId)
                         if(d.typeId==1)
@@ -106,7 +143,6 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
                     }
                 }
             }
-
             else{
                 price = data.price
                 // 지출, 수입 tag
@@ -122,28 +158,33 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
                     }
                 }
             }
-
             binding.tvMoney.text= abs(price).toString()
             // 날짜 visibility
-            if(adapterPosition != 0){
-                val prev = this@RecordAdapter.datas[adapterPosition-1]
-                if(prev.year == year && prev.month == month){
-                    binding.yearAndMonth.visibility = View.GONE
-                    if(prev.day == day)
-                        binding.day.visibility = View.GONE
-                    else
-                        binding.day.visibility = View.GONE
-                }else{
-                    binding.yearAndMonthText.text = "${year}년 ${month}월"
+            if(integratedId == -1){
+                if (adapterPosition != 0) {
+                    val prev = adapterData[adapterPosition - 1]
+                    if (prev.year == data.year && prev.month == data.month) {
+                        binding.yearAndMonth.visibility = View.GONE
+                        if (prev.day == data.day)
+                            binding.day.visibility = View.GONE
+                        else{
+                            binding.day.text = "${data.day}일"
+                            binding.day.visibility = View.VISIBLE
+                        }
+                    } else {
+                        binding.yearAndMonthText.text = "${data.year}년 ${data.month}월"
+                        binding.yearAndMonth.visibility = View.VISIBLE
+                        binding.day.text = "${data.day}일"
+                        binding.day.visibility = View.VISIBLE
+                    }
+                } else {
+                    binding.yearAndMonthText.text = "${data.year}년 ${data.month}월"
                     binding.yearAndMonth.visibility = View.VISIBLE
-                    binding.day.text = "${data.day}일"
+                    binding.day.text = data.day + "일"
                     binding.day.visibility = View.VISIBLE
                 }
-            } else{
-                binding.yearAndMonthText.text = "${year}년 ${month}월"
-                binding.yearAndMonth.visibility = View.VISIBLE
-                binding.day.text = data.day+"일"
-                binding.day.visibility = View.VISIBLE
+            }else {
+
             }
             // 카테고리 icon
             if (roomDb != null) {
@@ -156,54 +197,75 @@ class RecordAdapter(val context: Context, var datas:List<Detail>) : RecyclerView
             }
             // list 상세 페이지 연결
             binding.item.setOnClickListener {
-                when(selectedItem.size){
-                    0 ->{
-                        val intent = Intent(context, ListDetailActivity::class.java)
-                        intent.putExtra("userId",data.userId)
-                        intent.putExtra("detailId",data.detailId)
-                        intent.putExtra("typeId",data.typeId)
-                        intent.putExtra("categoryId",data.categoryId)
-                        intent.putExtra("price",data.price)
-                        intent.putExtra("memo",data.memo)
-                        intent.putExtra("shop",data.shop)
-                        intent.putExtra("year",data.year)
-                        intent.putExtra("month",data.month)
-                        intent.putExtra("day",data.day)
-                        intent.putExtra("time",data.time)
-                        intent.putExtra("isBudgetIncluded",data.isBudgetIncluded)
-                        intent.putExtra("isKeywordIncluded",data.isKeywordIncluded)
-                        context.startActivity(intent)
-                    }
-                    else ->{
-                        when(binding.item.isSelected){
-                            true ->{
-                                binding.item.isSelected = false
-                                selectedItem.remove(data.detailId)
-                                if(selectedItem.size ==0)
-                                    longClickListener?.onListLongClickFinish()
+                    when(selectedItem.size){
+                        0 ->{
+                            if(!binding.highlight.isVisible) {
+                                val intent = Intent(context, ListDetailActivity::class.java)
+                                intent.putExtra("userId", data.userId)
+                                intent.putExtra("detailId", data.detailId)
+                                intent.putExtra("typeId", data.typeId)
+                                intent.putExtra("categoryId", data.categoryId)
+                                intent.putExtra("price", data.price)
+                                intent.putExtra("memo", data.memo)
+                                intent.putExtra("shop", data.shop)
+                                intent.putExtra("year", data.year)
+                                intent.putExtra("month", data.month)
+                                intent.putExtra("day", data.day)
+                                intent.putExtra("time", data.time)
+                                intent.putExtra("isBudgetIncluded", data.isBudgetIncluded)
+                                intent.putExtra("isKeywordIncluded", data.isKeywordIncluded)
+                                context.startActivity(intent)
                             }
-                            else ->{
-                                binding.item.isSelected = true
-                                selectedItem.add(data.detailId)
+                            else{
+                                if(binding.subItemList.childCount==0){
+                                    binding.item.setBackgroundResource(R.drawable.item_record_integrated)
+                                    var subList = ArrayList<Detail>()
+                                    for(d in datas){
+                                        if(d.integratedId == data.detailId)
+                                            subList.add(d)
+                                    }
+                                    binding.subItemList.adapter = RecordAdapter(context,subList,data.detailId)
+                                    val decoration = ItemDecoration(1)
+                                    binding.subItemList.addItemDecoration(decoration)
+                                    binding.subItemList.layoutManager= LinearLayoutManager(context)
+                                    binding.subItemBackground.visibility = View.VISIBLE
+                                }else{
+                                    binding.item.setBackgroundResource(R.drawable.item_record_style)
+                                    binding.subItemList.adapter = null
+                                    binding.subItemBackground.visibility = View.GONE
+                                }
                             }
                         }
-                        println(selectedItem)
+                        else ->{
+                            when(binding.item.isSelected){
+                                true ->{
+                                    binding.item.isSelected = false
+                                    selectedItem.remove(data.detailId)
+                                    binding.subItemList.adapter = null
+                                    binding.subItemBackground.visibility = View.GONE
+                                    if(selectedItem.size ==0)
+                                        longClickListener?.onListLongClickFinish()
+                                }
+                                else ->{
+                                    binding.item.isSelected = true
+                                    selectedItem.add(data.detailId)
+                                }
+                            }
+                            println(selectedItem)
+                        }
                     }
-                }
+
             }
             // 길게 클릭
             binding.item.setOnLongClickListener {
-                if(selectedItem.size==0){
-                    binding.item.isSelected = !binding.item.isSelected
-                    selectedItem.add(data.detailId)
-                    longClickListener?.onListLongClickStart()
+                if(integratedId == -1) {
+                    if (selectedItem.size == 0) {
+                        binding.item.isSelected = !binding.item.isSelected
+                        selectedItem.add(data.detailId)
+                        longClickListener?.onListLongClickStart()
+                    }
                 }
                 return@setOnLongClickListener true
-            }
-            // 통합내역 표시 highlight
-            when(data.integratedId){
-                data.detailId -> binding.highlight.visibility = View.VISIBLE
-                -1 -> binding.highlight.visibility = View.GONE
             }
         }
     }
