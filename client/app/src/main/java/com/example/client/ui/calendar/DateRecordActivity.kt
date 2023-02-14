@@ -59,27 +59,23 @@ class DateRecordActivity : AppCompatActivity() {
                     val recordsInfo = response.body()?.result!!
                     println(recordsInfo)
                     // 총 지출금액과 수입금액 가져오기
-                    if (recordsInfo != null) {
-                        for(price in recordsInfo.totalAmount){
-                            if(price.isExp == 1)
-                                viewBinding.priceExpense.text = "-${price.total}"
-                            else
-                                viewBinding.priceIncome.text = "+${price.total}"
-                        }
-                        // 내역 가져오기
-                        val records= recordsInfo.detail
-                        if(records != null){
-                            for(r in records){
-                                when(r.typeId){
-                                    1 -> expenseList.add(r)
-                                    else -> incomeList.add(r)
-                                }
-                            }
+                    for(price in recordsInfo.totalAmount){
+                        if(price.isExp == 1)
+                            viewBinding.priceExpense.text = "-${price.total}"
+                        else
+                            viewBinding.priceIncome.text = "+${price.total}"
+                    }
+                    // 내역 가져오기
+                    val records= recordsInfo.detail
+                    for(r in records){
+                        when(r.typeId){
+                            1 -> expenseList.add(r)
+                            else -> incomeList.add(r)
                         }
                     }
 
-                    when(expenseList?.size){
-                        0 -> {
+                    when(viewBinding.priceExpense.text == "0"){
+                        true -> {
                             viewBinding.tvExpense.visibility = View.GONE
                             viewBinding.priceExpense.visibility = View.GONE
                         }
@@ -87,18 +83,20 @@ class DateRecordActivity : AppCompatActivity() {
                             viewBinding.tvExpense.visibility = View.VISIBLE
                             viewBinding.priceExpense.visibility = View.VISIBLE
                             viewBinding.lvExpense.layoutManager=LinearLayoutManager(applicationContext)
-                            viewBinding.lvExpense.adapter= RecordAdapter(applicationContext,expenseList!!)
+                            viewBinding.lvExpense.adapter= RecordAdapter(this@DateRecordActivity,
+                                expenseList,-1)
                         }
                     }
-                    when(incomeList?.size){
-                        0 -> {
+                    when(viewBinding.priceIncome.text == "0"){
+                        true -> {
                             viewBinding.tvIncome.visibility = View.GONE
                             viewBinding.priceIncome.visibility = View.GONE
                         }
                         else -> {
                             viewBinding.tvIncome.visibility = View.VISIBLE
                             viewBinding.priceIncome.visibility = View.VISIBLE
-                            viewBinding.lvIncome.adapter= RecordAdapter(applicationContext,incomeList!!)
+                            viewBinding.lvIncome.adapter= RecordAdapter(this@DateRecordActivity,
+                                incomeList,-1)
                         }
                     }
                     viewBinding.progressBar.visibility = View.GONE

@@ -125,7 +125,7 @@ data class DeleteDetailRequestData(
 data class RecordsInfoOfDate(
     @SerializedName("totalAmount")
     val totalAmount:ArrayList<TotalAmount>,
-    @SerializedName("transaction")
+    @SerializedName("detail")
     val detail:List<Detail>,
 )
 
