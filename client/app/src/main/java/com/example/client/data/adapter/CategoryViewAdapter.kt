@@ -1,5 +1,6 @@
 package com.example.client.data.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class CategoryViewAdapter(context: Context, var CategoryItems:ArrayList<Category
 
     override fun getItemId(position: Int): Long = CategoryItems[position].categoryId.toLong()
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         binding = FragmentCategoryIconBinding.inflate(inflater, parent, false)
         binding.categoryIconButton.text = getItem(position).name
@@ -35,24 +37,15 @@ class CategoryViewAdapter(context: Context, var CategoryItems:ArrayList<Category
         else {
             binding.categoryIconButton.setOnFocusChangeListener { v, hasFocus ->
                 if (hasFocus) {
-                    if (CategoryItems[position].isUserCreated)
-                        settingCategoryViewBinding.settingCategoryDeleteButton.visibility =
-                            View.VISIBLE
-                    else
-                        settingCategoryViewBinding.settingCategoryDeleteButton.visibility =
-                            View.GONE
+                    when(CategoryItems[position].isUserCreated) {
+                        true -> settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.VISIBLE
+                        false -> settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.GONE
+                    }
                     settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.VISIBLE
                 }else{
                     settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.GONE
                     settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.GONE
                 }
-            }
-            // 선택된 카테고리를 한번 더 누르면 선택 해제됨
-            binding.categoryIconButton.setOnClickListener(){
-                when(it.isFocused){
-                    true -> it.clearFocus()
-                }
-
             }
         }
         return binding.root;

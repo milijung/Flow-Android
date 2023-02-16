@@ -16,10 +16,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 class AddCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityAddCategoryBinding
-    // default: 지출 카테고리
-    var typeId : Int = 1
-    var iconImage : Int = R.drawable.ic_category_user
     private val httpConnection : HttpConnection = HttpConnection()
+    // default: 지출 카테고리
+    private var typeId : Int = 1
+    private var iconImage : Int = R.drawable.ic_category_user
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,15 +28,14 @@ class AddCategoryActivity : AppCompatActivity() {
 
         val listDetailIntent = intent
         val listId:Int = listDetailIntent.getIntExtra("listId",-1)
-        val categoryType : Int = listDetailIntent.getIntExtra("typeId",1)
         val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
-        val roomDb = AppDatabase.getInstance(this) // 카테고리 DB
 
+        val roomDb = AppDatabase.getInstance(this)
 
         viewBinding.addCategoryButton.text = getText(R.string.add_category_button)
         viewBinding.addCategoryType.check(R.id.addCategory_type1)
         
-        // 카테고리 타입 change listener(지출 or 수입)
+        // 카테고리 타입 변경(지출 or 수입)
         viewBinding.addCategoryType.setOnCheckedChangeListener{ radioGroup, checkedId ->
             when(checkedId){
                 R.id.addCategory_type1 ->{
@@ -51,28 +50,31 @@ class AddCategoryActivity : AppCompatActivity() {
                 }
             }
         }
+        // 뒤로가기
         viewBinding.addCategoryBackButton.setOnClickListener(){
-            // 추가되지 않는다는 modal창 띄우기
-            // 뒤로가기
             super.onBackPressed()
         }
         viewBinding.addCategoryButton.setOnClickListener(){
-            // 카테고리 이름이 비어있는 경우
-            if(viewBinding.addCategoryName.text.toString().trim() == ""){
-                Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else if(roomDb?.CategoryDao()?.selectByName(viewBinding.addCategoryName.text.toString().trim()) != 0){
-                Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
-            }
-            else{
+            when {
+                // 카테고리 이름란이 비어있는 경우
+                viewBinding.addCategoryName.text.toString().trim() == "" -> {
+                    Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
+                // 이미 같은 이름의 카테고리가 있는 경우
+                roomDb?.CategoryDao()?.selectByName(viewBinding.addCategoryName.text.toString().trim()) != 0 -> {
+                    Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
                 // 카테고리 추가
-                val newCategoryOrder : Int = roomDb.CategoryDao().selectByTypeId(typeId).size
-                httpConnection.insertCategory(this, listId, selectedCategoryPosition, roomDb,1,
-                    CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId), newCategoryOrder
-                )
-                val intent = Intent(this, BottomNavigationActivity::class.java)
-                intent.putExtra("pageId",1)
-                startActivity(intent)
-                finish()
+                else -> {
+                    val newCategoryOrder : Int = roomDb.CategoryDao().selectByTypeId(typeId).size
+                    httpConnection.insertCategory(this, listId, selectedCategoryPosition, roomDb,1,
+                        CategoryRequestData(viewBinding.addCategoryName.text.toString().trim(),typeId), newCategoryOrder
+                    )
+                    val intent = Intent(this, BottomNavigationActivity::class.java)
+                    intent.putExtra("pageId",1)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }

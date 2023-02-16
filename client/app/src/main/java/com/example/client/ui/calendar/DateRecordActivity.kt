@@ -24,18 +24,20 @@ class DateRecordActivity : AppCompatActivity() {
     private val request: api = APIObject.getInstance().create(api::class.java)
     var expenseList = ArrayList<Detail>()
     var incomeList = ArrayList<Detail>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding=ActivityDateRecordBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
         val roomDb = AppDatabase.getInstance(this)
         val calendarIntent = intent
         val year = calendarIntent.getStringExtra("year")!!.toInt()
         val month = calendarIntent.getStringExtra("month")!!.toInt()
         val day = calendarIntent.getStringExtra("day")!!.toInt()
         val userId = roomDb!!.UserDao().getUserId()
-
         val decoration = ItemDecoration(20)
+
         viewBinding.lvExpense.addItemDecoration(decoration)
         viewBinding.lvIncome.addItemDecoration(decoration)
         viewBinding.lvIncome.layoutManager=LinearLayoutManager(this)
@@ -53,27 +55,29 @@ class DateRecordActivity : AppCompatActivity() {
         viewBinding.progressBar.visibility = View.VISIBLE
         expenseList.clear()
         incomeList.clear()
+
+        // 선택한 날짜의 수입·지출 내역 요청
         call.enqueue(object: Callback<RecordsOfDate> {
             override fun onResponse(call: Call<RecordsOfDate>, response: Response<RecordsOfDate>){
+                viewBinding.progressBar.visibility = View.GONE
                 if(response.body()!!.isSuccess){
                     val recordsInfo = response.body()?.result!!
-                    println(recordsInfo)
-                    // 총 지출금액과 수입금액 가져오기
+                    // 총 수입금액·지출금액
                     for(price in recordsInfo.totalAmount){
                         if(price.isExp == 1)
-                            viewBinding.priceExpense.text = "-${price.total}"
+                            viewBinding.priceExpense.text = "-${price.total}" // 총 지출금액 표시
                         else
-                            viewBinding.priceIncome.text = "+${price.total}"
+                            viewBinding.priceIncome.text = "+${price.total}" // 총 수입금액 표시
                     }
-                    // 내역 가져오기
+                    // 수입·지출내역
                     val records= recordsInfo.detail
                     for(r in records){
                         when(r.typeId){
-                            1 -> expenseList.add(r)
-                            else -> incomeList.add(r)
+                            1 -> expenseList.add(r) // 지출내역 리스트에 추가
+                            else -> incomeList.add(r) // 수입내역 리스트에 추가
                         }
                     }
-
+                    // 지출 내역이 없을 경우, 태그를 GONE 처리
                     when(viewBinding.priceExpense.text == "0"){
                         true -> {
                             viewBinding.tvExpense.visibility = View.GONE
@@ -87,6 +91,7 @@ class DateRecordActivity : AppCompatActivity() {
                                 expenseList,-1)
                         }
                     }
+                    // 수입 내역이 없을 경우, 태그를 GONE 처리
                     when(viewBinding.priceIncome.text == "0"){
                         true -> {
                             viewBinding.tvIncome.visibility = View.GONE
@@ -99,10 +104,8 @@ class DateRecordActivity : AppCompatActivity() {
                                 incomeList,-1)
                         }
                     }
-                    viewBinding.progressBar.visibility = View.GONE
                 }
                 else{
-                    viewBinding.progressBar.visibility = View.GONE
                     Toast.makeText(this@DateRecordActivity, "내역을 불러오지 못했습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
             }

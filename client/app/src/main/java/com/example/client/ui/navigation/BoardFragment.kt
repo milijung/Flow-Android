@@ -1,6 +1,7 @@
 package com.example.client.ui.navigation
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -42,8 +43,9 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     private var adapter: RecordAdapter? = null
     private lateinit var longClickListener : RecordAdapter.OnListLongClickListener
     private val request: api = APIObject.getInstance().create(api::class.java)
-    var page = 1
+    private var page = 1
     private var userId by Delegates.notNull<Int>()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomNavigationActivity = context as BottomNavigationActivity
@@ -131,14 +133,19 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         return viewBinding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun onMenuChangeListener(detail: List<Detail>, page: Int){
         var itemCount = 0
-        if(adapter == null){
-            adapter = RecordAdapter(bottomNavigationActivity,listOf())
-        }else if(page == 1){
-            adapter!!.selectedItem?.clear()
-        }else{
-            itemCount = adapter!!.itemCount
+        when {
+            adapter == null -> {
+                adapter = RecordAdapter(bottomNavigationActivity,listOf())
+            }
+            page == 1 -> {
+                adapter!!.selectedItem.clear()
+            }
+            else -> {
+                itemCount = adapter!!.itemCount
+            }
         }
         val sortedDetail : List<Detail> = detail.sortedWith(compareBy({-it.year.toInt()},{-it.month.toInt()},{-it.day.toInt()},{-it.detailId}))
         sortedDetail.filter{detail : Detail-> ((detail.integratedId == -1) or (detail.integratedId == detail.detailId) )}
@@ -155,7 +162,6 @@ class BoardFragment : androidx.fragment.app.Fragment(){
         call.enqueue(object: Callback<DetailResponseByList> {
             override fun onResponse(call: Call<DetailResponseByList>, response: Response<DetailResponseByList>)  {
                 if (response.body()!!.isSuccess){
-                    println(response.body()!!.result)
                     onMenuChangeListener(response.body()!!.result, page)
                 }
                 else{

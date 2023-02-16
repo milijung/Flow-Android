@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import com.example.client.R
 import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
@@ -18,6 +19,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityUpdateCategoryBinding
     private lateinit var category: Category
     private val httpConnection : HttpConnection = HttpConnection()
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +30,7 @@ class UpdateCategoryActivity : AppCompatActivity() {
         val categoryId : Int = categoryIntent.getIntExtra("categoryId",1)
 
         val roomDb = AppDatabase.getInstance(this)
-        if(roomDb != null){
-            category = roomDb.CategoryDao().selectById(categoryId)
-        }
+        category = roomDb!!.CategoryDao().selectById(categoryId)
         var typeId = category.typeId
 
         viewBinding.updateCategoryButton.text = getText(R.string.finish_button)
@@ -66,25 +66,26 @@ class UpdateCategoryActivity : AppCompatActivity() {
         viewBinding.updateCategoryBackButton.setOnClickListener(){
             super.onBackPressed()
         }
+        viewBinding.updateCategoryName.doOnTextChanged { text, start, before, count ->
+            viewBinding.updateCategoryIconName.text = text
+        }
         // 수정 완료하기 버튼
         viewBinding.updateCategoryButton.setOnClickListener(){
-            if (roomDb != null) {
-                val newName : String  = viewBinding.updateCategoryName.text.toString().trim()
-                when {
-                    newName == "" -> {
-                        Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
-                    }
-                    (roomDb.CategoryDao().selectByName(newName) != 0) and (newName != viewBinding.updateCategoryIconName.text) -> {
-                        Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {
-                        //카테고리 수정하기
-                        httpConnection.updateCategory(this,roomDb,1,categoryId, CategoryRequestData(newName,typeId))
+            val newName : String  = viewBinding.updateCategoryName.text.toString().trim()
+            when {
+                newName == "" -> {
+                    Toast.makeText(this, "카테고리 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
+                (roomDb.CategoryDao().selectByName(newName) != 0) and (newName != viewBinding.updateCategoryIconName.text) -> {
+                    Toast.makeText(this, "같은 이름의 카테고리가 있습니다\n     다른 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    //카테고리 수정하기
+                    httpConnection.updateCategory(this,roomDb,1,categoryId, CategoryRequestData(newName,typeId))
 
-                        val intent = Intent(this, SettingCategoryActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
+                    val intent = Intent(this, SettingCategoryActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

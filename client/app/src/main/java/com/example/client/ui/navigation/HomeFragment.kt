@@ -187,9 +187,8 @@ class HomeFragment : Fragment() {
         ) //graph_stackedBar 차트 색
 
         val data2 = BarData(set2)
-        val xAxis: XAxis = graphStackedBar.getXAxis()
         data2.setDrawValues(false)
-        data2.setBarWidth(5f)
+        data2.barWidth = 5f
         data2.isHighlightEnabled = false
         graphStackedBar.data = data2
         graphStackedBar.axisLeft.setDrawGridLines(false)
@@ -223,13 +222,14 @@ class HomeFragment : Fragment() {
         val call = request.getAnalysis(userId, month)
         viewBinding.month.text = "${month}월"
         viewBinding.progressBar.visibility = View.VISIBLE
+        viewBinding.homeContent.visibility = View.GONE
         call.enqueue(object: Callback<AnalysisResponseByList> {
             override fun onResponse(call: Call<AnalysisResponseByList>, response: Response<AnalysisResponseByList>)  {
                 if (response.body()!!.isSuccess){
                     val response : AnalysisResponseData= response.body()!!.result
                     viewBinding.month.text = "${month}월"
                     viewBinding.budgetBtn.text = "예산 ${response.budget}원"
-                    viewBinding.spendBudget.text = "-${response.consumption}"
+                    viewBinding.spendBudget.text = "${response.consumption}"
                     viewBinding.budgetPercent.text = "${response.percent}%"
                     if(month == LocalDate.now().monthValue)
                         viewBinding.date.text = "${month}.1 ~ ${month}.${LocalDate.now().dayOfMonth}"
@@ -250,9 +250,11 @@ class HomeFragment : Fragment() {
                     Toast.makeText(bottomNavigationActivity, "분석결과를 불러오지 못했습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
                 println(response.body()?.message)
+                viewBinding.homeContent.visibility = View.VISIBLE
                 viewBinding.progressBar.visibility = View.GONE
             }
             override fun onFailure(call: Call<AnalysisResponseByList>, t: Throwable) {
+                viewBinding.homeContent.visibility = View.VISIBLE
                 viewBinding.progressBar.visibility = View.GONE
                 Toast.makeText(bottomNavigationActivity, "분석결과를 불러오지 못했습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }

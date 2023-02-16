@@ -5,7 +5,6 @@ package com.example.client.ui.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,11 +30,12 @@ import retrofit2.Response
 @InternalCoroutinesApi
 class CalendarFragment : Fragment() {
     private lateinit var viewBinding: FragmentCalendarBinding
-    lateinit var TodayDate: LocalDate
+    private lateinit var todaysDate: LocalDate
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
-    var monthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
+    private var monthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
     private val request: api = APIObject.getInstance().create(api::class.java)
-    var dayList=ArrayList<CalendarData>()
+    private var dayList=ArrayList<CalendarData>()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomNavigationActivity = context as BottomNavigationActivity
@@ -45,23 +45,23 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewBinding = FragmentCalendarBinding.inflate(inflater, container, false)
         val roomDb = AppDatabase.getInstance(bottomNavigationActivity)
         val userId = roomDb!!.UserDao().getUserId()
         //현재 날짜
-        TodayDate=LocalDate.now()
+        todaysDate=LocalDate.now()
         //화면 설정
         setMonthView(userId)
         //저번달 버튼 이벤트
         viewBinding.calendarPreBtn.setOnClickListener {
-            TodayDate=TodayDate.minusMonths(1)
+            todaysDate=todaysDate.minusMonths(1)
             //새롭게 화면 설정
             setMonthView(userId)
         }
         //다음달 버튼 이벤트
         viewBinding.calendarNextBtn.setOnClickListener {
-            TodayDate=TodayDate.plusMonths(1)
+            todaysDate=todaysDate.plusMonths(1)
             //새롭게 화면 설정
             setMonthView(userId)
         }
@@ -71,28 +71,27 @@ class CalendarFragment : Fragment() {
     //날짜, 지출, 수익 화면에 보여주기
     private fun setMonthView(userId : Int) {
         //월 텍스트뷰 셋팅
-        viewBinding.calendarMonth.text="${TodayDate.monthValue}월"
+        viewBinding.calendarMonth.text="${todaysDate.monthValue}월"
 
         //레이아웃 설정(열 7개)
         val manager: RecyclerView.LayoutManager=GridLayoutManager(activity, 7)
         viewBinding.calendarRv.layoutManager=manager
 
         //해당 월 가져오기
-        val yearMonth= YearMonth.from(TodayDate)
+        val yearMonth= YearMonth.from(todaysDate)
 
         //해당 월 마지막 날짜 가져오기(예 28, 30, 31)
         val lastDay = yearMonth.lengthOfMonth()
 
         //해당 월의 첫 번째 날 가져오기(예: 2023-01-01)
-        val firstDay=TodayDate.withDayOfMonth(1)
+        val firstDay=todaysDate.withDayOfMonth(1)
 
         //첫 번째날 요일 가져오기(월:1, 일: 7)
         var dayOfWeek=firstDay.dayOfWeek.value
         if(dayOfWeek==7){dayOfWeek=0} //일:7 ->일:0
 
         dayList = arrayListOf()
-
-        getCalendarInfo(bottomNavigationActivity,TodayDate.year, TodayDate.monthValue, lastDay, dayOfWeek,userId)
+        getCalendarInfo(bottomNavigationActivity,todaysDate.year, todaysDate.monthValue, lastDay, dayOfWeek,userId)
     }
     private fun getCalendarInfo(context: Context, year: Int, month: Int, lastDay: Int, dayOfWeek:Int, userId: Int) {
         val call = request.getCalendar(year, month, userId)
@@ -107,18 +106,19 @@ class CalendarFragment : Fragment() {
                     val calendarInfo = response.body()?.result!!
                     //어뎁터에 넘겨줄 리스트 만들기
                     for(i in 1..41){
-                        //빈칸
+                        // 날짜별 총 지출·수입 금액
                         if(i <= dayOfWeek || i>(lastDay+dayOfWeek)){
                             dayList.add(CalendarData("", "",""))
-                        }else{ //숫자,지출,수입 넣기
+                        }else{
                             var expense=""
                             var income=""
-                            //지출
-                            if(calendarInfo?.find{it.date==(i-dayOfWeek) && it.isExp==1}!=null){
+
+                            // 총 지출금액
+                            if(calendarInfo.find{it.date==(i-dayOfWeek) && it.isExp==1} !=null){
                                 expense="-"+(calendarInfo.find {it.date==(i-dayOfWeek) && it.isExp==1}!!.amount).toString()
                             }
-                            //수입
-                            if(calendarInfo?.find{it.date==(i-dayOfWeek) && it.isExp==2}!=null){
+                            // 총 수입금액
+                            if(calendarInfo.find{it.date==(i-dayOfWeek) && it.isExp==2} !=null){
                                 income="+"+(calendarInfo.find {it.date==(i-dayOfWeek) && it.isExp==2}!!.amount).toString()
                             }
 
@@ -126,29 +126,30 @@ class CalendarFragment : Fragment() {
                         }
                     }
                     //어댑터 초기화
-                    val adapter = CalendarAdapter(dayList,TodayDate)
+                    val adapter = CalendarAdapter(dayList,todaysDate)
 
-                    //날짜 클릭 이벤트 --> 클릭 시 해당 날짜 내역 화면으로 이동
+                    //클릭한 날짜의 내역 목록 화면으로 이동
                     adapter.setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
                         override fun onItemClick(v: View, position: Int) {
-                            //클릭한 날짜의 CalendarData
                             val data = dayList[position]
+                            if(data.expense=="" && data.income==""){
+                                Toast.makeText(bottomNavigationActivity,"선택한 날짜에 발생한 내역이 없습니다",Toast.LENGTH_SHORT).show()
+                            }else{
+                                val year = todaysDate.year.toString()
+                                val month = todaysDate.format(monthFormatter)
+                                val day = "0" + data.day
 
-                            val year=TodayDate.year.toString()
-                            val month=TodayDate.format(monthFormatter)
-                            val day="0"+data.day
-
-
-                            //해당 날짜 내역 화면으로 이동
-                            val intent = Intent(bottomNavigationActivity, DateRecordActivity::class.java)
-                            intent.putExtra("year",year)
-                            intent.putExtra("month",month)
-                            intent.putExtra("day",day.substring(day.length -2,day.length))
-                            startActivity(intent)
+                                //해당 날짜 내역 화면으로 이동
+                                val intent =
+                                    Intent(bottomNavigationActivity, DateRecordActivity::class.java)
+                                intent.putExtra("year", year)
+                                intent.putExtra("month", month)
+                                intent.putExtra("day", day.substring(day.length - 2, day.length))
+                                startActivity(intent)
+                            }
                         }
 
-                    }
-                    )
+                    })
                     //어뎁터 적용
                     viewBinding.calendarRv.adapter=adapter
                 }

@@ -38,11 +38,9 @@ class ListDetailActivity : AppCompatActivity() {
         var isKeywordIncluded = listDetailIntent.getBooleanExtra("isKeywordIncluded",false)
 
         val roomDb = AppDatabase.getInstance(this) // 내역 DB
-        val bankStatementRepository = BankStatementRepository(this)
 
-        if (roomDb != null) {
-            selectedCategory = roomDb.CategoryDao().selectById(categoryId)
-        }// 넘겨받은 내역의 카테고리 Data
+        // 넘겨받은 내역의 카테고리 Data
+        selectedCategory = roomDb!!.CategoryDao().selectById(categoryId)
 
         // 넘겨받은 내역의 Data를 화면에 표시
         viewBinding.listDetailButton.text = getText(R.string.finish_button)
@@ -82,7 +80,6 @@ class ListDetailActivity : AppCompatActivity() {
         viewBinding.listDetailButton.setOnClickListener(){
             // Memo 내용, 예산 저장 여부 DB에 update
             httpConnection.updateList(this, userId, detailId, UpdateDetailData(categoryId,viewBinding.listDetailMemoContent.text.toString(),viewBinding.listDetailSwitch1.isChecked, viewBinding.listDetailSwitch2.isChecked))
-
         }
     }
 }

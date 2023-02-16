@@ -88,27 +88,25 @@ open class HttpConnection {
         call.enqueue(object: Callback<CategoryResponseByList> {
             override fun onResponse(call: Call<CategoryResponseByList>, response: Response<CategoryResponseByList>) {
                 if (response.body()!!.isSuccess){
-                    roomDb.CategoryDao()?.insert(Category("하루세끼", R.drawable.ic_category_food,1,0,false,1))
-                    roomDb.CategoryDao()?.insert(Category("주거·통신", R.drawable.ic_category_living,1,1,false,2))
-                    roomDb.CategoryDao()?.insert(Category("교통관련", R.drawable.ic_category_traffic,1,2,false,3))
-                    roomDb.CategoryDao()?.insert(Category("생필품", R.drawable.ic_category_market,1,3,false,4))
-                    roomDb.CategoryDao()?.insert(Category("나를 위한", R.drawable.ic_category_formeexpense,1,4,false,5))
-                    roomDb.CategoryDao()?.insert(Category("선물준비", R.drawable.ic_category_present,1,5,false,6))
-                    roomDb.CategoryDao()?.insert(
-                            Category("자기계발",
-                                R.drawable.ic_category_selfimprovement,1,6,false,7)
-                        )
-                    roomDb.CategoryDao()?.insert(Category("카페·간식", R.drawable.ic_category_cafe,1,7,false,8))
-                    roomDb.CategoryDao()?.insert(Category("저축", R.drawable.ic_category_saving,1,8,false,9))
-                    roomDb.CategoryDao()?.insert(Category("술·외식", R.drawable.ic_category_alchol,1,9,false,10))
-                    roomDb.CategoryDao()?.insert(Category("의료·건강", R.drawable.ic_category_medical,1,10,false,11))
-                    roomDb.CategoryDao()?.insert(Category("오락·취미", R.drawable.ic_category_entertainment,1,11,false,12))
-                    roomDb.CategoryDao()?.insert(Category("여행", R.drawable.ic_category_travel,1,12,false,13))
-                    roomDb.CategoryDao()?.insert(Category("자산이동", R.drawable.ic_category_assetmovement,1,13,false,14))
-                    roomDb.CategoryDao()?.insert(Category("기타지출", R.drawable.ic_category_others,1,14,false,15))
-                    roomDb.CategoryDao()?.insert(Category("수입", R.drawable.ic_category_income,2,0,false,16))
-                    var image : Int = 0
-                    var order : Int = 0
+                    roomDb.CategoryDao()
+                        .insert(Category("하루세끼", R.drawable.ic_category_food,1,0,false,1))
+                    roomDb.CategoryDao().insert(Category("주거·통신", R.drawable.ic_category_living,1,1,false,2))
+                    roomDb.CategoryDao().insert(Category("교통관련", R.drawable.ic_category_traffic,1,2,false,3))
+                    roomDb.CategoryDao().insert(Category("생필품", R.drawable.ic_category_market,1,3,false,4))
+                    roomDb.CategoryDao().insert(Category("나를 위한", R.drawable.ic_category_formeexpense,1,4,false,5))
+                    roomDb.CategoryDao().insert(Category("선물준비", R.drawable.ic_category_present,1,5,false,6))
+                    roomDb.CategoryDao().insert(Category("자기계발", R.drawable.ic_category_selfimprovement,1,6,false,7))
+                    roomDb.CategoryDao().insert(Category("카페·간식", R.drawable.ic_category_cafe,1,7,false,8))
+                    roomDb.CategoryDao().insert(Category("저축", R.drawable.ic_category_saving,1,8,false,9))
+                    roomDb.CategoryDao().insert(Category("술·외식", R.drawable.ic_category_alchol,1,9,false,10))
+                    roomDb.CategoryDao().insert(Category("의료·건강", R.drawable.ic_category_medical,1,10,false,11))
+                    roomDb.CategoryDao().insert(Category("오락·취미", R.drawable.ic_category_entertainment,1,11,false,12))
+                    roomDb.CategoryDao().insert(Category("여행", R.drawable.ic_category_travel,1,12,false,13))
+                    roomDb.CategoryDao().insert(Category("자산이동", R.drawable.ic_category_assetmovement,1,13,false,14))
+                    roomDb.CategoryDao().insert(Category("기타지출", R.drawable.ic_category_others,1,14,false,15))
+                    roomDb.CategoryDao().insert(Category("수입", R.drawable.ic_category_income,2,0,false,16))
+                    var image: Int
+                    var order: Int
                     for(category in response.body()?.result!!){
                         when(category.typeId){
                             1 -> {
@@ -120,8 +118,7 @@ open class HttpConnection {
                                 order = roomDb.CategoryDao().selectByTypeId(2).size
                             }
                         }
-                        if(roomDb.CategoryDao().selectById(category.categoryId) == null)
-                            roomDb.CategoryDao().insert(Category(category.name, image, category.typeId,order,category.isUserCreated,category.categoryId))
+                        roomDb.CategoryDao().insert(Category(category.name, image, category.typeId,order,true,category.categoryId))
                     }
                 }
                 else{
@@ -211,7 +208,7 @@ open class HttpConnection {
            }
 
            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-               Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+               Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
            }
        })
    }
@@ -221,14 +218,14 @@ open class HttpConnection {
         call.enqueue(object : Callback<ResponseData> {
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 if (response.body()!!.isSuccess) {
-                    Toast.makeText(context, "요청 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "데이터가 성공적으로 초기화되었습니다", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "요청 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "데이터가 초기화되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
                 println(response.body()?.message)
             }
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "요청을 성공적으로 전송하지 못했습니다\n        나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         })
     }

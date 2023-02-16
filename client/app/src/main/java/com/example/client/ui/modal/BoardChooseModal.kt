@@ -1,5 +1,6 @@
 package com.example.client.ui.modal
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Point
@@ -62,7 +63,6 @@ class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, 
         viewBinding.modalList.adapter=adapter
         viewBinding.modalList.layoutManager=LinearLayoutManager(context)
 
-
         var integratedId=itemList[0]//첫번째 내역의 아이디 값이 디폴트
         var detailIdList=itemList //선택된 detailId만 가져오기
 
@@ -90,31 +90,19 @@ class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, 
     fun joinDetail(context: Context, userId:Int, requestBody:JoinDetailData, adapter: RecordAdapter, boardList: RecyclerView){
         val call = request.joinDetail(userId,requestBody)
         call.enqueue(object: Callback<ResponseData> {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 if(response.body()!!.isSuccess){
                     val updateList = ArrayList<Detail>()
-                    var integratedItemIndex = -1
-                    var price = 0
-                    var integratedItem : Detail = prev[0]
                     for(d in prev){
                         when (d.detailId) {
                             !in itemList -> updateList.add(d)
-                            requestBody.integratedId -> {
-                                integratedItemIndex = updateList.size
-                                integratedItem = d
-                            }
                             else -> {
-                                price += d.price
+                                d.integratedId = requestBody.integratedId
+                                updateList.add(d)
                             }
                         }
                     }
-                    integratedItem.integratedId = integratedItem.detailId
-                    integratedItem.price = kotlin.math.abs(price)
-                    integratedItem.typeId = when(price>0){
-                        true->2
-                        else->1
-                    }
-                    updateList.add(integratedItemIndex,integratedItem)
                     adapter.updateRecordList(updateList,1)
                     boardList.adapter = adapter
                     boardList.adapter?.notifyDataSetChanged()

@@ -23,6 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Math.round
+import kotlin.math.roundToInt
 
 lateinit var settingCategoryViewBinding:ActivitySettingCategoryBinding
 @InternalCoroutinesApi
@@ -30,7 +31,7 @@ class SettingCategoryActivity : AppCompatActivity() {
     private lateinit var categoryList : ArrayList<Category>
     private lateinit var adapter1 : CategoryViewAdapter
     private lateinit var adapter2 : CategoryViewAdapter
-    val roomDb = AppDatabase.getInstance(this)
+    private lateinit var roomDb : AppDatabase
     private val request: api = APIObject.getInstance().create(api::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +39,15 @@ class SettingCategoryActivity : AppCompatActivity() {
         settingCategoryViewBinding = ActivitySettingCategoryBinding.inflate(layoutInflater)
         setContentView(settingCategoryViewBinding.root)
 
-        // 전체 카테고리 목록
-        categoryList = roomDb!!.CategoryDao().selectAll() as ArrayList<Category>
+        roomDb= AppDatabase.getInstance(this)!!
+        val userId = roomDb.UserDao().getUserId()
+        settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.GONE
+        settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.GONE
 
         // gridview에 adapter 연결
-        adapter1 = CategoryViewAdapter(this, categoryList.filter { category -> category.typeId ==1 } as ArrayList<Category>, -1)
+        adapter1 = CategoryViewAdapter(this, roomDb.CategoryDao().selectByTypeId(1) as ArrayList<Category>, -1)
+        adapter2 = CategoryViewAdapter(this, roomDb.CategoryDao().selectByTypeId(2) as ArrayList<Category>, -1)
         settingCategoryViewBinding.settingCategoryList.adapter = adapter1
-        adapter2 = CategoryViewAdapter(this, categoryList.filter { category -> category.typeId ==2 } as ArrayList<Category>, -1)
         settingCategoryViewBinding.settingCategoryList2.adapter = adapter2
 
         // gridview height 설정
@@ -55,9 +58,6 @@ class SettingCategoryActivity : AppCompatActivity() {
         val list2Params: ViewGroup.LayoutParams = settingCategoryViewBinding.settingCategoryList2.layoutParams
         list2Params.height = getGridviewHeight(settingCategoryViewBinding.settingCategoryList2.adapter.count)
         settingCategoryViewBinding.settingCategoryList2.layoutParams = list2Params
-
-        settingCategoryViewBinding.settingCategoryDeleteButton.visibility = View.GONE
-        settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.GONE
 
         // 뒤로가기
         settingCategoryViewBinding.settingCategoryBackButton.setOnClickListener() {
@@ -73,19 +73,17 @@ class SettingCategoryActivity : AppCompatActivity() {
         }
         // 카테고리 삭제
         settingCategoryViewBinding.settingCategoryDeleteButton.setOnClickListener(){
-            // 정말로 삭제하시겠습니까? modal창
             val categoryId : Int = roomDb.CategoryDao().selectByName((currentFocus as AppCompatButton).text.toString())
             val category : Category = roomDb.CategoryDao().selectById(categoryId)
-
             if(categoryId != 0) {
                 //카테고리 삭제
-                deleteCategory(this, roomDb,1, category)
+                deleteCategory(this, roomDb,userId, category)
             }
         }
         // 카테고리 수정
         settingCategoryViewBinding.settingCategoryModifyButton.setOnClickListener(){
             val intent = Intent(this, UpdateCategoryActivity::class.java)
-            intent.putExtra("categoryId",roomDb!!.CategoryDao().selectByName((currentFocus as AppCompatButton).text.toString()))
+            intent.putExtra("categoryId", roomDb.CategoryDao().selectByName((currentFocus as AppCompatButton).text.toString()))
             startActivity((intent))
         }
     }
@@ -103,6 +101,10 @@ class SettingCategoryActivity : AppCompatActivity() {
                     roomDb.CategoryDao().updateCategoryOrder(category.categoryId, category.typeId)
                     // 목록 새로고침
                     refreshCategoryList(category)
+                    when(category.typeId){
+                        1->Toast.makeText(context, "카테고리가 성공적으로 삭제되었습니다       \n${category.name}의 내역은 기타지출로 분류됩니다", Toast.LENGTH_SHORT).show()
+                        2->Toast.makeText(context, "카테고리가 성공적으로 삭제되었습니다      \n${category.name}의 내역은 수입으로 분류됩니다", Toast.LENGTH_SHORT).show()
+                    }
 
                 } else{
                     Toast.makeText(context, "카테고리가 삭제되지 않았습니다\n    나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -116,9 +118,9 @@ class SettingCategoryActivity : AppCompatActivity() {
     }
     // 카테고리 삭제 후 목록 refresh
     private fun refreshCategoryList(deleteCategory: Category) {
-        var categoryListView : GridView
-        var typeId : Int
-        var adapter : CategoryViewAdapter
+        val categoryListView : GridView
+        val typeId : Int
+        val adapter : CategoryViewAdapter
         when {
             settingCategoryViewBinding.settingCategoryList.hasFocus() -> {
                 typeId = 1
@@ -131,8 +133,7 @@ class SettingCategoryActivity : AppCompatActivity() {
                 categoryListView = settingCategoryViewBinding.settingCategoryList2
             }
         }
-        categoryList.remove(deleteCategory)
-        adapter.updateCategoryList(categoryList.filter { category : Category -> category.typeId==typeId } as ArrayList<Category>)
+        adapter.updateCategoryList(roomDb.CategoryDao().selectByTypeId(typeId) as ArrayList<Category>)
         categoryListView.adapter = adapter
         (categoryListView.adapter as CategoryViewAdapter).notifyDataSetChanged()
     }
@@ -146,7 +147,7 @@ class SettingCategoryActivity : AppCompatActivity() {
     // dp를 픽셀 단위로 변환
     private fun convertDPtoPX(context: Context, dp: Int): Int {
         val density: Float = context.resources.displayMetrics.density
-        return round(dp.toFloat() * density)
+        return (dp.toFloat() * density).roundToInt()
     }
 }
 

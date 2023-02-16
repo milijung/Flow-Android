@@ -23,8 +23,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityChangeCategoryBinding.inflate(layoutInflater)
-        val view = viewBinding.root
-        setContentView(view)
+        setContentView(viewBinding.root)
 
         val listDetailIntent = intent
         val listId:Int = listDetailIntent.getIntExtra("detailId",-2)
@@ -32,19 +31,19 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val selectedCategoryPosition: Int = listDetailIntent.getIntExtra("order",0)
         val userId = listDetailIntent.getIntExtra("userId",-1)
         val price = listDetailIntent.getIntExtra("price",0)
-        var memo = listDetailIntent.getStringExtra("memo")
+        val memo = listDetailIntent.getStringExtra("memo")
         val shop = listDetailIntent.getStringExtra("shop")
         val year = listDetailIntent.getStringExtra("year")
         val month = listDetailIntent.getStringExtra("month")
         val day = listDetailIntent.getStringExtra("day")
         val time = listDetailIntent.getStringExtra("time")
-        var isBudgetIncluded = listDetailIntent.getBooleanExtra("isBudgetIncluded",true)
-        var isKeywordIncluded = listDetailIntent.getBooleanExtra("isKeywordIncluded",false)
-        val roomDb = AppDatabase.getInstance(this)
+        val isBudgetIncluded = listDetailIntent.getBooleanExtra("isBudgetIncluded",true)
+        val isKeywordIncluded = listDetailIntent.getBooleanExtra("isKeywordIncluded",false)
 
-        categoryList = roomDb!!.CategoryDao().selectAll().filter { category -> category.typeId==categoryType } as ArrayList<Category>
+        val roomDb = AppDatabase.getInstance(this)!!
+        val prevCategoryId = roomDb.CategoryDao().selectByOrder(categoryType,selectedCategoryPosition)
+        categoryList = roomDb.CategoryDao().selectByTypeId(categoryType) as ArrayList<Category>
         adapter = CategoryViewAdapter(this, categoryList, selectedCategoryPosition)
-        val prevCategoryId = roomDb!!.CategoryDao().selectByOrder(categoryType,selectedCategoryPosition)
         viewBinding.changeCategoryList.adapter = adapter
         viewBinding.changeCategoryButton.text = getText(R.string.finish_button)
 
@@ -61,13 +60,9 @@ class ChangeCategoryActivity : AppCompatActivity() {
                     finish()
                 }
                 else->{
-                    val isKeyword : Keyword = roomDb!!.KeywordDao().selectByKeyword(shop!!)
-                    if((isKeyword != null)  ){
-                        // 키워드 삭제
-                        if(isKeyword.isUserCreated){
-                            roomDb.KeywordDao().deleteKeyword(prevCategoryId,shop)
-
-                        }
+                    val isKeyword : Keyword = roomDb.KeywordDao().selectByKeyword(shop!!)
+                    if(isKeyword.isUserCreated){
+                        roomDb.KeywordDao().deleteKeyword(prevCategoryId,shop)
                     }
 
                     // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
@@ -90,7 +85,6 @@ class ChangeCategoryActivity : AppCompatActivity() {
                 }
             }
         }
-
         // 뒤로 가기
         viewBinding.changeCategoryBackButton.setOnClickListener(){
             super.onBackPressed()
@@ -108,14 +102,10 @@ class ChangeCategoryActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("Not yet implemented")
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (roomDb != null) {
-                    searchCategoryList =
-                        categoryList.filter { category -> category.name.contains(newText.toString().trim()) } as ArrayList<Category>
-                    adapter.updateCategoryList(searchCategoryList)
-                    viewBinding.changeCategoryList.adapter = adapter
-                }
+                searchCategoryList = categoryList.filter { category -> category.name.contains(newText.toString().trim()) } as ArrayList<Category>
+                adapter.updateCategoryList(searchCategoryList)
+                viewBinding.changeCategoryList.adapter = adapter
                 return true
             }
         })

@@ -20,7 +20,7 @@ import java.lang.Math.abs
 @InternalCoroutinesApi
 class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int = 0,val integratedId:Int = -1) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    val roomDb = AppDatabase.getInstance(context)
+    private val roomDb = AppDatabase.getInstance(context)
     var selectedItem = ArrayList<Int>()
     private var longClickListener : OnListLongClickListener? =null
     private var adapterData = ArrayList<Detail>()
@@ -37,12 +37,15 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
         adapterData = ArrayList()
+        // 통합된 내역이 아닌 경우
         if(integratedId==-1){
             for (d in datas) {
                 if (d.detailId == d.integratedId || d.integratedId == -1)
                     adapterData.add(d)
             }
-        }else{
+        }
+        // 통합된 내역인 경우
+        else{
             if(option==0)
                 for (d in datas) {
                     if (d.integratedId == integratedId)
@@ -212,11 +215,12 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
                     else -> binding.icon.setImageResource(R.drawable.ic_category_income_user)
                 }
             }
-            // list 상세 페이지 연결
+
             binding.item.setOnClickListener {
                 when (selectedItem.size) {
                     0 -> {
                         if (!binding.highlight.isVisible || option != 0) {
+                            // list 상세 페이지 연결
                             val intent = Intent(context, ListDetailActivity::class.java)
                             intent.putExtra("userId", data.userId)
                             intent.putExtra("detailId", data.detailId)
@@ -235,7 +239,7 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
                         } else {
                             if (binding.subItemList.childCount == 0) {
                                 binding.item.setBackgroundResource(R.drawable.item_record_integrated)
-                                var subList = ArrayList<Detail>()
+                                val subList = ArrayList<Detail>()
                                 for (d in datas) {
                                     if (d.integratedId == data.detailId)
                                         subList.add(d)
@@ -268,7 +272,6 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
                                 selectedItem.add(data.detailId)
                             }
                         }
-                        println(selectedItem)
                     }
                 }
             }
@@ -293,7 +296,7 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
         fun onListLongClickFinish()
     }
     fun deleteRecordList(deleteItemList : ArrayList<Int>) {
-        var temp = ArrayList<Detail>()
+        val temp = ArrayList<Detail>()
         for(d in datas){
             if(d.detailId !in deleteItemList)
                 temp.add(d)
