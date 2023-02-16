@@ -196,13 +196,21 @@ open class HttpConnection {
        call.enqueue(object : Callback<ResponseData> {
            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                if (response.body()!!.isSuccess) {
-                   roomDb.UserDao().updateBudgetInfo(userId,budgetRequest.budget, budgetRequest.startDate)
-                   val intent = Intent(context, BottomNavigationActivity::class.java)
-                   intent.putExtra("pageId",pageId)
-                   context.startActivity(intent)
-                   Toast.makeText(context, "예산이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
+                   if(pageId != -1){
+                       roomDb.UserDao()
+                           .updateBudgetInfo(userId, budgetRequest.budget, budgetRequest.startDate)
+                       val intent = Intent(context, BottomNavigationActivity::class.java)
+                       intent.putExtra("pageId", pageId)
+                       context.startActivity(intent)
+                       Toast.makeText(context, "예산이 성공적으로 수정되었습니다", Toast.LENGTH_SHORT).show()
+                   }else{
+                       roomDb.UserDao().insert(User(userId,budgetRequest.budget,budgetRequest.startDate,70))
+                   }
                } else {
-                   Toast.makeText(context, "예산이 수정되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                   when(pageId){
+                       -1 -> Toast.makeText(context, "예산이 입력되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                       else -> Toast.makeText(context, "예산이 수정되지 않았습니다\n  나중에 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                   }
                }
                println(response.body()?.message)
            }

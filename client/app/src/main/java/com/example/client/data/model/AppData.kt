@@ -42,6 +42,7 @@ data class User(
     @PrimaryKey @ColumnInfo(name="userId") val userId: Int,
     @ColumnInfo(name="budget") val budget: Int,
     @ColumnInfo(name= "budgetStartDay") val budgetStartDay: Int,
+    @ColumnInfo(name= "budgetAlarmPercent") val budgetAlarmPercent: Int,
     @ColumnInfo(name= "isFingerprintOn") val isFingerprintOn: Boolean = false,
 )
 

@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import com.example.client.R
+import com.example.client.api.BudgetRequest
 import com.example.client.api.HttpConnection
 import com.example.client.data.AppDatabase
 import com.example.client.data.User
 import com.example.client.data.adapter.SignUpAdapter
 import com.example.client.databinding.ActivitySignUpBinding
+import com.example.client.databinding.FragmentSignUp5Binding
 import com.example.client.ui.navigation.BottomNavigationActivity
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlin.properties.Delegates
@@ -61,11 +66,21 @@ class SignUpActivity : AppCompatActivity(), SignUpFragment1.SetPageMover{
             when (pageIndex) {
                 5 -> goBottomNavigationActivity()
                 4 -> {
-                    roomDb!!.UserDao().insert(User(1,400000,1))
-                    val userId : Int = 1
-//                    httpConnection.getUserInfo(this, roomDb!!, userId)
-                    httpConnection.getCategory(this, roomDb, userId)
-                    goNextFragment()
+                    val userId = 1
+                    if((supportFragmentManager.fragments[2] as SignUpFragment5).isBudgetNull())
+                        Toast.makeText(this,"예산을 입력해주세요", Toast.LENGTH_SHORT).show()
+                    else {
+                        val budgetInfo = (supportFragmentManager.fragments[2] as SignUpFragment5).getBudgetInfo()
+                        httpConnection.getCategory(this, roomDb!!, userId)
+                        httpConnection.updateBudget(
+                            this,
+                            roomDb,
+                            -1,
+                            userId,
+                            budgetInfo
+                        )
+                        goNextFragment()
+                    }
                 }
                 else -> goNextFragment()
             }

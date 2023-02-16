@@ -1,5 +1,6 @@
 package com.example.client.ui.navigation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import com.example.client.data.AppDatabase
 import com.example.client.ui.setting.SettingBudgetSettingActivity
 import com.example.client.databinding.FragmentSettingBinding
 import com.example.client.ui.category.SettingCategoryActivity
@@ -17,21 +19,25 @@ import com.example.client.ui.setting.SettingBankAppChoiceActivity
 import com.example.client.ui.setting.SettingLetterAddRegistraionActivity
 import kotlinx.coroutines.InternalCoroutinesApi
 
-//import kotlinx.android.synthetic.main.fragment_setting.*
-//import kotlinx.android.synthetic.main.fragment_setting.view.*
-
 @InternalCoroutinesApi
 class SettingFragment : Fragment() {
    private lateinit var binding: FragmentSettingBinding
-
+    private lateinit var bottomNavigationActivity : BottomNavigationActivity
+    private lateinit var roomDb : AppDatabase
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        bottomNavigationActivity = context as BottomNavigationActivity
+        roomDb = AppDatabase.getInstance(bottomNavigationActivity)!!
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        val userId = roomDb.UserDao().getUserId()
         binding = FragmentSettingBinding.inflate(inflater, container, false)
-
+        binding.seekBar.value = roomDb.UserDao().getUserInfo().budgetAlarmPercent.toFloat()
+        binding.userProgress.text = "${ binding.seekBar.value }%"
         binding.budgetSettingBtn.setOnClickListener(){
             val intent = Intent(activity, SettingBudgetSettingActivity::class.java)
             intent.putExtra("pageId",3)
@@ -53,8 +59,11 @@ class SettingFragment : Fragment() {
         }
 
         binding.logoutBtn.setOnClickListener {
+            roomDb.UserDao().deleteById(userId)
+            roomDb.CategoryDao().deleteCategoryAll()
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
+            bottomNavigationActivity.finish()
         }
 
         binding.initDataBtn.setOnClickListener {
@@ -81,17 +90,10 @@ class SettingFragment : Fragment() {
             }
         }
 
-        binding.seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                userProgress.text = "${progress}%"
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
-        })
+        binding.seekBar.addOnChangeListener { slider, value, fromUser ->
+            binding.userProgress.text = "${value.toInt()}%"
+            roomDb.UserDao().updateBudgetAlarmPercent(userId,value.toInt())
+        }
 
 //        binding.fingerprintSwitch.setOnClickListener(){
 //            if ()

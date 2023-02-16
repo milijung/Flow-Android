@@ -36,6 +36,9 @@ interface CategoryDao {
 
     @Query("DELETE FROM Category WHERE categoryId = :categoryId")
     fun deleteCategoryById(categoryId : Int)
+
+    @Query("DELETE FROM Category")
+    fun deleteCategoryAll()
 }
 
 @Dao
@@ -86,13 +89,13 @@ interface KeywordDao {
     fun delete(keyword: Keyword)
 
     @Query("SELECT * FROM Keyword")
-    fun selectAll() : kotlin.collections.List<Keyword>
+    fun selectAll() : List<Keyword>
 
     @Query("SELECT * FROM Keyword WHERE categoryId = :categoryId")
-    fun selectByCategoryId(categoryId: Int) : kotlin.collections.List<Keyword>
+    fun selectByCategoryId(categoryId: Int) : List<Keyword>
 
     @Query("SELECT keyword FROM Keyword join Category using(categoryId) WHERE typeId = :typeId")
-    fun selectByTypeId(typeId: Int) : kotlin.collections.List<String>
+    fun selectByTypeId(typeId: Int) :List<String>
 
     @Query("SELECT * FROM Keyword WHERE keyword = :keyword")
     fun selectByKeyword(keyword: String) : Keyword
@@ -125,4 +128,7 @@ interface UserDao {
 
     @Query("UPDATE User SET budget = :budget,budgetStartDay = :budgetStartDay WHERE userId = :userId")
     fun updateBudgetInfo(userId: Int, budget: Int, budgetStartDay : Int)
+
+    @Query("UPDATE User SET budgetAlarmPercent = :budgetAlarmPercent WHERE userId = :userId")
+    fun updateBudgetAlarmPercent(userId: Int, budgetAlarmPercent: Int)
 }

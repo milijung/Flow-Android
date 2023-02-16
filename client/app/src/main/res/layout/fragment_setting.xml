@@ -2,20 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.navigation.SettingFragment"
     android:animateLayoutChanges="true">
-
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:paddingVertical="20dp" />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginVertical="50dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollView"
@@ -24,7 +30,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/block1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollView"
+            app:layout_constraintBottom_toTopOf="@id/line3">
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/budgetSetting_btn"
                 android:layout_width="match_parent"
@@ -33,11 +46,10 @@
                 android:drawableEnd="@drawable/ic_right"
                 android:fontFamily="@font/spoqahansansneo_bold"
                 android:text="예산 설정"
+                android:layout_marginTop="10dp"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:paddingVertical="44dp"
-                android:paddingHorizontal="22dp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,9 +58,9 @@
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="1dp"
                 android:background="@color/gray"
-                android:layout_marginHorizontal="22dp"
+                android:layout_marginVertical="30dp"
                 app:layout_constraintBottom_toTopOf="@id/notificationSetting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,8 +73,7 @@
                 app:layout_constraintTop_toBottomOf="@id/line"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/line1"
-                android:padding="22dp">
+                app:layout_constraintBottom_toTopOf="@id/line1">
 
                 <TextView
                     android:id="@+id/notificationSetting_txt"
@@ -71,7 +82,7 @@
                     android:fontFamily="@font/spoqahansansneo_bold"
                     android:text="알림 설정"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:paddingVertical="22dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +97,7 @@
                     android:paddingVertical="8dp"
                     android:text="알 수 없는 내역 발생 시 카테고리 선택 알림"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/notificationSetting_txt"
                     app:layout_constraintBottom_toTopOf="@id/budgetWarniningNotificaton_btn"
@@ -100,7 +111,8 @@
                     android:track="@drawable/switchstyle"
                     app:layout_constraintBottom_toBottomOf="@id/unknownNotification_txt"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/unknownNotification_txt" />
+                    app:layout_constraintTop_toTopOf="@id/unknownNotification_txt"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/budgetWarniningNotificaton_btn"
@@ -115,7 +127,7 @@
                     android:text="예산 경고 알림"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@id/unknownNotification_txt"
                     app:layout_constraintTop_toBottomOf="@id/unknownNotification_txt"
                     app:layout_constraintBottom_toTopOf="@id/detail"/>
@@ -140,7 +152,7 @@
                     android:stateListAnimator="@null"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:paddingHorizontal="20dp"
+                    android:paddingHorizontal="15dp"
                     app:layout_constraintTop_toBottomOf="@id/budgetWarniningNotificaton_btn"
                     app:layout_constraintBottom_toBottomOf="parent">
 
@@ -150,8 +162,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="퍼센트 설정"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/spoqahansansneo_regular"
                         android:paddingVertical="5dp"
+                        android:layout_marginStart="8dp"
                         android:textColor="@color/black"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
@@ -161,37 +175,44 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="예산의 몇 퍼센트를 사용한 시점에 경고 알림을 전송할까요?"
-                        android:textSize="10sp"
-                        android:paddingVertical="5dp"
+                        android:textSize="11dp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/gray"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/spoqahansansneo_regular"
                         app:layout_constraintTop_toBottomOf="@id/percentageSetting"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/userProgress"/>
 
                     <TextView
                         android:id="@+id/userProgress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:textSize="14sp"
+                        android:textSize="18dp"
+                        android:text="0%"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/black"
                         android:fontFamily="@font/spoqahansansneo_bold"
                         app:layout_constraintTop_toBottomOf="@id/question"
                         app:layout_constraintStart_toStartOf="parent"/>
-
-                    <androidx.appcompat.widget.AppCompatSeekBar
+                    <com.google.android.material.slider.Slider
                         android:id="@+id/seekBar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:max="100"
-                        android:progress="0"
-                        android:progressBackgroundTint="@color/gray"
-                        android:progressTint="@color/black"
-                        android:thumbTint="@color/black"
-                        android:paddingBottom="22dp"
-                        android:paddingTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:value="0"
+                        android:valueFrom="0"
+                        android:valueTo="100"
+                        android:stepSize="10"
                         app:layout_constraintTop_toBottomOf="@id/userProgress"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        />
+                        app:thumbColor="@color/black"
+                        app:thumbRadius="7dp"
+                        app:trackColorActive="@color/black"
+                        app:trackColorInactive="@color/lightgray3"
+                        app:trackHeight="5dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -200,9 +221,9 @@
             <View
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="1dp"
                 android:background="@color/gray"
-                android:layout_marginHorizontal="22dp"
+                android:layout_marginVertical="30dp"
                 app:layout_constraintTop_toBottomOf="@id/notificationSetting"
                 app:layout_constraintBottom_toTopOf="@id/autoRegistrationSetting"
                 app:layout_constraintStart_toStartOf="parent"
@@ -215,8 +236,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/line2"
-                android:padding="22dp">
+                app:layout_constraintBottom_toTopOf="@id/line2">
 
                 <TextView
                     android:id="@+id/autoRegistrationSetting_txt"
@@ -226,7 +246,7 @@
                     android:paddingVertical="22dp"
                     android:text="입출금 자동 등록 설정"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/letterAddRegistration_btn"
                     app:layout_constraintStart_toStartOf="parent"
@@ -243,7 +263,7 @@
                     android:text="문자 양식 추가 등록"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toTopOf="@id/bankApp_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -260,7 +280,7 @@
                     android:text="은행앱 추가 선택"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toTopOf="@id/incomeExpenseCategoryManagement_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -278,7 +298,7 @@
                     android:text="수입∙지출 카테고리 관리"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -289,9 +309,9 @@
             <View
                 android:id="@+id/line2"
                 android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:layout_marginHorizontal="22dp"
+                android:layout_height="1dp"
                 android:background="@color/gray"
+                android:layout_marginVertical="30dp"
                 app:layout_constraintTop_toBottomOf="@id/autoRegistrationSetting"
                 app:layout_constraintBottom_toTopOf="@id/securitySetting"/>
 
@@ -299,11 +319,10 @@
                 android:id="@+id/securitySetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="22dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line2"
-                app:layout_constraintBottom_toTopOf="@id/line3">
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/securitySetting_txt"
@@ -313,7 +332,7 @@
                     android:paddingVertical="22dp"
                     android:text="보안 설정"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -328,7 +347,7 @@
                     android:paddingBottom="22dp"
                     android:text="앱 실행 시 지문 인식 인증"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -346,28 +365,30 @@
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
             <View
                 android:id="@+id/line3"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="6dp"
                 android:background="#EEEEEE"
+                android:layout_marginVertical="30dp"
                 app:layout_constraintBottom_toTopOf="@id/bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/securitySetting" />
+                app:layout_constraintTop_toBottomOf="@id/block1" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="22dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="20dp"
+                android:paddingBottom="30dp">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <TextView
                     android:id="@+id/logout_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -377,19 +398,21 @@
                     android:text="로그아웃"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
+                    android:paddingVertical="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/line4"
-                    android:layout_width="50dp"
-                    android:layout_height="2px"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
                     android:background="@color/gray"
                     app:layout_constraintStart_toStartOf="@id/logout_btn"
-                    app:layout_constraintTop_toBottomOf="@id/logout_btn" />
+                    app:layout_constraintEnd_toEndOf="@id/logout_btn"
+                    app:layout_constraintBottom_toBottomOf="@id/logout_btn" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <TextView
                     android:id="@+id/initData_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -399,20 +422,23 @@
                     android:text="모든 데이터 초기화"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
+                    android:layout_marginTop="2dp"
+                    android:paddingVertical="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line4" />
 
                 <View
                     android:id="@+id/line5"
-                    android:layout_width="110dp"
-                    android:layout_height="2px"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
                     android:background="@color/gray"
                     app:layout_constraintStart_toStartOf="@id/initData_btn"
-                    app:layout_constraintTop_toBottomOf="@id/initData_btn" />
+                    app:layout_constraintEnd_toEndOf="@id/initData_btn"
+                    app:layout_constraintBottom_toBottomOf="@id/initData_btn" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <TextView
                     android:id="@+id/userDelete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -420,19 +446,22 @@
                     android:fontFamily="@font/spoqahansansneo_regular"
                     android:stateListAnimator="@null"
                     android:text="회원 탈퇴"
+                    android:layout_marginTop="2dp"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
+                    android:paddingVertical="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line5" />
 
                 <View
                     android:id="@+id/line6"
-                    android:layout_width="55dp"
-                    android:layout_height="2px"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
                     android:background="@color/gray"
                     app:layout_constraintStart_toStartOf="@id/userDelete_btn"
-                    app:layout_constraintTop_toBottomOf="@id/userDelete_btn" />
+                    app:layout_constraintEnd_toEndOf="@id/userDelete_btn"
+                    app:layout_constraintBottom_toBottomOf="@id/userDelete_btn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
