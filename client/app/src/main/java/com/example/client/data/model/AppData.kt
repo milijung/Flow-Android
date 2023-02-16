@@ -34,7 +34,7 @@ data class Detail(
 data class Keyword(
     @ColumnInfo(name="categoryId") val categoryId: Int,
     @ColumnInfo(name= "keyword") val keyword: String,
-    @ColumnInfo(name= "isUserCreated") val isUserCreated: Boolean,
+    @ColumnInfo(name= "isUserCreated") val isUserCreated: Boolean = true,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name="keywordId") val keywordId: Int = 0,
 )
 @Entity(tableName = "User")

@@ -56,15 +56,29 @@ class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, 
         val deviceWidth = size.x
         params?.width = (deviceWidth * 0.9).toInt()
         dialog.window?.attributes = params as WindowManager.LayoutParams
+
+        var integratedId=itemList[0]//첫번째 내역의 아이디 값이 디폴트
+        var detailIdList=itemList //선택된 detailId만 가져오기
+        for (d in selectedDetails){
+            if(d.detailId == d.integratedId){
+                var price = 0
+                for(subD in prev){
+                    if(subD.integratedId == d.integratedId){
+                        if(subD.typeId == 1)
+                            price -= subD.price
+                        else
+                            price += subD.price
+                    }
+                }
+                d.price = kotlin.math.abs(price)
+            }
+        }
         //리스트 붙이기
         val adapter=BoardChooseModalAdapter(selectedDetails)
         val decoration = ItemDecoration(20)
         viewBinding.modalList.addItemDecoration(decoration)
         viewBinding.modalList.adapter=adapter
         viewBinding.modalList.layoutManager=LinearLayoutManager(context)
-
-        var integratedId=itemList[0]//첫번째 내역의 아이디 값이 디폴트
-        var detailIdList=itemList //선택된 detailId만 가져오기
 
         adapter.setOnItemClickListener(object : BoardChooseModalAdapter.OnItemClickListener{
             override fun onItemClick(v: View, position: Int) {

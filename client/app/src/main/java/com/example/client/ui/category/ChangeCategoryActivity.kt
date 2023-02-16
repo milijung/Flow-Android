@@ -61,8 +61,9 @@ class ChangeCategoryActivity : AppCompatActivity() {
                 }
                 else->{
                     val isKeyword : Keyword = roomDb.KeywordDao().selectByKeyword(shop!!)
-                    if(isKeyword.isUserCreated){
-                        roomDb.KeywordDao().deleteKeyword(prevCategoryId,shop)
+                    if(isKeyword != null){
+                        if(isKeyword.isUserCreated)
+                            roomDb.KeywordDao().deleteKeyword(prevCategoryId,shop)
                     }
 
                     // 내역 상세 화면으로 이동. 내역 id를 담아서 전송
@@ -85,6 +86,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
                 }
             }
         }
+
         // 뒤로 가기
         viewBinding.changeCategoryBackButton.setOnClickListener(){
             super.onBackPressed()

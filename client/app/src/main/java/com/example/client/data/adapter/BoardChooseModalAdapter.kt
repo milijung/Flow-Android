@@ -1,16 +1,14 @@
 package com.example.client.data.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.data.Detail
 import com.example.client.databinding.ItemRecordBinding
 
 
-class BoardChooseModalAdapter(private val recordList:List<Detail>): RecyclerView.Adapter<BoardChooseModalAdapter.ItemViewHolder>() {
+class BoardChooseModalAdapter(private val selectedRecordList:List<Detail>): RecyclerView.Adapter<BoardChooseModalAdapter.ItemViewHolder>() {
     private var selectedItemPosition = 0
     private var selectedLayout: View? = null
 
@@ -45,7 +43,7 @@ class BoardChooseModalAdapter(private val recordList:List<Detail>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(recordList[position])
+        holder.bind(selectedRecordList[position])
 
         // Item Initialize
         holder.itemView.isSelected = position == selectedItemPosition
@@ -72,6 +70,6 @@ class BoardChooseModalAdapter(private val recordList:List<Detail>): RecyclerView
     }
 
     override fun getItemCount(): Int {
-        return recordList.size
+        return selectedRecordList.size
     }
 }

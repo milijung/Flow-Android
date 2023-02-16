@@ -245,7 +245,7 @@ class RecordAdapter(val context: Context, var datas:List<Detail>,val option:Int 
                                         subList.add(d)
                                 }
                                 binding.subItemList.adapter =
-                                    RecordAdapter(context, subList, 0, data.detailId)
+                                    RecordAdapter(context, subList, -1, data.detailId)
                                 val decoration = ItemDecoration(1)
                                 binding.subItemList.addItemDecoration(decoration)
                                 binding.subItemList.layoutManager = LinearLayoutManager(context)
