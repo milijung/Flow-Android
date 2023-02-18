@@ -177,13 +177,14 @@ class HomeFragment : Fragment() {
 
         //graphStackedBar 가로 그래프
         val entries2 = ArrayList<BarEntry>()
-        entries2.add(BarEntry(0f, floatArrayOf(50f, 30f, 10f, 0f, 10f, 0f))) //graph_stackedBar 값
+        entries2.add(BarEntry(0f, floatArrayOf(50f, 30f, 10f,10f))) //graph_stackedBar 값
 
         val set2 = BarDataSet(entries2, "")
         set2.colors = mutableListOf(
             ContextCompat.getColor(applicationContext,R.color.red),
             ContextCompat.getColor(applicationContext,R.color.orange),
             ContextCompat.getColor(applicationContext,R.color.yellow),
+            ContextCompat.getColor(applicationContext,R.color.lightgray5),
         ) //graph_stackedBar 차트 색
 
         val data2 = BarData(set2)

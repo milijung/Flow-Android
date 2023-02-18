@@ -84,7 +84,7 @@ class RecordAdapter(val context: Context, var datas:List<Detail>, val mode:Int =
                             binding.highlight.visibility = View.VISIBLE // 통합내역 표시 highlight
                         }
                         else -> {
-                            price = data.price
+                            price = when(data.typeId){ 1-> -1*data.price else -> data.price}
                             binding.highlight.visibility = View.GONE
                         }
                     }

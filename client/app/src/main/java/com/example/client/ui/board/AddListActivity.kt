@@ -35,7 +35,10 @@ class AddListActivity : AppCompatActivity() {
         val userId = roomDb.UserDao().getUserId()
 
         viewBinding.addListBubble.text = "내역의 카테고리가 선택한 카테고리로 모두 바뀌게 돼요!"
-        viewBinding.addListCategoryNameButton.text = type1DefaultCategory.name
+        viewBinding.addListCategoryNameButton.text = roomDb.CategoryDao().selectById(categoryId).name
+        viewBinding.addListTag.text = when(typeId){1->viewBinding.addListOption1.text else->viewBinding.addListOption2.text}
+        viewBinding.addListTag.setBackgroundResource( when(typeId){1->R.drawable.expense_round else->R.drawable.income_round})
+
         viewBinding.addListButton.setText(R.string.finish_button)
 
         viewBinding.addListDate.setOnClickListener {
@@ -125,13 +128,17 @@ class AddListActivity : AppCompatActivity() {
     private fun openDialog(option:String){
         when(option){
             "none" ->{
-                if(viewBinding.addListDatepicker.visibility == View.VISIBLE){
-                    viewBinding.addListDatepicker.visibility = View.GONE
-                }else if(viewBinding.addListTimepicker.visibility == View.VISIBLE){
-                    viewBinding.addListTimepicker.visibility = View.GONE
-                }else if(viewBinding.addListOption1.visibility == View.VISIBLE){
-                    viewBinding.addListOption1.visibility = View.GONE
-                    viewBinding.addListOption2.visibility = View.GONE
+                when {
+                    viewBinding.addListDatepicker.visibility == View.VISIBLE -> {
+                        viewBinding.addListDatepicker.visibility = View.GONE
+                    }
+                    viewBinding.addListTimepicker.visibility == View.VISIBLE -> {
+                        viewBinding.addListTimepicker.visibility = View.GONE
+                    }
+                    viewBinding.addListOption1.visibility == View.VISIBLE -> {
+                        viewBinding.addListOption1.visibility = View.GONE
+                        viewBinding.addListOption2.visibility = View.GONE
+                    }
                 }
             }
             "datePicker" -> {

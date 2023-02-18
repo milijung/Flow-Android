@@ -141,9 +141,10 @@
                 android:insetBottom="0dp"
                 android:paddingHorizontal="10dp"
                 app:cornerRadius="4dp"
+                android:stateListAnimator="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:id="@+id/modify_text"
@@ -209,7 +210,7 @@
                 android:layout_height="65dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginStart="13dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <!--category1-->
             <androidx.constraintlayout.widget.ConstraintLayout
