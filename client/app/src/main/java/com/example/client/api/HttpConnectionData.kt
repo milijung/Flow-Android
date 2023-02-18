@@ -184,8 +184,8 @@ data class AnalysisResponseData(
     val budget: Int,
     @SerializedName("consumption")
     val consumption:Int,
-    @SerializedName("latsConsumption")
-    val latsConsumption:Int,
+    @SerializedName("lastConsumption")
+    val lastConsumption:Int,
     @SerializedName("percent")
     val percent:Int,
     @SerializedName("categoryData")

@@ -71,7 +71,8 @@
         android:backgroundTint="@color/yellow"
         android:paddingVertical="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:stateListAnimator="@null"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

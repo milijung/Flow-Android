@@ -9,9 +9,8 @@ import android.widget.BaseAdapter
 import com.example.client.data.Category
 import com.example.client.databinding.FragmentCategoryIconBinding
 import com.example.client.ui.category.settingCategoryViewBinding
-import kotlin.collections.List
 
-class CategoryViewAdapter(context: Context, var CategoryItems:ArrayList<Category>, var checkedItemPosition: Int) : BaseAdapter() {
+class CategoryAdapter(context: Context, var CategoryItems:ArrayList<Category>, var checkedItemPosition: Int) : BaseAdapter() {
     private lateinit var binding: FragmentCategoryIconBinding
     private val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 

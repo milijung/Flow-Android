@@ -1,36 +1,25 @@
 package com.example.client.ui.navigation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.client.APIObject
 import com.example.client.R
-import com.example.client.api.HttpConnection
-import com.example.client.api.JoinDetailData
-import com.example.client.api.ResponseData
-import com.example.client.api.api
 import com.example.client.data.AppDatabase
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityBottomNavigationBinding
-import com.example.client.databinding.FragmentBoardBinding
 import com.example.client.ui.modal.BoardChooseModal
 import com.example.client.ui.modal.BoardDeleteModal
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.coroutines.InternalCoroutinesApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import kotlin.properties.Delegates
 
 @InternalCoroutinesApi
-class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnListLongClickListener {
+class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnRecordLongClickListener {
     private lateinit var viewBinding: ActivityBottomNavigationBinding
     private var pageId by Delegates.notNull<Int>()
     private lateinit var bottomSheetLayout : LinearLayout
@@ -108,11 +97,11 @@ class BottomNavigationActivity() : AppCompatActivity(), RecordAdapter.OnListLong
         }
     }
 
-    override fun onListLongClickStart() {
+    override fun onRecordLongClickStart() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    override fun onListLongClickFinish() {
+    override fun onRecordLongClickFinish() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
     // Persistent BottomSheet 초기화

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Point
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -13,22 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.APIObject
-import com.example.client.api.HttpConnection
 import com.example.client.api.JoinDetailData
 import com.example.client.api.ResponseData
 import com.example.client.api.api
-import com.example.client.data.AppDatabase
 import com.example.client.data.Detail
-import com.example.client.data.adapter.BoardChooseModalAdapter
-import com.example.client.data.adapter.CalendarAdapter
-import com.example.client.data.adapter.ItemDecoration
+import com.example.client.data.adapter.RecordChooseModalAdapter
+import com.example.client.data.adapter.ItemVerticalDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ModalBoardChooseBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Math.abs
 
 class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, val boardList : RecyclerView, val selectedDetails:List<Detail>) {
 
@@ -39,7 +34,7 @@ class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, 
     @InternalCoroutinesApi
     val prev = boardAdapter.datas
     @InternalCoroutinesApi
-    val itemList = boardAdapter.selectedItem
+    val itemList = boardAdapter.selectedRecords
     private val request: api = APIObject.getInstance().create(api::class.java)
     @InternalCoroutinesApi
     fun show(){
@@ -74,13 +69,13 @@ class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, 
             }
         }
         //리스트 붙이기
-        val adapter=BoardChooseModalAdapter(selectedDetails)
-        val decoration = ItemDecoration(20)
+        val adapter=RecordChooseModalAdapter(selectedDetails)
+        val decoration = ItemVerticalDecoration(20)
         viewBinding.modalList.addItemDecoration(decoration)
         viewBinding.modalList.adapter=adapter
         viewBinding.modalList.layoutManager=LinearLayoutManager(context)
 
-        adapter.setOnItemClickListener(object : BoardChooseModalAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object : RecordChooseModalAdapter.OnItemClickListener{
             override fun onItemClick(v: View, position: Int) {
                 //adapter에서 클릭된 아이템 값 받아오기
                 val data = selectedDetails[position]

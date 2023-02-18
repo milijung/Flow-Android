@@ -10,27 +10,25 @@ import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.client.APIObject
-import com.example.client.api.HttpConnection
 import com.example.client.api.ResponseData
 import com.example.client.api.api
 import com.example.client.data.AppDatabase
 import com.example.client.data.Category
-import com.example.client.data.adapter.CategoryViewAdapter
+import com.example.client.data.adapter.CategoryAdapter
 import com.example.client.databinding.ActivitySettingCategoryBinding
 import com.example.client.ui.navigation.BottomNavigationActivity
 import kotlinx.coroutines.InternalCoroutinesApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Math.round
 import kotlin.math.roundToInt
 
 lateinit var settingCategoryViewBinding:ActivitySettingCategoryBinding
 @InternalCoroutinesApi
 class SettingCategoryActivity : AppCompatActivity() {
     private lateinit var categoryList : ArrayList<Category>
-    private lateinit var adapter1 : CategoryViewAdapter
-    private lateinit var adapter2 : CategoryViewAdapter
+    private lateinit var adapter1 : CategoryAdapter
+    private lateinit var adapter2 : CategoryAdapter
     private lateinit var roomDb : AppDatabase
     private val request: api = APIObject.getInstance().create(api::class.java)
 
@@ -45,8 +43,8 @@ class SettingCategoryActivity : AppCompatActivity() {
         settingCategoryViewBinding.settingCategoryModifyButton.visibility = View.GONE
 
         // gridview에 adapter 연결
-        adapter1 = CategoryViewAdapter(this, roomDb.CategoryDao().selectByTypeId(1) as ArrayList<Category>, -1)
-        adapter2 = CategoryViewAdapter(this, roomDb.CategoryDao().selectByTypeId(2) as ArrayList<Category>, -1)
+        adapter1 = CategoryAdapter(this, roomDb.CategoryDao().selectByTypeId(1) as ArrayList<Category>, -1)
+        adapter2 = CategoryAdapter(this, roomDb.CategoryDao().selectByTypeId(2) as ArrayList<Category>, -1)
         settingCategoryViewBinding.settingCategoryList.adapter = adapter1
         settingCategoryViewBinding.settingCategoryList2.adapter = adapter2
 
@@ -120,7 +118,7 @@ class SettingCategoryActivity : AppCompatActivity() {
     private fun refreshCategoryList(deleteCategory: Category) {
         val categoryListView : GridView
         val typeId : Int
-        val adapter : CategoryViewAdapter
+        val adapter : CategoryAdapter
         when {
             settingCategoryViewBinding.settingCategoryList.hasFocus() -> {
                 typeId = 1
@@ -135,7 +133,7 @@ class SettingCategoryActivity : AppCompatActivity() {
         }
         adapter.updateCategoryList(roomDb.CategoryDao().selectByTypeId(typeId) as ArrayList<Category>)
         categoryListView.adapter = adapter
-        (categoryListView.adapter as CategoryViewAdapter).notifyDataSetChanged()
+        (categoryListView.adapter as CategoryAdapter).notifyDataSetChanged()
     }
     private fun getGridviewHeight(size : Int) : Int{
         return if ((size / 3 != 0) or (size < 3))

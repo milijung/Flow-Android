@@ -3,7 +3,6 @@ package com.example.client.ui.modal
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Point
-import android.util.Log
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
@@ -45,7 +44,7 @@ class BoardDeleteModal(private val context : AppCompatActivity, val userId:Int, 
         //삭제하기 버튼 눌렀을 때
         viewBinding.modalDelete.setOnClickListener {
             val adapter = boardList.adapter as RecordAdapter
-            val deleteItems = adapter.selectedItem
+            val deleteItems = adapter.selectedRecords
             deleteDetail(context,userId,DeleteDetailRequestData(deleteItems), adapter, boardList)
 
             dialog.dismiss()

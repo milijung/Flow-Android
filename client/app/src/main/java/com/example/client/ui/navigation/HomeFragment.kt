@@ -237,12 +237,12 @@ class HomeFragment : Fragment() {
                         val date = LocalDate.of(LocalDate.now().year,month,1)
                         viewBinding.date.text = "${month}.1 ~ ${month}.${date.withDayOfMonth(date.lengthOfMonth()).dayOfMonth}"
                     }
-                    if(response.consumption > response.latsConsumption){
-                        viewBinding.compareWithPreviousBudget.text = "${response.consumption-response.latsConsumption}"
+                    if(response.consumption > response.lastConsumption){
+                        viewBinding.compareWithPreviousBudget.text = "${response.consumption-response.lastConsumption}"
                         viewBinding.compareWithPreviousBudgetText.text = "원 더 쓰는 중이에요"
                     }
                     else{
-                        viewBinding.compareWithPreviousBudget.text = "${response.latsConsumption-response.consumption}"
+                        viewBinding.compareWithPreviousBudget.text = "${response.lastConsumption-response.consumption}"
                         viewBinding.compareWithPreviousBudgetText.text = "원 적게 쓰는 중이에요"
                     }
                 }

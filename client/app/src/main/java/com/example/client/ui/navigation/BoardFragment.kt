@@ -20,7 +20,7 @@ import com.example.client.api.DetailResponseByList
 import com.example.client.api.api
 import com.example.client.data.AppDatabase
 import com.example.client.data.Detail
-import com.example.client.data.adapter.ItemDecoration
+import com.example.client.data.adapter.ItemVerticalDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.FragmentBoardBinding
 import com.example.client.ui.board.AddListActivity
@@ -41,7 +41,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     private lateinit var roomDb : AppDatabase
     private lateinit var bottomNavigationActivity : BottomNavigationActivity
     private var adapter: RecordAdapter? = null
-    private lateinit var longClickListener : RecordAdapter.OnListLongClickListener
+    private lateinit var longClickListener : RecordAdapter.OnRecordLongClickListener
     private val request: api = APIObject.getInstance().create(api::class.java)
     private var page = 1
     private var userId by Delegates.notNull<Int>()
@@ -67,7 +67,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
 
         getList(userId,"all","all",page)
 
-        val decoration = ItemDecoration(25)
+        val decoration = ItemVerticalDecoration(25)
         viewBinding.boardList.addItemDecoration(decoration)
 
         viewBinding.boardMenu.setOnClickListener {
@@ -141,7 +141,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
                 adapter = RecordAdapter(bottomNavigationActivity,listOf())
             }
             page == 1 -> {
-                adapter!!.selectedItem.clear()
+                adapter!!.selectedRecords.clear()
             }
             else -> {
                 itemCount = adapter!!.itemCount
@@ -182,7 +182,7 @@ class BoardFragment : androidx.fragment.app.Fragment(){
     fun getSelectedDetail() : List<Detail>{
         val list = ArrayList<Detail>()
         for(d in adapter!!.datas){
-            if(d.detailId in adapter!!.selectedItem)
+            if(d.detailId in adapter!!.selectedRecords)
                 list.add(d)
         }
         return list

@@ -9,7 +9,7 @@ import com.example.client.api.RecordsOfDate
 import com.example.client.api.api
 import com.example.client.data.AppDatabase
 import com.example.client.data.Detail
-import com.example.client.data.adapter.ItemDecoration
+import com.example.client.data.adapter.ItemVerticalDecoration
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityDateRecordBinding
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -35,7 +35,7 @@ class DateRecordActivity : AppCompatActivity() {
         val month = calendarIntent.getStringExtra("month")!!.toInt()
         val day = calendarIntent.getStringExtra("day")!!.toInt()
         val userId = roomDb!!.UserDao().getUserId()
-        val decoration = ItemDecoration(20)
+        val decoration = ItemVerticalDecoration(20)
 
         viewBinding.lvExpense.addItemDecoration(decoration)
         viewBinding.lvIncome.addItemDecoration(decoration)
@@ -87,7 +87,7 @@ class DateRecordActivity : AppCompatActivity() {
                             viewBinding.priceExpense.visibility = View.VISIBLE
                             viewBinding.lvExpense.layoutManager=LinearLayoutManager(applicationContext)
                             viewBinding.lvExpense.adapter= RecordAdapter(this@DateRecordActivity,
-                                expenseList,-1)
+                                expenseList,1)
                         }
                     }
                     // 수입 내역이 없을 경우, 태그를 GONE 처리
@@ -100,7 +100,7 @@ class DateRecordActivity : AppCompatActivity() {
                             viewBinding.tvIncome.visibility = View.VISIBLE
                             viewBinding.priceIncome.visibility = View.VISIBLE
                             viewBinding.lvIncome.adapter= RecordAdapter(this@DateRecordActivity,
-                                incomeList,-1)
+                                incomeList,1)
                         }
                     }
                 }

@@ -8,7 +8,7 @@ import com.example.client.data.Detail
 import com.example.client.databinding.ItemRecordBinding
 
 
-class BoardChooseModalAdapter(private val selectedRecordList:List<Detail>): RecyclerView.Adapter<BoardChooseModalAdapter.ItemViewHolder>() {
+class RecordChooseModalAdapter(private val selectedRecordList:List<Detail>): RecyclerView.Adapter<RecordChooseModalAdapter.ItemViewHolder>() {
     private var selectedItemPosition = 0
     private var selectedLayout: View? = null
 

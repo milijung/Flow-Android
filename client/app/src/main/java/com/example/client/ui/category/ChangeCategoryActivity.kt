@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
-import com.example.client.data.adapter.CategoryViewAdapter
+import com.example.client.data.adapter.CategoryAdapter
 import com.example.client.R
 import com.example.client.data.*
 import com.example.client.databinding.ActivityChangeCategoryBinding
@@ -18,7 +18,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityChangeCategoryBinding
     private lateinit var categoryList : ArrayList<Category>
     private lateinit var searchCategoryList : ArrayList<Category>
-    private lateinit var adapter: CategoryViewAdapter
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class ChangeCategoryActivity : AppCompatActivity() {
         val roomDb = AppDatabase.getInstance(this)!!
         val prevCategoryId = roomDb.CategoryDao().selectByOrder(categoryType,selectedCategoryPosition)
         categoryList = roomDb.CategoryDao().selectByTypeId(categoryType) as ArrayList<Category>
-        adapter = CategoryViewAdapter(this, categoryList, selectedCategoryPosition)
+        adapter = CategoryAdapter(this, categoryList, selectedCategoryPosition)
         viewBinding.changeCategoryList.adapter = adapter
         viewBinding.changeCategoryButton.text = getText(R.string.finish_button)
 
