@@ -9,12 +9,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.R
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.Detail
 import com.example.client.databinding.ItemRecordBinding
 import com.example.client.ui.board.ListDetailActivity
 import kotlinx.coroutines.InternalCoroutinesApi
-import java.lang.Math.abs
 
 @InternalCoroutinesApi // mode 0: 통합정보와 날짜정보를 묶어 bind, mode 1: 거래 정보만 bind
 class RecordAdapter(val context: Context, var datas:List<Detail>, val mode:Int = 0) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){

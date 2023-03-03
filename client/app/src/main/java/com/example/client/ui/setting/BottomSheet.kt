@@ -1,19 +1,13 @@
 package com.example.client.ui.setting
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
 import androidx.annotation.RequiresApi
 import com.example.client.R
-import com.example.client.api.BudgetRequest
-import com.example.client.data.AppDatabase
 import com.example.client.databinding.FragmentBottomSheetBinding
-import com.example.client.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheet(private var defaultValue : Int) : BottomSheetDialogFragment() {

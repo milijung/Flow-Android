@@ -15,9 +15,8 @@ import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.api.AnalysisResponseByList
 import com.example.client.api.AnalysisResponseData
-import com.example.client.api.DetailResponseByList
 import com.example.client.api.api
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.Category
 import com.example.client.data.Detail
 import com.example.client.databinding.FragmentHomeBinding

@@ -2,11 +2,11 @@ package com.example.client.api
 import android.content.Context
 import android.content.Intent
 
-import android.util.Log
 import android.widget.Toast
 import com.example.client.APIObject
 import com.example.client.R
 import com.example.client.data.*
+import com.example.client.data.model.AppDatabase
 import com.example.client.ui.category.ChangeCategoryActivity
 import com.example.client.ui.category.SettingCategoryActivity
 import com.example.client.ui.navigation.BottomNavigationActivity
@@ -82,7 +82,7 @@ open class HttpConnection {
         })
     }
 
-    fun getCategory(context: Context, roomDb: AppDatabase,userId:Int) {
+    fun getCategory(context: Context, roomDb: AppDatabase, userId:Int) {
         val call = request.getCategory(userId)
 
         call.enqueue(object: Callback<CategoryResponseByList> {
@@ -167,7 +167,7 @@ open class HttpConnection {
             }
         })
     }
-    fun updateCategory(context: Context,roomDb: AppDatabase,userId:Int, categoryId:Int, requestData: CategoryRequestData) {
+    fun updateCategory(context: Context, roomDb: AppDatabase, userId:Int, categoryId:Int, requestData: CategoryRequestData) {
         val call = request.updateCategory(userId,categoryId,requestData)
 
         call.enqueue(object: Callback<ResponseData> {
@@ -190,7 +190,7 @@ open class HttpConnection {
         })
     }
    @InternalCoroutinesApi
-   fun updateBudget(context:Context, roomDb: AppDatabase,pageId:Int,userId: Int, budgetRequest: BudgetRequest) {
+   fun updateBudget(context:Context, roomDb: AppDatabase, pageId:Int, userId: Int, budgetRequest: BudgetRequest) {
        val call = request.updateBudget(userId, budgetRequest)
 
        call.enqueue(object : Callback<ResponseData> {

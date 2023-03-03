@@ -1,12 +1,15 @@
-package com.example.client.data
+package com.example.client.data.model
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.client.data.Category
+import com.example.client.data.Detail
+import com.example.client.data.Keyword
+import com.example.client.data.User
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
-import kotlin.coroutines.CoroutineContext
 
 @Database(entities = [Category::class, Detail::class, Keyword::class, User::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

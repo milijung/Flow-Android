@@ -3,7 +3,7 @@ package com.example.client.ui.modal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.client.api.HttpConnection
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.databinding.ModalSettingInitializationBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 

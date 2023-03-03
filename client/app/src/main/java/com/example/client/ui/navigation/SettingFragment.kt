@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.ui.setting.SettingBudgetSettingActivity
 import com.example.client.databinding.FragmentSettingBinding
 import com.example.client.ui.category.SettingCategoryActivity

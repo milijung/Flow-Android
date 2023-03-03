@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.client.*
 import com.example.client.api.*
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.adapter.CalendarAdapter
 import com.example.client.databinding.FragmentCalendarBinding
 import com.example.client.ui.calendar.DateRecordActivity

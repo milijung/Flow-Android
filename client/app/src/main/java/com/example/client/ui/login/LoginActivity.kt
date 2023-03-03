@@ -1,32 +1,17 @@
 package com.example.client.ui.login
 
-import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.client.databinding.ActivityLoginBinding
 
 import com.example.client.R
-import com.example.client.api.BudgetRequest
 import com.example.client.api.HttpConnection
-import com.example.client.data.AppDatabase
-import com.example.client.databinding.FragmentHomeBinding
-import com.example.client.ui.board.ListDetailActivity
-import com.example.client.ui.category.AddCategoryActivity
+import com.example.client.data.model.AppDatabase
 import com.example.client.ui.category.SettingCategoryActivity
-import com.example.client.ui.navigation.HomeFragment
 import com.example.client.ui.signup.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

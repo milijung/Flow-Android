@@ -28,6 +28,7 @@ import retrofit2.Response
 class BoardChooseModal(private val context : AppCompatActivity, val userId:Int, val boardList : RecyclerView, val selectedDetails:List<Detail>) {
 
     private lateinit var viewBinding : ModalBoardChooseBinding
+
     private val dialog = Dialog(context)
     @InternalCoroutinesApi
     val boardAdapter : RecordAdapter= boardList.adapter as RecordAdapter

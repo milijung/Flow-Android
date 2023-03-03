@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import com.example.client.R
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.adapter.RecordAdapter
 import com.example.client.databinding.ActivityBottomNavigationBinding
 import com.example.client.ui.modal.BoardChooseModal

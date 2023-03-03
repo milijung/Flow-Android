@@ -6,16 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import com.example.client.R
-import com.example.client.api.BudgetRequest
 import com.example.client.api.HttpConnection
-import com.example.client.data.AppDatabase
-import com.example.client.data.User
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.adapter.SignUpAdapter
 import com.example.client.databinding.ActivitySignUpBinding
-import com.example.client.databinding.FragmentSignUp5Binding
 import com.example.client.ui.navigation.BottomNavigationActivity
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlin.properties.Delegates

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import com.example.client.data.adapter.CategoryAdapter
 import com.example.client.R
 import com.example.client.data.*
+import com.example.client.data.model.AppDatabase
 import com.example.client.databinding.ActivityChangeCategoryBinding
 import com.example.client.ui.board.AddListActivity
 import com.example.client.ui.board.ListDetailActivity

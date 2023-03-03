@@ -1,9 +1,13 @@
-package com.example.client.data
+package com.example.client.data.model
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.client.data.Category
+import com.example.client.data.Detail
+import com.example.client.data.Keyword
+import com.example.client.data.User
 
 @Dao
 interface CategoryDao {

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.client.R
 import com.example.client.api.HttpConnection
 import com.example.client.api.InsertDetailRequestData
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.databinding.ActivityAddListBinding
 import com.example.client.ui.category.ChangeCategoryActivity
 import kotlinx.coroutines.InternalCoroutinesApi

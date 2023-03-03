@@ -9,7 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import com.example.client.R
 import com.example.client.api.CategoryRequestData
 import com.example.client.api.HttpConnection
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.Category
 import com.example.client.databinding.ActivityUpdateCategoryBinding
 import kotlinx.coroutines.InternalCoroutinesApi

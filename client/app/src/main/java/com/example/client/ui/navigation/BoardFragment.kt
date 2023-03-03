@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.client.APIObject
 import com.example.client.api.DetailResponseByList
 import com.example.client.api.api
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.Detail
 import com.example.client.data.adapter.ItemVerticalDecoration
 import com.example.client.data.adapter.RecordAdapter

@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.client.APIObject
 import com.example.client.api.ResponseData
 import com.example.client.api.api
-import com.example.client.data.AppDatabase
+import com.example.client.data.model.AppDatabase
 import com.example.client.data.Category
 import com.example.client.data.adapter.CategoryAdapter
 import com.example.client.databinding.ActivitySettingCategoryBinding

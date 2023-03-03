@@ -1,6 +1,5 @@
 package com.example.client.ui.signup
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,17 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.client.R
 import com.example.client.api.BudgetRequest
-import com.example.client.api.HttpConnection
-import com.example.client.data.AppDatabase
-import com.example.client.databinding.ActivitySettingBudgetSettingBinding
-import com.example.client.databinding.FragmentSignUp1Binding
 import com.example.client.databinding.FragmentSignUp5Binding
-import com.example.client.ui.navigation.BottomNavigationActivity
 import com.example.client.ui.setting.BottomSheet
-import kotlinx.coroutines.InternalCoroutinesApi
 
 class SignUpFragment5 : Fragment() {
     private lateinit var viewBinding: FragmentSignUp5Binding
