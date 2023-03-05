@@ -43,3 +43,6 @@ Flow는 정확한 소비 흐름을 분석하지 못하는 기존 서비스의 �
 - retrofit2
 - viewpager2
 - kakao, naver, google login
+
+## 💡 ERD
+![Flow-Android (1)](https://user-images.githubusercontent.com/52921222/222953529-9c9131b4-23ed-47bc-931c-bdd460ab1fad.png)
