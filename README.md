@@ -30,12 +30,6 @@ Flow는 정확한 소비 흐름을 분석하지 못하는 기존 서비스의 �
 ### ✍🏻 시현영상 및 랜딩페이지 링크
 [랜딩페이지 바로가기](https://makeus-challenge.notion.site/Flow-cbaffda62eb149a2b0336470ce551456)
 
-## 💡 팀원 소개
-| Name | [정민정](https://github.com/Minjungh63) | [이서영](https://github.com/leeseoyoung0822) | [정현정](https://github.com/jhjalison01) | [박재은](https://github.com/nkavay) |
-| ------- | :---: | :---: | :---: | :---: |
-| Profile | 사진 | 사진 | 사진 | 사진 |
-| Role | 역할| 역할 | 역할 | 역할 |
-
 ## 💡 사용 기술
 - Kotlin
 - Android Studio
