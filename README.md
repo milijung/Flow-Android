@@ -16,13 +16,13 @@
 - 건너뛰기 클릭 시, 로그인 화면으로 전환
 - 카카오, 네이버, 구글 중 하나를 선택하여 로그인 가능
 
-<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/f001834b-65dd-42b4-926e-b5c449ae9fb3" width="330" height="700"/>
+<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/f001834b-65dd-42b4-926e-b5c449ae9fb3" width="200" height="400"/>
 
 #### 홈 화면
 - 이번달 예산의 몇프로를 소비했는지, 그리고 저번달과의 소비금액 비교 분석을 제공
 - 분석의 기준이 되는 예산 금액과 시작일 변경 가능
   
-<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/31dfba9f-d38e-4f53-81df-2d526d31e4bd" width="330" height="700"/>
+<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/31dfba9f-d38e-4f53-81df-2d526d31e4bd" width="200" height="400"/>
 
 #### 내역 화면
 - 내역을 long Click하여 선택 가능
@@ -34,7 +34,7 @@
 - 삭제하기 버튼 클릭 시 내역이 삭제되며,
 통합된 내역을 삭제할 경우엔 통합 목록에 있는 내역 모두가 함께 삭제됨
 
-<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/0b3ad81d-ad54-4241-982a-d9f13f70b127" width="330" height="700"/> <img src="https://github.com/minjungJ/Flow-Android/assets/52921222/05127258-05cc-4a7a-a232-a6ab4bec5cbc" width="330" height="700"/> <img src="https://github.com/minjungJ/Flow-Android/assets/52921222/e3b081de-67a1-4cc7-aac5-9c03b33f5e18" width="330" height="700"/>
+<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/0b3ad81d-ad54-4241-982a-d9f13f70b127" width="200" height="400"/> <img src="https://github.com/minjungJ/Flow-Android/assets/52921222/05127258-05cc-4a7a-a232-a6ab4bec5cbc" width="200" height="400"/> <img src="https://github.com/minjungJ/Flow-Android/assets/52921222/e3b081de-67a1-4cc7-aac5-9c03b33f5e18" width="200" height="400"/>
 
 
 #### 캘린더 화면
@@ -43,7 +43,7 @@
 - 날짜를 클릭하면 내역 목록 확인 가능
 - 내역을 클릭하면, 내역 상세정보 조회 및 카테고리 수정 가능
 
-<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/f92dd671-3f3d-4b18-a56f-505af67dd7a9" width="330" height="700"/> 
+<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/f92dd671-3f3d-4b18-a56f-505af67dd7a9" width="200" height="400"/>
 
 
 #### 설정 화면
@@ -53,7 +53,7 @@
 - 사용자가 생성한 수입·지출 카테고리의 경우, 삭제와 이름 수정, 수입·지출 여부 변경 가능
 - 이미 존재하는 카테고리에 동일한 이름이 있는 경우, 이름 수정이 불가함
   
-<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/605ccf82-fb8b-47fb-b623-f4d6f9067ac2" width="350" height="700"/>
+<img src="https://github.com/minjungJ/Flow-Android/assets/52921222/605ccf82-fb8b-47fb-b623-f4d6f9067ac2" width="200" height="400"/>
 
 ## Library
 - Kotlin
