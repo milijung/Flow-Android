@@ -67,5 +67,5 @@
 ![Flow-Android (1)](https://user-images.githubusercontent.com/52921222/222953529-9c9131b4-23ed-47bc-931c-bdd460ab1fad.png)
 
 ## Landing Page
-![랜딩 페이지 바로가기](https://makeus-challenge.notion.site/Flow-cbaffda62eb149a2b0336470ce551456)
+[랜딩 페이지 바로가기](https://makeus-challenge.notion.site/Flow-cbaffda62eb149a2b0336470ce551456)
 
