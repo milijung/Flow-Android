@@ -3,6 +3,8 @@
 ## Introduction
 **[ 2023 UMC 데모데이 최우수상 수상작 ]**  
 
+**더치페이 과정**에서 돈을 송금하고, 송금받으며 생성된 여러개의 내역을 통합하여 **실질적인 소비 금액**을 분석하는 서비스입니다.
+
 ## Features
 <img src="https://user-images.githubusercontent.com/52921222/222952521-38e0b957-07c8-47c2-9476-a4872bfc3c91.png" width="700" height="400"/>
 <img src="https://user-images.githubusercontent.com/52921222/222952539-20e9335f-7e26-4c50-b191-ef0f61aa215e.png" width="700" height="400"/>
