@@ -10,8 +10,6 @@
 <img src="https://user-images.githubusercontent.com/52921222/222952521-38e0b957-07c8-47c2-9476-a4872bfc3c91.png" width="700" height="400"/>
 <img src="https://user-images.githubusercontent.com/52921222/222952539-20e9335f-7e26-4c50-b191-ef0f61aa215e.png" width="700" height="400"/>
 <img src="https://user-images.githubusercontent.com/52921222/222952557-d81b750a-c6ae-415d-8400-7ba65a52e71e.png" width="700" height="400"/>
-<img src="https://user-images.githubusercontent.com/52921222/222952571-f4cfff80-b54b-444f-9f88-1cbc2e1e6ade.png" width="700" height="400"/>
-<img src="https://user-images.githubusercontent.com/52921222/222952579-a16fe7ec-185f-4052-b0a9-ac18ebca69f9.png" width="700" height="400"/>
 
 ## How to use
 #### 시작 화면
